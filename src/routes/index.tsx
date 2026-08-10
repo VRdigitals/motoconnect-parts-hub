@@ -363,7 +363,7 @@ function AboutSection() {
       {/* Floating UI Accents */}
       
       {/* Bottom Left Progress Indicator */}
-      <div className="absolute bottom-10 left-6 sm:left-10 lg:left-16 z-30 flex items-center gap-2">
+      <div className="absolute bottom-10 left-6 sm:left-10 lg:left-24 z-30 flex items-center gap-2">
         <div className="h-1 w-6 bg-[#ff0000]" />
         <div className="h-1 w-2 bg-white/20" />
       </div>
@@ -380,7 +380,7 @@ function AboutSection() {
       </div>
 
       {/* Bottom Right Navigation Arrows */}
-      <div className="absolute bottom-10 right-6 sm:right-10 lg:right-16 z-30 flex items-center gap-3">
+      <div className="absolute bottom-10 right-6 sm:right-10 lg:right-24 z-30 flex items-center gap-3">
         <button className="flex h-10 w-10 items-center justify-center border border-white/10 bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-[#ff0000] hover:border-[#ff0000]">
           <ChevronLeft className="h-5 w-5" />
         </button>
