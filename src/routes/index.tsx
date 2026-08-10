@@ -461,7 +461,7 @@ function BrandsSection() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
         {/* Heading */}
         <div className="mb-16 text-center md:text-left">
-          <h2 className="font-podium text-[clamp(2.5rem,5vw,4.5rem)] leading-tight tracking-tight text-black uppercase">
+          <h2 className="font-podium text-[clamp(2.5rem,5vw,4.5rem)] leading-tight tracking-tight text-black uppercase italic">
             AUTOMOBILE <br className="md:hidden" />
             <span className="text-[#ff0000]">BRANDS</span> WE REPRESENT
           </h2>
