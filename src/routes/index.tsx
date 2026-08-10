@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight, Target, Eye, ShieldCheck, Zap, Globe, Package, Users, Settings, Truck } from "lucide-react";
+import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight, Target, Eye, ShieldCheck, Zap } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 import logoAsset from "../assets/hero-motoconnect.png.asset.json";
@@ -21,10 +21,9 @@ export const Route = createFileRoute("/")({
 
 function MainLayout() {
   return (
-    <div className="bg-black font-inter selection:bg-[#ff0000] selection:text-white">
+    <div className="bg-black font-inter selection:bg-white selection:text-black">
       <VanguardHero />
       <AboutSection />
-      <BrandPortfolioGrid />
     </div>
   );
 }
@@ -88,7 +87,7 @@ function VanguardHero() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "#about" },
-    { name: "Portfolio", href: "#portfolio" },
+    { name: "Brand Portfolio", href: "/products" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -104,126 +103,144 @@ function VanguardHero() {
         >
           {/* Background Image */}
           <div 
-            className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat transition-transform duration-[8000ms] ease-out scale-100"
-            style={{ 
-              backgroundImage: `url(${slide.bg})`,
-              transform: index === currentSlide ? 'scale(1.1)' : 'scale(1)'
-            }}
+            className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-80"
+            style={{ backgroundImage: `url(${slide.bg})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
 
           {/* Slide Content */}
-          <div className="relative z-20 flex h-full items-center px-6 sm:px-10 lg:px-24">
+          <div className="relative z-20 flex h-full items-center px-6 sm:px-10 lg:px-16">
             <div className={`max-w-4xl transition-all duration-1000 delay-300 ${
-              index === currentSlide ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
+              index === currentSlide ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}>
               {/* Tagline */}
-              <div className="mb-6 flex items-center gap-4">
-                <div className="h-[2px] w-12 bg-[#ff0000]" />
-                <span className="font-bold text-[10px] tracking-[0.4em] text-[#ff0000] uppercase sm:text-xs">
+              <div className="mb-6 flex items-center gap-3 lg:mb-8">
+                <Crown className="h-4 w-4 text-[#ff0000]" />
+                <span className="font-inter text-[10px] font-medium tracking-[0.3em] text-white/70 uppercase sm:text-xs">
                   {slide.tagline}
                 </span>
               </div>
 
               {/* Main Heading */}
-              <h1 className="font-podium text-[clamp(2.5rem,8vw,6rem)] leading-[0.9] tracking-tighter text-white uppercase italic">
+              <h1 className="font-podium text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] tracking-tight text-white uppercase">
                 {slide.title}
               </h1>
 
               {/* Subtext */}
-              <div className="mt-6 max-w-xl">
-                <p className="font-inter text-base leading-relaxed text-white/60 sm:text-lg">
+              <div className="mt-4 max-w-lg lg:mt-6">
+                <p className="font-inter text-sm leading-relaxed text-white/70 sm:text-base">
                   {slide.description}
                 </p>
               </div>
 
               {/* CTA Row */}
-              <div className="mt-10 flex flex-wrap items-center gap-6">
-                <button className="group relative overflow-hidden bg-[#ff0000] px-8 py-4 font-bold text-xs uppercase tracking-[0.3em] text-white transition-all hover:bg-white hover:text-black">
-                  <span className="relative z-10 flex items-center gap-2">
-                    {slide.cta}
-                    <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </span>
+              <div className="mt-6 flex flex-wrap items-center gap-4 sm:gap-6 lg:mt-8">
+                <button className="group flex items-center gap-2 bg-[#ff0000] px-6 py-3.5 text-[11px] font-bold tracking-[0.2em] text-white transition-all hover:bg-[#cc0000] uppercase sm:px-7 sm:py-4 sm:text-xs">
+                  {slide.cta}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
 
-                {slide.hasStats && (
-                  <div className="flex items-center gap-3 border-l border-white/20 pl-6">
-                    <Award className="h-10 w-10 text-white/30" />
-                    <div className="font-inter text-[10px] tracking-widest text-white/50 uppercase">
-                      <div>Certified</div>
-                      <div className="font-bold text-white">Genuine Parts Hub</div>
+                <div className="hidden items-center gap-3 sm:flex">
+                  <Award className="h-8 w-8 text-white/50" />
+                  <div className="font-inter text-[10px] tracking-wider text-white/60 uppercase">
+                    <div>Top Rated</div>
+                    <div className="font-bold">Brand Studio : 100% Genuine Parts</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stats Row (Only for first slide) */}
+              {slide.hasStats && (
+                <div className="mt-6 flex flex-wrap gap-8 sm:mt-8 lg:mt-10 lg:gap-16">
+                  <div className="space-y-1">
+                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                      10K+
+                    </div>
+                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                      PARTS STOCKED
                     </div>
                   </div>
-                )}
-              </div>
+                  <div className="space-y-1">
+                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                      30+
+                    </div>
+                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                      BRANDS
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                      50K+
+                    </div>
+                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                      CUSTOMERS
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
       ))}
 
-      {/* Stats Row (Overlayed at bottom) */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 hidden lg:block border-t border-white/10 bg-black/50 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl justify-between px-10 py-8">
-           <div className="flex items-center gap-4">
-             <span className="font-podium text-4xl text-[#ff0000]">10K+</span>
-             <span className="text-[10px] font-bold tracking-widest text-white/40 uppercase">Parts<br/>Stocked</span>
-           </div>
-           <div className="flex items-center gap-4">
-             <span className="font-podium text-4xl text-[#ff0000]">30+</span>
-             <span className="text-[10px] font-bold tracking-widest text-white/40 uppercase">Global<br/>Brands</span>
-           </div>
-           <div className="flex items-center gap-4">
-             <span className="font-podium text-4xl text-[#ff0000]">50K+</span>
-             <span className="text-[10px] font-bold tracking-widest text-white/40 uppercase">Active<br/>Clients</span>
-           </div>
-           <div className="flex items-center gap-4">
-             <span className="font-podium text-4xl text-[#ff0000]">24H</span>
-             <span className="text-[10px] font-bold tracking-widest text-white/40 uppercase">Expert<br/>Support</span>
-           </div>
-        </div>
-      </div>
-
       {/* Slider Controls */}
-      <div className="absolute top-1/2 right-10 z-30 -translate-y-1/2 flex flex-col gap-4">
+      <div className="absolute bottom-10 right-10 z-30 flex items-center gap-4">
         <button 
           onClick={prevSlide}
-          className="group flex h-14 w-14 items-center justify-center border border-white/10 bg-black/40 text-white backdrop-blur-md transition-all hover:bg-[#ff0000] hover:border-[#ff0000]"
+          className="group flex h-12 w-12 items-center justify-center border border-white/20 bg-black/20 text-white backdrop-blur-sm transition-all hover:border-[#ff0000] hover:bg-[#ff0000]"
         >
           <ChevronLeft className="h-6 w-6" />
         </button>
         <button 
           onClick={nextSlide}
-          className="group flex h-14 w-14 items-center justify-center border border-white/10 bg-black/40 text-white backdrop-blur-md transition-all hover:bg-[#ff0000] hover:border-[#ff0000]"
+          className="group flex h-12 w-12 items-center justify-center border border-white/20 bg-black/20 text-white backdrop-blur-sm transition-all hover:border-[#ff0000] hover:bg-[#ff0000]"
         >
           <ChevronRight className="h-6 w-6" />
         </button>
       </div>
 
+      {/* Slide Indicators */}
+      <div className="absolute bottom-10 left-10 z-30 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`h-1 transition-all duration-300 ${
+              index === currentSlide ? "w-8 bg-[#ff0000]" : "w-4 bg-white/30"
+            }`}
+          />
+        ))}
+      </div>
+
       {/* Navbar */}
-      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-6 sm:px-10 lg:px-16">
+      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16 lg:py-7">
         <div className="flex items-center">
           <img 
             src={(logoAsset as any)?.url || ""} 
             alt="Motoconnect" 
-            className="h-10 w-auto lg:h-14 object-contain"
+            className="h-10 w-auto sm:h-12 lg:h-14 object-contain"
           />
         </div>
 
-        <div className="hidden items-center gap-10 md:flex">
+        <div className="hidden items-center gap-8 md:flex lg:gap-12">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-[11px] font-bold tracking-[0.3em] text-white/60 transition-all hover:text-[#ff0000] uppercase"
+              className="font-inter text-sm tracking-[0.2em] text-white/80 transition-colors hover:text-white uppercase"
             >
               {link.name}
             </a>
           ))}
+        </div>
+
+        <div className="hidden md:block">
           <a
             href="#contact"
-            className="border-b-2 border-[#ff0000] pb-1 text-[11px] font-bold tracking-[0.3em] text-white uppercase hover:text-[#ff0000] transition-colors"
+            className="group flex items-center gap-2 border border-[#ff0000] bg-[#ff0000]/10 px-6 py-3 text-[10px] font-medium tracking-[0.2em] text-white transition-all hover:bg-[#ff0000] uppercase"
           >
-            Get a Quote
+            GET A QUOTE
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
 
@@ -231,30 +248,58 @@ function VanguardHero() {
           className="flex flex-col space-y-1.5 md:hidden"
           onClick={() => setMenuOpen(true)}
         >
-          <div className="h-[2px] w-8 bg-white" />
-          <div className="h-[2px] w-8 bg-white" />
-          <div className="h-[2px] w-6 bg-[#ff0000] self-end" />
+          <div className="h-0.5 w-6 bg-white" />
+          <div className="h-0.5 w-6 bg-white" />
+          <div className="h-0.5 w-4 bg-white self-end" />
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-50 flex flex-col bg-black transition-all duration-700 ${
-          menuOpen ? "translate-y-0" : "-translate-y-full"
+        className={`fixed inset-0 z-50 flex flex-col bg-black/95 backdrop-blur-md transition-all duration-500 ${
+          menuOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
-        <div className="flex items-center justify-between px-6 py-6">
-          <img src={(logoAsset as any)?.url || ""} className="h-10 w-auto" alt="Logo" />
+        <div className="flex items-center justify-between px-6 py-5 sm:px-10">
+          <img 
+            src={(logoAsset as any)?.url || ""} 
+            alt="Motoconnect" 
+            className="h-10 w-auto"
+          />
           <button onClick={() => setMenuOpen(false)}>
-            <X className="h-10 w-10 text-white" />
+            <X className="h-8 w-8 text-white" />
           </button>
         </div>
-        <div className="flex flex-1 flex-col items-center justify-center gap-10">
-          {navLinks.map((link) => (
-            <a key={link.name} href={link.href} onClick={() => setMenuOpen(false)} className="font-podium text-5xl text-white uppercase italic hover:text-[#ff0000]">
+
+        <div className="flex flex-1 flex-col items-center justify-center space-y-8 px-6 text-center">
+          {navLinks.map((link, i) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="font-podium text-3xl uppercase text-white sm:text-4xl transition-all duration-500"
+              style={{
+                transitionDelay: `${i * 80 + 100}ms`,
+                transform: menuOpen ? "translateY(0)" : "translateY(20px)",
+                opacity: menuOpen ? 1 : 0,
+              }}
+            >
               {link.name}
             </a>
           ))}
+          <a
+            href="#contact"
+            onClick={() => setMenuOpen(false)}
+            className="mt-8 flex items-center gap-2 border border-[#ff0000] bg-[#ff0000]/10 px-8 py-4 text-xs font-medium tracking-[0.2em] text-white transition-all hover:bg-[#ff0000]"
+            style={{
+              transitionDelay: `${navLinks.length * 80 + 100}ms`,
+              transform: menuOpen ? "translateY(0)" : "translateY(20px)",
+              opacity: menuOpen ? 1 : 0,
+            }}
+          >
+            GET A QUOTE
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
       </div>
     </div>
@@ -262,113 +307,149 @@ function VanguardHero() {
 }
 
 function AboutSection() {
+  const [activeTab, setActiveTab] = useState<'mission' | 'vision'>('mission');
+  const sectionRef = useRef<HTMLElement>(null);
+
   return (
-    <section id="about" className="relative overflow-hidden bg-black py-32 px-6 lg:px-24">
-      {/* Dynamic Background */}
-      <div className="absolute top-0 right-0 h-full w-1/3 bg-[#ff0000]/5 -skew-x-12 transform origin-top translate-x-20" />
+    <section id="about" ref={sectionRef} className="relative min-h-screen py-24 px-6 sm:px-10 lg:px-16 overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#ff0000]/5 rounded-full blur-[120px] -mr-64 -mt-64" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#ff0000]/5 rounded-full blur-[120px] -ml-64 -mb-64" />
       
-      <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          
-          {/* Visual Side */}
-          <div className="relative order-2 lg:order-1">
-            <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 group">
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10" />
-              <div className="h-full w-full bg-[#111] flex items-center justify-center">
-                 <Settings className="w-40 h-40 text-white/5 animate-spin-slow" />
-                 <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center z-20">
-                    <ShieldCheck className="w-20 h-20 text-[#ff0000] mb-8" />
-                    <h3 className="font-podium text-4xl text-white uppercase italic mb-4">Precision Hub</h3>
-                    <p className="text-white/40 text-sm leading-relaxed max-w-xs uppercase tracking-widest">
-                      Every part we distribute undergoes rigorous authentication to ensure road safety and performance.
-                    </p>
-                 </div>
-              </div>
-              
-              {/* Floating Meta tags */}
-              <div className="absolute top-10 left-10 z-20 flex flex-col gap-2">
-                 <div className="bg-[#ff0000] px-4 py-1 text-[9px] font-bold text-white uppercase tracking-[0.3em]">Authentic</div>
-                 <div className="bg-white/10 backdrop-blur-md px-4 py-1 text-[9px] font-bold text-white uppercase tracking-[0.3em]">OEM Standard</div>
-              </div>
-            </div>
-            {/* Outline Box Offset */}
-            <div className="absolute -bottom-6 -right-6 w-full h-full border border-[#ff0000]/30 -z-10" />
-          </div>
+      <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        {/* Left Side: Interactive 3D Card Area */}
+        <div className="relative group perspective-1000">
+          <div className="relative w-full aspect-square max-w-md mx-auto transform-style-3d transition-transform duration-700 hover:rotate-y-12">
+            {/* Main Image Container */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#ff0000] to-black p-[2px] rounded-3xl overflow-hidden">
+              <div className="w-full h-full bg-black rounded-3xl relative overflow-hidden">
+                {/* Abstract industrial mesh pattern */}
+                <div className="absolute inset-0 opacity-20 pointer-events-none" 
+                     style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                
+                {/* Content inside the "3D" card */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+                  <div className="w-24 h-24 mb-6 rounded-full bg-[#ff0000]/10 flex items-center justify-center border border-[#ff0000]/30 shadow-[0_0_50px_rgba(255,0,0,0.2)]">
+                    <ShieldCheck className="w-12 h-12 text-[#ff0000]" />
+                  </div>
+                  <h3 className="font-podium text-4xl text-white uppercase mb-4 tracking-tighter">Engineered for Excellence</h3>
+                  <p className="text-white/60 text-sm leading-relaxed">
+                    We don't just supply parts; we fuel the automotive industry with reliability and precision.
+                  </p>
+                </div>
 
-          {/* Content Side */}
-          <div className="order-1 lg:order-2 space-y-12">
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <span className="h-[1px] w-10 bg-[#ff0000]" />
-                <span className="text-[10px] font-bold tracking-[0.5em] text-[#ff0000] uppercase">Strategic Distribution</span>
-              </div>
-              <h2 className="font-podium text-6xl lg:text-8xl text-white leading-[0.85] uppercase italic tracking-tighter">
-                Fueling The <br/> <span className="text-[#ff0000]">Future</span> Of UAE Mobility.
-              </h2>
-              <p className="text-white/60 text-lg leading-relaxed max-w-xl">
-                Motoconnect stands at the intersection of quality and logistics. We are the trusted link for businesses seeking genuine automotive solutions without compromise.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-4 p-8 bg-white/5 border-l-2 border-[#ff0000] hover:bg-white/10 transition-colors">
-                <Target className="w-6 h-6 text-[#ff0000]" />
-                <h4 className="text-white font-bold text-xs uppercase tracking-widest">Our Mission</h4>
-                <p className="text-white/40 text-xs leading-relaxed uppercase">
-                  To eliminate the risk of counterfeit parts by establishing an unbreakable supply chain of 100% genuine components.
-                </p>
-              </div>
-              <div className="space-y-4 p-8 bg-white/5 border-l-2 border-white/20 hover:bg-white/10 transition-colors hover:border-[#ff0000]">
-                <Eye className="w-6 h-6 text-[#ff0000]" />
-                <h4 className="text-white font-bold text-xs uppercase tracking-widest">Our Vision</h4>
-                <p className="text-white/40 text-xs leading-relaxed uppercase">
-                  Pioneering a digital-first distribution model that connects global manufacturers to the local workshop floor.
-                </p>
+                {/* Floating "Parts" indicators */}
+                <div className="absolute top-10 left-10 animate-bounce delay-75">
+                  <div className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] text-white uppercase tracking-widest">
+                    Precision
+                  </div>
+                </div>
+                <div className="absolute bottom-20 right-10 animate-pulse">
+                  <div className="px-3 py-1 bg-[#ff0000]/20 backdrop-blur-md border border-[#ff0000]/40 rounded-full text-[10px] text-[#ff0000] uppercase tracking-widest">
+                    Authentic
+                  </div>
+                </div>
               </div>
             </div>
 
-            <button className="group flex items-center gap-6 text-[10px] font-bold tracking-[0.5em] text-white uppercase">
-              <span className="h-[2px] w-12 bg-[#ff0000] transition-all group-hover:w-20" />
-              Discover Our Network
-              <ArrowUpRight className="w-4 h-4 text-[#ff0000]" />
-            </button>
+            {/* Back glow */}
+            <div className="absolute -inset-4 bg-[#ff0000]/20 blur-2xl rounded-3xl -z-10 group-hover:bg-[#ff0000]/30 transition-colors" />
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function BrandPortfolioGrid() {
-  const brands = [
-    { name: "Hero Genuine", category: "Distribution" },
-    { name: "UNO Minda", category: "Electrical" },
-    { name: "Steelbird", category: "Safety" },
-    { name: "MK Lide", category: "Braking" },
-    { name: "Bosch", category: "Performance" },
-    { name: "SKF", category: "Bearings" },
-  ];
-
-  return (
-    <section id="portfolio" className="bg-[#050505] py-32 px-6 lg:px-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-10">
+        {/* Right Side: Content & Tabs */}
+        <div className="space-y-10">
           <div className="space-y-4">
-            <span className="text-[10px] font-bold tracking-[0.5em] text-[#ff0000] uppercase">Portfolio</span>
-            <h2 className="font-podium text-5xl lg:text-7xl text-white uppercase italic tracking-tighter">Authorized Partners</h2>
-          </div>
-          <p className="text-white/40 text-xs uppercase tracking-[0.3em] max-w-xs">
-            We distribute for the world's most trusted automotive engineering giants.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[1px] bg-white/10 border border-white/10">
-          {brands.map((brand) => (
-            <div key={brand.name} className="bg-black p-12 flex flex-col items-center justify-center group hover:bg-[#ff0000] transition-all duration-500 cursor-pointer">
-              <span className="text-white text-lg font-bold uppercase tracking-widest mb-2 group-hover:scale-110 transition-transform">{brand.name}</span>
-              <span className="text-white/30 text-[8px] uppercase tracking-widest group-hover:text-white/70">{brand.category}</span>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-[1px] bg-[#ff0000]" />
+              <span className="text-[#ff0000] text-xs font-bold tracking-[0.4em] uppercase">Who We Are</span>
             </div>
-          ))}
+            <h2 className="font-podium text-5xl sm:text-7xl text-white leading-tight uppercase tracking-tighter">
+              Redefining <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.5)' }}>Automotive</span> Distribution.
+            </h2>
+            <p className="text-white/70 text-lg leading-relaxed max-w-xl">
+              Motoconnect is not just a distributor; we are a strategic bridge between world-class manufacturers and the businesses that keep the world moving.
+            </p>
+          </div>
+
+          {/* Mission & Vision Tabs */}
+          <div className="space-y-6">
+            <div className="flex gap-8 border-b border-white/10">
+              <button 
+                onClick={() => setActiveTab('mission')}
+                className={`pb-4 text-xs font-bold tracking-widest uppercase transition-all relative ${activeTab === 'mission' ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
+              >
+                Our Mission
+                {activeTab === 'mission' && <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#ff0000]" />}
+              </button>
+              <button 
+                onClick={() => setActiveTab('vision')}
+                className={`pb-4 text-xs font-bold tracking-widest uppercase transition-all relative ${activeTab === 'vision' ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
+              >
+                Our Vision
+                {activeTab === 'vision' && <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#ff0000]" />}
+              </button>
+            </div>
+
+            <div className="min-h-[150px] transition-all duration-500">
+              {activeTab === 'mission' ? (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 w-8 h-8 rounded-lg bg-[#ff0000]/10 flex items-center justify-center shrink-0 border border-[#ff0000]/20">
+                      <Target className="w-4 h-4 text-[#ff0000]" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-sm mb-1 uppercase tracking-wider">Uncompromising Quality</h4>
+                      <p className="text-white/60 text-sm leading-relaxed">
+                        To provide automotive businesses with 100% genuine spare parts that ensure vehicle longevity and safety, fostering trust at every mile.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 w-8 h-8 rounded-lg bg-[#ff0000]/10 flex items-center justify-center shrink-0 border border-[#ff0000]/20">
+                      <Zap className="w-4 h-4 text-[#ff0000]" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-sm mb-1 uppercase tracking-wider">Operational Agility</h4>
+                      <p className="text-white/60 text-sm leading-relaxed">
+                        Streamlining distribution networks to ensure rapid availability and competitive pricing for partners across the UAE.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 w-8 h-8 rounded-lg bg-[#ff0000]/10 flex items-center justify-center shrink-0 border border-[#ff0000]/20">
+                      <Eye className="w-4 h-4 text-[#ff0000]" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-sm mb-1 uppercase tracking-wider">Global Leadership</h4>
+                      <p className="text-white/60 text-sm leading-relaxed">
+                        To become the undisputed leader in automobile parts distribution, recognized for innovation, ethics, and unparalleled service scale.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 w-8 h-8 rounded-lg bg-[#ff0000]/10 flex items-center justify-center shrink-0 border border-[#ff0000]/20">
+                      <Crown className="w-4 h-4 text-[#ff0000]" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold text-sm mb-1 uppercase tracking-wider">Future Connectivity</h4>
+                      <p className="text-white/60 text-sm leading-relaxed">
+                        Building a digitally-integrated supply chain that anticipates market needs and connects the future of mobility today.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <button className="group relative overflow-hidden bg-white px-10 py-5 text-black font-bold text-xs uppercase tracking-[0.3em] transition-all hover:pr-14 hover:bg-white/90">
+            <span className="relative z-10">Explore Our Story</span>
+            <ArrowUpRight className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
+          </button>
         </div>
       </div>
     </section>
