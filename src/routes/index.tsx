@@ -10,6 +10,7 @@ import aboutBgVideoAsset from "../assets/about-bg-video.mp4.asset.json";
 import aboutReferenceAsset from "../assets/about-reference.png.asset.json";
 import aboutVisionAsset from "../assets/about-vision.png.asset.json";
 import aboutBgNewAsset from "../assets/about-bg-new.png.asset.json";
+import brandsBgAsset from "../assets/brands-we-represent.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,6 +30,7 @@ function MainLayout() {
     <div className="bg-black font-inter selection:bg-white selection:text-black">
       <VanguardHero />
       <AboutSection />
+      <BrandsSection />
     </div>
   );
 }
@@ -396,4 +398,63 @@ function AboutSection() {
   );
 }
 
+function BrandsSection() {
+  const brands = [
+    { name: "Honda", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg" },
+    { name: "Yamaha", logo: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Yamaha_Motor_Logo.svg" },
+    { name: "Suzuki", logo: "https://upload.wikimedia.org/wikipedia/commons/1/12/Suzuki_logo_2.svg" },
+    { name: "Kawasaki", logo: "https://upload.wikimedia.org/wikipedia/commons/d/df/Kawasaki_logo_2.svg" },
+    { name: "Ducati", logo: "https://upload.wikimedia.org/wikipedia/commons/3/36/Ducati_red.svg" },
+    { name: "BMW Motorrad", logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" },
+    { name: "Triumph", logo: "https://upload.wikimedia.org/wikipedia/en/c/ca/Triumph_Motorcycles_logo.svg" },
+    { name: "Harley-Davidson", logo: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Harley-Davidson_logo.svg" },
+    { name: "Vespa", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/Vespa_logo.svg" },
+    { name: "Aprilia", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Aprilia-logo.svg" },
+    { name: "KTM", logo: "https://upload.wikimedia.org/wikipedia/commons/c/c5/KTM-Logo.svg" },
+    { name: "Royal Enfield", logo: "https://upload.wikimedia.org/wikipedia/en/3/3d/Royal_Enfield_logo.svg" },
+  ];
+
+  return (
+    <section className="relative w-full bg-[#3d0404] py-24 overflow-hidden">
+      {/* Background Texture Overlay (Simulating the tire tracks/industrial feel) */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_top_right,#ff0000,transparent)]" />
+        <div className="absolute bottom-0 left-0 w-1/2 h-full bg-[radial-gradient(circle_at_bottom_left,#ff0000,transparent)]" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
+        {/* Heading */}
+        <div className="mb-16 text-center md:text-left">
+          <h2 className="font-podium text-[clamp(2.5rem,5vw,4.5rem)] leading-tight tracking-tight text-white uppercase drop-shadow-[0_0_15px_rgba(255,0,0,0.5)]">
+            AUTOMOBILE <br className="md:hidden" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">BRANDS</span> WE REPRESENT
+          </h2>
+          <div className="mt-4 h-1 w-24 bg-[#ff0000]" />
+        </div>
+
+        {/* Brands Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border border-white/10 bg-black/20 backdrop-blur-sm overflow-hidden">
+          {brands.map((brand, index) => (
+            <div 
+              key={brand.name} 
+              className="group flex items-center justify-center p-10 transition-all hover:bg-[#ff0000]/10 border border-white/5"
+            >
+              <div className="relative h-20 w-full max-w-[140px] transition-transform duration-500 group-hover:scale-110">
+                <img
+                  src={brand.logo}
+                  alt={brand.name}
+                  className="h-full w-full object-contain brightness-0 invert opacity-80 transition-all group-hover:brightness-100 group-hover:invert-0 group-hover:opacity-100"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = `https://ui-avatars.com/api/?name=${brand.name}&background=ff0000&color=fff&bold=true`;
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
