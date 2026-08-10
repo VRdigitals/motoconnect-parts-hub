@@ -224,7 +224,7 @@ function VanguardHero() {
   ];
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative aspect-video w-full overflow-hidden max-h-screen mx-auto">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
