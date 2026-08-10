@@ -337,7 +337,7 @@ function VanguardHero() {
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-10 left-10 z-30 flex gap-2">
+      <div className="absolute bottom-6 left-6 z-30 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
