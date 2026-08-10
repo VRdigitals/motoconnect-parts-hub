@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, ArrowRight, Shield, Globe, Award, Settings } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, ArrowRight, Shield, Globe, Award, Settings, CheckCircle2 } from "lucide-react";
+import { useCallback, useEffect, useState, useRef } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
