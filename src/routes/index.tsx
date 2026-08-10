@@ -321,7 +321,7 @@ function VanguardHero() {
       ))}
 
       {/* Slider Controls */}
-      <div className="absolute bottom-10 right-10 z-30 flex items-center gap-4">
+      <div className="absolute bottom-6 right-6 z-30 flex items-center gap-4">
         <button 
           onClick={prevSlide}
           className="group flex h-12 w-12 items-center justify-center border border-white/20 bg-black/20 text-white backdrop-blur-sm transition-all hover:border-[#ff0000] hover:bg-[#ff0000]"
