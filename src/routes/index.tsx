@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Award, Crown, X, Menu } from "lucide-react";
-import { useState } from "react";
+import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+
 import logoAsset from "@/assets/hero-motoconnect.png.asset.json";
-import heroBgAsset from "@/assets/hero-background.png.asset.json";
+import heroBgAsset2 from "@/assets/hero-background-2.png.asset.json";
 
 
 export const Route = createFileRoute("/")({
@@ -20,6 +21,59 @@ export const Route = createFileRoute("/")({
 
 function VanguardHero() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      id: 1,
+      bg: heroBgAsset.url,
+      tagline: "Genuine Automobile Spare Parts Collection",
+      title: (
+        <>
+          TOP
+          <br />
+          AUTOMOBILE.
+          <br />
+          DISTRIBUTOR.
+          <br />
+          IN UAE.
+        </>
+      ),
+      description: "Delivering genuine products at competitive prices to automotive businesses across the UAE and other regions.",
+      cta: "Product Portfolio",
+      hasStats: true,
+    },
+    {
+      id: 2,
+      bg: heroBgAsset2.url,
+      tagline: "Trusted Partner for Global Brands",
+      title: (
+        <>
+          WORLD-CLASS
+          <br />
+          AUTOMOTIVE
+          <br />
+          PARTNERSHIPS.
+        </>
+      ),
+      description: "Collaborating with industry leaders to bring the best quality parts to your doorstep.",
+      cta: "View Partners",
+      hasStats: false,
+    }
+  ];
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, [slides.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  }, [slides.length]);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 8000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -27,6 +81,7 @@ function VanguardHero() {
     { name: "Brand Portfolio", href: "/products" },
     { name: "Contact", href: "/contact" },
   ];
+
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-black font-inter selection:bg-white selection:text-black">
