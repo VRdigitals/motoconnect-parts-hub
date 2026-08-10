@@ -10,6 +10,7 @@ import aboutBgVideoAsset from "../assets/about-bg-video.mp4.asset.json";
 import aboutReferenceAsset from "../assets/about-reference.png.asset.json";
 import aboutVisionAsset from "../assets/about-vision.png.asset.json";
 import aboutBgNewAsset from "../assets/about-bg-new.png.asset.json";
+import brandsBgAsset from "../assets/brands-we-represent.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,6 +30,7 @@ function MainLayout() {
     <div className="bg-black font-inter selection:bg-white selection:text-black">
       <VanguardHero />
       <AboutSection />
+      <BrandsSection />
     </div>
   );
 }
