@@ -11,6 +11,16 @@ import aboutReferenceAsset from "../assets/about-reference.png.asset.json";
 import aboutVisionAsset from "../assets/about-vision.png.asset.json";
 import aboutBgNewAsset from "../assets/about-bg-new.png.asset.json";
 import brandsBgAsset from "../assets/brands-we-represent.png.asset.json";
+import bajajLogo from "../assets/bajaj.png.asset.json";
+import heroLogo from "../assets/hero.png.asset.json";
+import hondaLogo from "../assets/honda.png.asset.json";
+import ktmLogo from "../assets/ktm.png.asset.json";
+import suzukiLogo from "../assets/suzuki.png.asset.json";
+import tvsLogo from "../assets/tvs.png.asset.json";
+import gabrielLogo from "../assets/gabriel.png.asset.json";
+import ngkLogo from "../assets/ngk.png.asset.json";
+import skfLogo from "../assets/skf.png.asset.json";
+import unomindaLogo from "../assets/unominda.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -400,18 +410,16 @@ function AboutSection() {
 
 function BrandsSection() {
   const brands = [
-    { name: "Honda", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg" },
-    { name: "Yamaha", logo: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Yamaha_Motor_Logo.svg" },
-    { name: "Suzuki", logo: "https://upload.wikimedia.org/wikipedia/commons/1/12/Suzuki_logo_2.svg" },
-    { name: "Kawasaki", logo: "https://upload.wikimedia.org/wikipedia/commons/d/df/Kawasaki_logo_2.svg" },
-    { name: "Ducati", logo: "https://upload.wikimedia.org/wikipedia/commons/3/36/Ducati_red.svg" },
-    { name: "BMW Motorrad", logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" },
-    { name: "Triumph", logo: "https://upload.wikimedia.org/wikipedia/en/c/ca/Triumph_Motorcycles_logo.svg" },
-    { name: "Harley-Davidson", logo: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Harley-Davidson_logo.svg" },
-    { name: "Vespa", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/Vespa_logo.svg" },
-    { name: "Aprilia", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Aprilia-logo.svg" },
-    { name: "KTM", logo: "https://upload.wikimedia.org/wikipedia/commons/c/c5/KTM-Logo.svg" },
-    { name: "Royal Enfield", logo: "https://upload.wikimedia.org/wikipedia/en/3/3d/Royal_Enfield_logo.svg" },
+    { name: "Hero", logo: (heroLogo as any).url },
+    { name: "Honda", logo: (hondaLogo as any).url },
+    { name: "Suzuki", logo: (suzukiLogo as any).url },
+    { name: "Bajaj", logo: (bajajLogo as any).url },
+    { name: "TVS", logo: (tvsLogo as any).url },
+    { name: "KTM", logo: (ktmLogo as any).url },
+    { name: "UNO Minda", logo: (unomindaLogo as any).url },
+    { name: "Gabriel", logo: (gabrielLogo as any).url },
+    { name: "NGK", logo: (ngkLogo as any).url },
+    { name: "SKF", logo: (skfLogo as any).url },
   ];
 
   return (
@@ -439,7 +447,7 @@ function BrandsSection() {
               key={brand.name} 
               className="group flex items-center justify-center p-10 transition-all hover:bg-[#ff0000]/10 border border-white/5"
             >
-              <div className="relative h-20 w-full max-w-[140px] transition-transform duration-500 group-hover:scale-110">
+              <div className="relative h-20 w-full max-w-[160px] transition-transform duration-500 group-hover:scale-110">
                 <img
                   src={brand.logo}
                   alt={brand.name}
