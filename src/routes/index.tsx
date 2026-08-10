@@ -506,7 +506,7 @@ function AboutSection() {
       </div>
 
       {/* Bottom Center Logo */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 opacity-80">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 opacity-80">
         <div className="flex items-center justify-center mb-1">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#ff0000]">
             <path d="M12 4L4 8L12 12L20 8L12 4Z" fill="currentColor" />
