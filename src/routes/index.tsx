@@ -249,7 +249,7 @@ function VanguardHero() {
             <div 
               className="absolute inset-0 h-full w-full bg-contain bg-center bg-no-repeat opacity-80 bg-black"
               style={{ 
-                backgroundImage: `url(${slide.bg})`,
+                backgroundImage: slide.bg ? `url(${slide.bg})` : 'none',
               }}
             />
           )}
