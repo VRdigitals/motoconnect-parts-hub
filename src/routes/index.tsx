@@ -224,7 +224,7 @@ function VanguardHero() {
   ];
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative aspect-video w-full overflow-hidden max-h-screen mx-auto">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -235,8 +235,10 @@ function VanguardHero() {
         >
           {/* Background Image */}
           <div 
-            className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-80"
-            style={{ backgroundImage: `url(${slide.bg})` }}
+            className="absolute inset-0 h-full w-full bg-contain bg-center bg-no-repeat opacity-80 bg-black"
+            style={{ 
+              backgroundImage: `url(${slide.bg})`,
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
 
@@ -319,7 +321,7 @@ function VanguardHero() {
       ))}
 
       {/* Slider Controls */}
-      <div className="absolute bottom-10 right-10 z-30 flex items-center gap-4">
+      <div className="absolute bottom-6 right-6 z-30 flex items-center gap-4">
         <button 
           onClick={prevSlide}
           className="group flex h-12 w-12 items-center justify-center border border-white/20 bg-black/20 text-white backdrop-blur-sm transition-all hover:border-[#ff0000] hover:bg-[#ff0000]"
@@ -335,7 +337,7 @@ function VanguardHero() {
       </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-10 left-10 z-30 flex gap-2">
+      <div className="absolute bottom-6 left-6 z-30 flex gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -443,14 +445,14 @@ function VanguardHero() {
 
 function AboutSection() {
   return (
-    <section id="about" className="relative min-h-screen w-full flex items-center overflow-hidden">
+    <section id="about" className="relative w-full aspect-video mx-auto flex items-center overflow-hidden max-h-screen">
       {/* Background with the uploaded video */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 z-0 h-full w-full object-cover"
+        className="absolute inset-0 z-0 h-full w-full object-contain bg-black"
       >
         <source src={(aboutBgVideoAsset as any)?.url} type="video/mp4" />
       </video>
@@ -498,13 +500,13 @@ function AboutSection() {
       {/* Floating UI Accents */}
       
       {/* Bottom Left Progress Indicator */}
-      <div className="absolute bottom-10 left-6 sm:left-10 lg:left-24 z-30 flex items-center gap-2">
+      <div className="absolute bottom-6 left-6 sm:left-10 lg:left-24 z-30 flex items-center gap-2">
         <div className="h-1 w-6 bg-[#ff0000]" />
         <div className="h-1 w-2 bg-white/20" />
       </div>
 
       {/* Bottom Center Logo */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 opacity-80">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 opacity-80">
         <div className="flex items-center justify-center mb-1">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#ff0000]">
             <path d="M12 4L4 8L12 12L20 8L12 4Z" fill="currentColor" />
@@ -515,7 +517,7 @@ function AboutSection() {
       </div>
 
       {/* Bottom Right Navigation Arrows */}
-      <div className="absolute bottom-10 right-6 sm:right-10 lg:right-24 z-30 flex items-center gap-3">
+      <div className="absolute bottom-6 right-6 sm:right-10 lg:right-24 z-30 flex items-center gap-3">
         <button className="flex h-10 w-10 items-center justify-center border border-white/10 bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-[#ff0000] hover:border-[#ff0000]">
           <ChevronLeft className="h-5 w-5" />
         </button>
