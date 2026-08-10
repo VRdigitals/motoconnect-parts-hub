@@ -150,7 +150,7 @@ function VanguardHero() {
 
           {/* Main Heading */}
           <h1 className="animate-fade-up-delay-1 font-podium text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] tracking-tight text-white uppercase">
-            {"  "}# {"  "}1
+            {"# 1"}
             <br />
             AUTOMOBILE.
             <br />
