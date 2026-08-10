@@ -73,10 +73,10 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
   if (!currentTestimonial) return null;
 
   const socialIcons = [
-    { icon: Facebook, url: currentTestimonial.facebookUrl, label: "Facebook" },
-    { icon: Instagram, url: currentTestimonial.instagramUrl, label: "Instagram" },
-    { icon: Youtube, url: currentTestimonial.youtubeUrl, label: "YouTube" },
-    { icon: Linkedin, url: currentTestimonial.linkedinUrl, label: "LinkedIn" },
+    { icon: Share2, url: currentTestimonial.facebookUrl, label: "Facebook" },
+    { icon: Instagram || Share2, url: currentTestimonial.instagramUrl, label: "Instagram" },
+    { icon: Youtube || Share2, url: currentTestimonial.youtubeUrl, label: "YouTube" },
+    { icon: Linkedin || Share2, url: currentTestimonial.linkedinUrl, label: "LinkedIn" },
   ].filter(social => social.url);
 
   return (
