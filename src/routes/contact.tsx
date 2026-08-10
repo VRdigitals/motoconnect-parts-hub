@@ -1,8 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/contact")({
+  head: () => ({
+    title: "Contact Us | Motoconnect Group",
+    meta: [
+      { name: "description", content: "Get in touch with Motoconnect for inquiries about distribution, spare parts, and partnerships." },
+      { property: "og:title", content: "Contact Us | Motoconnect Group" },
+      { property: "og:description", content: "Reach out to the Motoconnect team for any queries." },
+    ],
+  }),
   component: ContactPage,
 });
+
 
 function ContactPage() {
   return (

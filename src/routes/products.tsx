@@ -1,8 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/products")({
+  head: () => ({
+    title: "Products | Motoconnect Spare Parts Catalog",
+    meta: [
+      { name: "description", content: "Browse our extensive catalog of genuine spare parts for Hero Motocorp, UNO Minda, Steelbird, and more." },
+      { property: "og:title", content: "Products | Motoconnect Spare Parts Catalog" },
+      { property: "og:description", content: "Genuine automotive parts for major brands available at Motoconnect." },
+    ],
+  }),
   component: ProductsPage,
 });
+
 
 function ProductsPage() {
   const parts = [

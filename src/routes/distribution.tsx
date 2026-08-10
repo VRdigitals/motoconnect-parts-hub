@@ -1,8 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/distribution")({
+  head: () => ({
+    title: "Distribution | Motoconnect UAE Network",
+    meta: [
+      { name: "description", content: "Explore Motoconnect's robust distribution network and supply chain capabilities across the UAE." },
+      { property: "og:title", content: "Distribution | Motoconnect UAE Network" },
+      { property: "og:description", content: "Efficient logistics and regional supply chain solutions by Motoconnect." },
+    ],
+  }),
   component: DistributionPage,
 });
+
 
 function DistributionPage() {
   return (
