@@ -6,6 +6,7 @@ import logoAsset from "../assets/hero-motoconnect.png.asset.json";
 import heroBgAsset from "../assets/hero-background.png.asset.json";
 import heroBgAsset2 from "../assets/hero-background-2.png.asset.json";
 import aboutBgAsset from "../assets/about-bg.png.asset.json";
+import aboutBgVideoAsset from "../assets/about-bg-video.mp4.asset.json";
 import aboutReferenceAsset from "../assets/about-reference.png.asset.json";
 import aboutVisionAsset from "../assets/about-vision.png.asset.json";
 import aboutBgNewAsset from "../assets/about-bg-new.png.asset.json";
@@ -313,11 +314,16 @@ function VanguardHero() {
 function AboutSection() {
   return (
     <section id="about" className="relative min-h-screen w-full flex items-center overflow-hidden">
-      {/* Background with the uploaded image */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${(aboutBgAsset as any)?.url})` }}
-      />
+      {/* Background with the uploaded video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 z-0 h-full w-full object-cover grayscale opacity-60"
+      >
+        <source src={(aboutBgVideoAsset as any)?.url} type="video/mp4" />
+      </video>
       
       {/* Mobile Dark Overlay for readability */}
       {/* Readability Overlays */}
