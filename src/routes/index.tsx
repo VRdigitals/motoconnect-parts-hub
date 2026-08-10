@@ -314,11 +314,16 @@ function VanguardHero() {
 function AboutSection() {
   return (
     <section id="about" className="relative min-h-screen w-full flex items-center overflow-hidden">
-      {/* Background with the uploaded image */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${(aboutBgAsset as any)?.url})` }}
-      />
+      {/* Background with the uploaded video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 z-0 h-full w-full object-cover grayscale opacity-60"
+      >
+        <source src={(aboutBgVideoAsset as any)?.url} type="video/mp4" />
+      </video>
       
       {/* Mobile Dark Overlay for readability */}
       {/* Readability Overlays */}
