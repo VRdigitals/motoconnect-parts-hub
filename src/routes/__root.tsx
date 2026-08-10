@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Motoconnect" },
+      { name: "description", content: "Motoconnect is committed to delivering genuine products at competitive prices to automotive businesses across the UAE and other regions." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Motoconnect" },
+      { property: "og:description", content: "Motoconnect is committed to delivering genuine products at competitive prices to automotive businesses across the UAE and other regions." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Motoconnect" },
+      { name: "twitter:description", content: "Motoconnect is committed to delivering genuine products at competitive prices to automotive businesses across the UAE and other regions." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/926866924029fa1ed65eb59908cd9a7f/id-preview-3894ca6c--26e2fa78-087a-493c-b6df-85bc2fa89543.lovable.app-1786390054453.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/926866924029fa1ed65eb59908cd9a7f/id-preview-3894ca6c--26e2fa78-087a-493c-b6df-85bc2fa89543.lovable.app-1786390054453.png" },
     ],
     links: [
       {
