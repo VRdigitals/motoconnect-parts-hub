@@ -500,7 +500,7 @@ function AboutSection() {
       {/* Floating UI Accents */}
       
       {/* Bottom Left Progress Indicator */}
-      <div className="absolute bottom-10 left-6 sm:left-10 lg:left-24 z-30 flex items-center gap-2">
+      <div className="absolute bottom-6 left-6 sm:left-10 lg:left-24 z-30 flex items-center gap-2">
         <div className="h-1 w-6 bg-[#ff0000]" />
         <div className="h-1 w-2 bg-white/20" />
       </div>
