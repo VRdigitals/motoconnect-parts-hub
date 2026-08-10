@@ -320,15 +320,13 @@ function AboutSection() {
         muted
         loop
         playsInline
-        className="absolute inset-0 z-0 h-full w-full object-cover grayscale opacity-60"
+        className="absolute inset-0 z-0 h-full w-full object-cover"
       >
         <source src={(aboutBgVideoAsset as any)?.url} type="video/mp4" />
       </video>
       
-      {/* Mobile Dark Overlay for readability */}
-      {/* Readability Overlays */}
-      <div className="absolute inset-0 z-10 bg-black/40 md:bg-transparent" />
-      <div className="absolute inset-y-0 left-0 w-full md:w-[60%] z-10 bg-gradient-to-r from-black/80 via-black/40 to-transparent hidden md:block" />
+      {/* Subtle readability gradient for text */}
+      <div className="absolute inset-y-0 left-0 w-full md:w-[60%] z-10 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
 
       {/* Main Container */}
       <div className="relative z-20 w-full px-6 sm:px-10 lg:px-24 py-24">
