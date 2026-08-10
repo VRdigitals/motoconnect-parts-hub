@@ -58,7 +58,7 @@ function VanguardHero() {
       tagline: "Trusted Partner for Global Brands",
       title: (
         <>
-          WORLD-CLASS
+          WORLD CLASS
           <br />
           AUTOMOTIVE
           <br />
