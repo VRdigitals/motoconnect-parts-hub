@@ -30,6 +30,13 @@ import astraeaLogo from "../assets/astraea.png.asset.json";
 import boschLogo from "../assets/bosch.png.asset.json";
 import enduranceLogo from "../assets/endurance.png.asset.json";
 import fccLogo from "../assets/fcc.png.asset.json";
+import rolonLogo from "../assets/rolon.png.asset.json";
+import spacoLogo from "../assets/spaco.png.asset.json";
+import studdsLogo from "../assets/studds.png.asset.json";
+import tvstyresLogo from "../assets/tvstyres.png.asset.json";
+import ushaLogo from "../assets/usha.png.asset.json";
+import varrocLogo from "../assets/varroc.png.asset.json";
+import yamahaLogo from "../assets/yamaha.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -421,6 +428,7 @@ function BrandsSection() {
   const brands = [
     { name: "Hero", logo: (heroLogo as any).url },
     { name: "Honda", logo: (hondaLogo as any).url },
+    { name: "Yamaha", logo: (yamahaLogo as any).url },
     { name: "Suzuki", logo: (suzukiLogo as any).url },
     { name: "Bajaj", logo: (bajajLogo as any).url },
     { name: "TVS", logo: (tvsLogo as any).url },
@@ -438,6 +446,12 @@ function BrandsSection() {
     { name: "Osram", logo: (osramLogo as any).url },
     { name: "ASK", logo: (askLogo as any).url },
     { name: "Astraea", logo: (astraeaLogo as any).url },
+    { name: "Rolon", logo: (rolonLogo as any).url },
+    { name: "Spaco", logo: (spacoLogo as any).url },
+    { name: "Studds", logo: (studdsLogo as any).url },
+    { name: "TVS Tyres", logo: (tvstyresLogo as any).url },
+    { name: "Usha", logo: (ushaLogo as any).url },
+    { name: "Varroc", logo: (varrocLogo as any).url },
   ];
 
   return (
@@ -455,13 +469,13 @@ function BrandsSection() {
         </div>
 
         {/* Brands Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 border-t border-l border-gray-100">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 border-t border-l border-gray-100">
           {brands.map((brand, index) => (
             <div 
               key={brand.name} 
-              className="group flex items-center justify-center p-8 transition-all hover:bg-gray-50 border-r border-b border-gray-100"
+              className="group flex items-center justify-center p-6 transition-all hover:bg-gray-50 border-r border-b border-gray-100"
             >
-              <div className="relative h-20 w-full max-w-[140px] transition-transform duration-500 group-hover:scale-105">
+              <div className="relative h-24 w-full transition-transform duration-500 group-hover:scale-110">
                 <img
                   src={brand.logo}
                   alt={brand.name}
