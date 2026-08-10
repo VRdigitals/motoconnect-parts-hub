@@ -492,7 +492,7 @@ function BrandsSection() {
           {brands.map((brand, index) => (
             <div 
               key={brand.name} 
-              className="group relative flex items-center justify-center transition-all hover:bg-gray-50 border-r border-b border-gray-100 overflow-hidden animate-in fade-in duration-700 fill-mode-both"
+              className="group relative flex items-center justify-center transition-all hover:bg-gray-50 border-r border-b border-gray-100 overflow-hidden animate-in fade-in duration-700 fill-mode-both py-8"
               style={{ animationDelay: `${index * 50}ms` }}
             >
               {/* Red Neon Glow Effect */}
