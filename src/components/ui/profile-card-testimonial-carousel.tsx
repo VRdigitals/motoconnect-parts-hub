@@ -6,10 +6,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Quote,
-  Instagram,
-  Facebook,
-  Youtube,
-  Linkedin,
+  Zap,
+  Globe,
+  Settings,
+  Share2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
