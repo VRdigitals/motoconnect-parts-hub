@@ -320,30 +320,31 @@ function AboutSection() {
       />
       
       {/* Mobile Dark Overlay for readability */}
-      <div className="absolute inset-0 z-10 bg-black/40 md:hidden" />
+      {/* Readability Overlays */}
+      <div className="absolute inset-0 z-10 bg-black/40 md:bg-transparent" />
+      <div className="absolute inset-y-0 left-0 w-full md:w-[60%] z-10 bg-gradient-to-r from-black/80 via-black/40 to-transparent hidden md:block" />
 
       {/* Main Container */}
-      <div className="relative z-20 w-full px-6 sm:px-10 lg:px-16 py-20">
-        <div className="max-w-full md:max-w-[45%] flex flex-col gap-6 md:gap-8">
+      <div className="relative z-20 w-full px-6 sm:px-10 lg:px-24 py-24">
+        <div className="max-w-full md:max-w-[50%] flex flex-col gap-8 md:gap-10">
           
           {/* Kicker */}
-          <div className="flex items-center gap-3">
-            <span className="font-inter text-xs font-bold tracking-[0.2em] text-white/90 uppercase">
+          <div className="flex items-center gap-4">
+            <span className="font-inter text-xs font-bold tracking-[0.3em] text-white/90 uppercase">
               ABOUT US
             </span>
-            <div className="h-0.5 w-8 bg-[#ff0000]" />
-            <div className="h-0.5 w-2 bg-white/30" />
+            <div className="h-0.5 w-10 bg-[#ff0000]" />
           </div>
 
           {/* Main Title */}
-          <h2 className="font-podium text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.9] tracking-tighter text-white uppercase">
+          <h2 className="font-podium text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.0] tracking-tight text-white uppercase">
             OUR <span className="text-[#ff0000]">MISSION</span>:<br />
             ENGINEERING<br />
             EXCELLENCE<span className="text-[#ff0000]">..</span>
           </h2>
 
           {/* Body Text */}
-          <p className="font-inter text-sm md:text-base leading-relaxed text-white/70 max-w-md">
+          <p className="font-inter text-base md:text-lg leading-relaxed text-white/80 max-w-lg">
             Motoconnect is an authorised distributor of genuine automobile spare parts,
             committed to delivering authentic products at competitive prices to automotive
             businesses across the UAE and beyond.
@@ -362,7 +363,7 @@ function AboutSection() {
       {/* Floating UI Accents */}
       
       {/* Bottom Left Progress Indicator */}
-      <div className="absolute bottom-10 left-6 sm:left-10 lg:left-16 z-30 flex items-center gap-2">
+      <div className="absolute bottom-10 left-6 sm:left-10 lg:left-24 z-30 flex items-center gap-2">
         <div className="h-1 w-6 bg-[#ff0000]" />
         <div className="h-1 w-2 bg-white/20" />
       </div>
@@ -379,7 +380,7 @@ function AboutSection() {
       </div>
 
       {/* Bottom Right Navigation Arrows */}
-      <div className="absolute bottom-10 right-6 sm:right-10 lg:right-16 z-30 flex items-center gap-3">
+      <div className="absolute bottom-10 right-6 sm:right-10 lg:right-24 z-30 flex items-center gap-3">
         <button className="flex h-10 w-10 items-center justify-center border border-white/10 bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-[#ff0000] hover:border-[#ff0000]">
           <ChevronLeft className="h-5 w-5" />
         </button>
