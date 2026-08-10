@@ -172,7 +172,7 @@ function VanguardHero() {
           </div>
 
           {/* Stats Row */}
-          <div className="animate-fade-up-delay-4 mt-12 flex flex-wrap gap-8 sm:mt-16 sm:gap-12 lg:mt-20 lg:gap-16">
+          <div className="animate-fade-up-delay-4 mt-8 flex flex-wrap gap-8 sm:mt-10 lg:mt-12 lg:gap-16">
             <div className="space-y-1">
               <div className="font-inter text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
                 250+
