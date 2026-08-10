@@ -21,6 +21,15 @@ import gabrielLogo from "../assets/gabriel.png.asset.json";
 import ngkLogo from "../assets/ngk.png.asset.json";
 import skfLogo from "../assets/skf.png.asset.json";
 import unomindaLogo from "../assets/unominda.png.asset.json";
+import championLogo from "../assets/champion.png.asset.json";
+import goetzeLogo from "../assets/goetze.png.asset.json";
+import ifbLogo from "../assets/ifb.png.asset.json";
+import osramLogo from "../assets/osram.png.asset.json";
+import askLogo from "../assets/ask.png.asset.json";
+import astraeaLogo from "../assets/astraea.png.asset.json";
+import boschLogo from "../assets/bosch.png.asset.json";
+import enduranceLogo from "../assets/endurance.png.asset.json";
+import fccLogo from "../assets/fcc.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -420,38 +429,43 @@ function BrandsSection() {
     { name: "Gabriel", logo: (gabrielLogo as any).url },
     { name: "NGK", logo: (ngkLogo as any).url },
     { name: "SKF", logo: (skfLogo as any).url },
+    { name: "Bosch", logo: (boschLogo as any).url },
+    { name: "Champion", logo: (championLogo as any).url },
+    { name: "Endurance", logo: (enduranceLogo as any).url },
+    { name: "FCC", logo: (fccLogo as any).url },
+    { name: "Goetze", logo: (goetzeLogo as any).url },
+    { name: "IFB", logo: (ifbLogo as any).url },
+    { name: "Osram", logo: (osramLogo as any).url },
+    { name: "ASK", logo: (askLogo as any).url },
+    { name: "Astraea", logo: (astraeaLogo as any).url },
   ];
 
   return (
-    <section className="relative w-full bg-[#3d0404] py-24 overflow-hidden">
-      {/* Background Texture Overlay (Simulating the tire tracks/industrial feel) */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_top_right,#ff0000,transparent)]" />
-        <div className="absolute bottom-0 left-0 w-1/2 h-full bg-[radial-gradient(circle_at_bottom_left,#ff0000,transparent)]" />
-      </div>
-
+    <section className="relative w-full bg-white py-24 overflow-hidden">
+      {/* Background Texture Overlay removed for white theme */}
+      
       <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
         {/* Heading */}
         <div className="mb-16 text-center md:text-left">
-          <h2 className="font-podium text-[clamp(2.5rem,5vw,4.5rem)] leading-tight tracking-tight text-white uppercase drop-shadow-[0_0_15px_rgba(255,0,0,0.5)]">
+          <h2 className="font-podium text-[clamp(2.5rem,5vw,4.5rem)] leading-tight tracking-tight text-black uppercase">
             AUTOMOBILE <br className="md:hidden" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">BRANDS</span> WE REPRESENT
+            <span className="text-[#ff0000]">BRANDS</span> WE REPRESENT
           </h2>
-          <div className="mt-4 h-1 w-24 bg-[#ff0000]" />
+          <div className="mt-4 h-1.5 w-24 bg-[#ff0000]" />
         </div>
 
         {/* Brands Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border border-white/10 bg-black/20 backdrop-blur-sm overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 border-t border-l border-gray-100">
           {brands.map((brand, index) => (
             <div 
               key={brand.name} 
-              className="group flex items-center justify-center p-10 transition-all hover:bg-[#ff0000]/10 border border-white/5"
+              className="group flex items-center justify-center p-8 transition-all hover:bg-gray-50 border-r border-b border-gray-100"
             >
-              <div className="relative h-20 w-full max-w-[160px] transition-transform duration-500 group-hover:scale-110">
+              <div className="relative h-20 w-full max-w-[140px] transition-transform duration-500 group-hover:scale-105">
                 <img
                   src={brand.logo}
                   alt={brand.name}
-                  className="h-full w-full object-contain brightness-0 invert opacity-80 transition-all group-hover:brightness-100 group-hover:invert-0 group-hover:opacity-100"
+                  className="h-full w-full object-contain opacity-90 transition-all group-hover:opacity-100"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = `https://ui-avatars.com/api/?name=${brand.name}&background=ff0000&color=fff&bold=true`;
