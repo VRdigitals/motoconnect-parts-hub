@@ -320,7 +320,9 @@ function AboutSection() {
       />
       
       {/* Mobile Dark Overlay for readability */}
-      <div className="absolute inset-0 z-10 bg-black/40 md:hidden" />
+      {/* Readability Overlays */}
+      <div className="absolute inset-0 z-10 bg-black/40 md:bg-transparent" />
+      <div className="absolute inset-y-0 left-0 w-full md:w-[60%] z-10 bg-gradient-to-r from-black/80 via-black/40 to-transparent hidden md:block" />
 
       {/* Main Container */}
       <div className="relative z-20 w-full px-6 sm:px-10 lg:px-16 py-20">
