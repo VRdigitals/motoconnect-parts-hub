@@ -10,6 +10,7 @@ import heroBgAsset2 from "../assets/hero-background-2.png.asset.json";
 import aboutBgAsset from "../assets/about-bg.png.asset.json";
 import aboutBgVideoAsset from "../assets/about-bg-video.mp4.asset.json";
 import heroVideo1Asset from "../assets/hero-video-1.mp4.asset.json";
+import heroVideo2Asset from "../assets/hero-video-2.mp4.asset.json";
 import aboutReferenceAsset from "../assets/about-reference.png.asset.json";
 import aboutVisionAsset from "../assets/about-vision.png.asset.json";
 import aboutBgNewAsset from "../assets/about-bg-new.png.asset.json";
@@ -169,6 +170,7 @@ function VanguardHero() {
     {
       id: 1,
       video: (heroVideo1Asset as any)?.url || "",
+      bg: "",
       tagline: "Genuine Automobile Spare Parts Collection",
       title: (
         <>
@@ -187,7 +189,8 @@ function VanguardHero() {
     },
     {
       id: 2,
-      bg: (heroBgAsset2 as any)?.url || "",
+      video: (heroVideo2Asset as any)?.url || "",
+      bg: "",
       tagline: "Trusted Partner for Global Brands",
       title: (
         <>
@@ -248,7 +251,7 @@ function VanguardHero() {
             <div 
               className="absolute inset-0 h-full w-full bg-contain bg-center bg-no-repeat opacity-80 bg-black"
               style={{ 
-                backgroundImage: `url(${slide.bg})`,
+                backgroundImage: (slide as any).bg ? `url(${(slide as any).bg})` : 'none',
               }}
             />
           )}
