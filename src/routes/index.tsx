@@ -517,7 +517,7 @@ function AboutSection() {
       </div>
 
       {/* Bottom Right Navigation Arrows */}
-      <div className="absolute bottom-10 right-6 sm:right-10 lg:right-24 z-30 flex items-center gap-3">
+      <div className="absolute bottom-6 right-6 sm:right-10 lg:right-24 z-30 flex items-center gap-3">
         <button className="flex h-10 w-10 items-center justify-center border border-white/10 bg-black/40 text-white backdrop-blur-sm transition-all hover:bg-[#ff0000] hover:border-[#ff0000]">
           <ChevronLeft className="h-5 w-5" />
         </button>
