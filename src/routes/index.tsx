@@ -461,33 +461,35 @@ function BrandsSection() {
 
   return (
     <section className="relative w-full bg-white py-24 overflow-hidden">
-      {/* Background Tire Tracks */}
+      {/* Background Tire Tracks - Larger and more prominent */}
       <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none grayscale"
+        className="absolute inset-0 opacity-[0.06] pointer-events-none grayscale select-none"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80')`,
-          backgroundSize: '800px',
+          backgroundSize: '1200px',
           backgroundRepeat: 'repeat',
-          mixBlendMode: 'multiply'
+          mixBlendMode: 'multiply',
+          transform: 'rotate(-5deg) scale(1.1)'
         }}
       />
       
-      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16 animate-in fade-in duration-1000 fill-mode-both">
-        {/* Heading */}
-        <div className="mb-16 text-center md:text-left">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
+        {/* Heading with scroll animation */}
+        <div className="mb-16 text-center md:text-left animate-in fade-in slide-in-from-bottom-12 duration-1000 fill-mode-both">
           <h2 className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-black uppercase italic">
             AUTOMOBILE <br className="md:hidden" />
             <span className="text-[#ff0000]">BRANDS</span> WE REPRESENT
           </h2>
           <div className="mt-4 h-1.5 w-24 bg-[#ff0000]" />
         </div>
-
+ 
         {/* Brands Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 border-t border-l border-gray-100">
           {brands.map((brand, index) => (
             <div 
               key={brand.name} 
-              className="group relative flex items-center justify-center p-8 transition-all hover:bg-gray-50 border-r border-b border-gray-100 overflow-hidden"
+              className="group relative flex items-center justify-center p-8 transition-all hover:bg-gray-50 border-r border-b border-gray-100 overflow-hidden animate-in fade-in duration-700 fill-mode-both"
+              style={{ animationDelay: `${index * 50}ms` }}
             >
               {/* Red Neon Glow Effect */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
