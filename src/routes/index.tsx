@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight, Settings, Zap, ArrowRight } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 
 import logoAsset from "../assets/hero-motoconnect.png.asset.json";
 import heroBgAsset from "../assets/hero-background.png.asset.json";
 import heroBgAsset2 from "../assets/hero-background-2.png.asset.json";
-import aboutVisionAsset from "../assets/about-vision.png.asset.json";
+import aboutBgAsset from "../assets/about-bg.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,7 +24,7 @@ function MainLayout() {
   return (
     <div className="bg-black font-inter selection:bg-white selection:text-black">
       <VanguardHero />
-      
+      <AboutSection />
     </div>
   );
 }
@@ -306,4 +306,110 @@ function VanguardHero() {
     </div>
   );
 }
+
+function AboutSection() {
+  return (
+    <section id="about" className="relative min-h-screen w-full flex items-center overflow-hidden">
+      {/* Background with the uploaded image */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${(aboutBgAsset as any)?.url})` }}
+      />
+      
+      {/* Mobile Dark Overlay for readability */}
+      <div className="absolute inset-0 z-10 bg-black/40 md:hidden" />
+
+      {/* Main Container */}
+      <div className="relative z-20 w-full px-6 sm:px-10 lg:px-16 py-20">
+        <div className="max-w-full md:max-w-[45%] flex flex-col gap-8 md:gap-10">
+          
+          {/* Kicker */}
+          <div className="flex items-center gap-4">
+            <span className="font-inter text-xs font-bold tracking-[0.3em] text-white/70 uppercase">
+              ABOUT US
+            </span>
+            <div className="h-px w-12 bg-[#ff0000]" />
+          </div>
+
+          {/* Main Title */}
+          <h2 className="font-podium text-[clamp(2rem,5vw,3.5rem)] leading-[0.95] tracking-tight text-white uppercase">
+            <span className="text-white">ASHVA MISSION:</span><br />
+            AUTHENTIC <span className="text-[#ff0000]">PARTS</span> DISTRIBUTOR.<br />
+            COMPETITIVE <span className="text-[#ff0000]">PRICES</span> FOR THE UAE.
+          </h2>
+
+          {/* Body Text */}
+          <p className="font-inter text-base md:text-lg leading-relaxed text-white/80 max-w-xl">
+            Ashva General Trading LLC is the authorised distributor genuine automobile parts, 
+            committed to delivering genuine products at competitive prices to automotive 
+            businesses across the UAE and other regions.
+          </p>
+
+          {/* Feature Cards Container */}
+          <div className="flex flex-col gap-4">
+            {/* Card 1 */}
+            <div className="group flex items-start gap-4 p-5 rounded-xl bg-black/30 backdrop-blur-md border border-white/10 transition-all hover:border-[#ff0000]/50">
+              <div className="mt-1 p-2 rounded-lg bg-[#ff0000]/20 text-[#ff0000]">
+                <Settings className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-inter text-base font-bold text-white mb-1">Trusted Quality</h3>
+                <p className="font-inter text-sm text-white/60 leading-relaxed">
+                  Authentic spare parts sourced from reliable OEMs and leading vendors.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group flex items-start gap-4 p-5 rounded-xl bg-black/30 backdrop-blur-md border border-white/10 transition-all hover:border-[#ff0000]/50">
+              <div className="mt-1 p-2 rounded-lg bg-[#ff0000]/20 text-[#ff0000]">
+                <Zap className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-inter text-base font-bold text-white mb-1">Wide Coverage</h3>
+                <p className="font-inter text-sm text-white/60 leading-relaxed">
+                  Solutions for workshops, retailers, and businesses across the region.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Button */}
+          <div className="mt-4">
+            <button className="group flex items-center gap-3 bg-[#ff0000] px-8 py-4 text-xs font-bold tracking-[0.2em] text-white transition-all hover:bg-[#cc0000] uppercase rounded-sm">
+              MORE ABOUT US
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Floating UI Accents */}
+      
+      {/* Bottom Left Progress Line */}
+      <div className="absolute bottom-10 left-6 sm:left-10 lg:left-16 z-30 hidden md:flex flex-col items-center gap-3">
+        <div className="h-20 w-[1px] bg-white/10 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1/2 bg-[#ff0000]" />
+        </div>
+      </div>
+
+      {/* Bottom Center Logo */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 opacity-60">
+        <div className="h-1.5 w-1.5 rounded-full bg-[#ff0000]" />
+        <span className="font-podium text-sm tracking-[0.3em] text-white">ASHVA</span>
+      </div>
+
+      {/* Bottom Right Navigation Arrows */}
+      <div className="absolute bottom-10 right-6 sm:right-10 lg:right-16 z-30 hidden md:flex items-center gap-4">
+        <button className="flex h-12 w-12 items-center justify-center rounded-full bg-black/40 border border-white/10 text-white backdrop-blur-md transition-all hover:bg-[#ff0000] hover:border-[#ff0000]">
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button className="flex h-12 w-12 items-center justify-center rounded-full bg-black/40 border border-white/10 text-white backdrop-blur-md transition-all hover:bg-[#ff0000] hover:border-[#ff0000]">
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </div>
+    </section>
+  );
+}
+
 
