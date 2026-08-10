@@ -25,7 +25,7 @@ function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !hasAnimated) {
+        if (entries[0] && entries[0].isIntersecting && !hasAnimated) {
           setHasAnimated(true);
           let start = 0;
           const end = value;
