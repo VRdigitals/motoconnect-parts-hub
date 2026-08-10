@@ -279,8 +279,6 @@ function MotoconnectHome() {
         </div>
       </section>
 
-      {/* Brands & Partners - Original Section (Optional: can be removed or refined) */}
-      <section className="py-24 bg-white overflow-hidden border-b border-gray-100 hidden">
 
       {/* Features - Modern iconography */}
       <section className="py-24">
