@@ -32,10 +32,11 @@ function VanguardHero() {
     <div className="relative h-screen w-full overflow-hidden bg-black font-inter selection:bg-white selection:text-black">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 h-full w-full bg-cover bg-center opacity-60 mix-blend-overlay"
+        className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-80"
         style={{ backgroundImage: `url(${heroBgAsset.url})` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-0" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent z-0" />
+
 
 
       {/* Navbar */}
