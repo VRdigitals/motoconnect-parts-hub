@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, ArrowRight, Shield, Globe, Award, Settings } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, ArrowRight, Shield, Globe, Award, Settings, CheckCircle2 } from "lucide-react";
+import { useCallback, useEffect, useState, useRef } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,6 +16,45 @@ export const Route = createFileRoute("/")({
   }),
   component: MotoconnectHome,
 });
+
+function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const countRef = useRef<HTMLSpanElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0] && entries[0].isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+          let start = 0;
+          const end = value;
+          const duration = 2000;
+          const increment = end / (duration / 16);
+
+          const timer = setInterval(() => {
+            start += increment;
+            if (start >= end) {
+              setCount(end);
+              clearInterval(timer);
+            } else {
+              setCount(Math.floor(start));
+            }
+          }, 16);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (countRef.current) {
+      observer.observe(countRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [value, hasAnimated]);
+
+  return <span ref={countRef}>{count.toLocaleString()}{suffix}</span>;
+}
 
 function MotoconnectHome() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -150,31 +189,96 @@ function MotoconnectHome() {
         </div>
       </section>
 
-      {/* Brands & Partners - Clean modern grid */}
-      <section className="py-24 bg-gray-50 overflow-hidden">
+      {/* About Us & Stats Section - Inspired by Ashva Trading */}
+      <section className="py-24 bg-white border-b border-gray-50">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div>
-              <span className="text-[#ff0000] font-bold text-sm uppercase tracking-widest block mb-4">Our Partners</span>
-              <h2 className="text-4xl md:text-5xl font-black italic uppercase">Trusted by Industry <span className="text-gray-400">Leaders</span></h2>
-            </div>
-            <Link to="/products" className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-[#ff0000] transition-colors">
-              Explore All Brands <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {["Hero Genuine", "UNO Minda", "Steelbird", "MK Lide", "Xeto", "MK Parts"].map((brand, i) => (
-              <div key={i} className="aspect-[4/3] bg-white border border-gray-100 flex items-center justify-center p-8 grayscale hover:grayscale-0 transition-all group">
-                <div className="text-center">
-                  <span className="block font-black text-lg text-gray-800 group-hover:text-[#ff0000] transition-colors">{brand}</span>
-                  <span className="text-[10px] text-gray-400 uppercase tracking-tighter">Authorized Partner</span>
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <div className="relative group">
+              <div className="aspect-[4/5] overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&q=80&w=800" 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+                  alt="Quality Parts" 
+                />
+              </div>
+              <div className="absolute -bottom-8 -right-8 bg-[#ff0000] p-10 text-white shadow-2xl animate-in fade-in slide-in-from-bottom duration-1000">
+                <div className="text-5xl font-black italic mb-2">
+                  <AnimatedNumber value={10000} suffix="+" />
                 </div>
+                <div className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Parts Stocked</div>
+              </div>
+            </div>
+            
+            <div className="space-y-8">
+              <div>
+                <span className="text-[#ff0000] font-bold text-sm uppercase tracking-widest block mb-4">About Motoconnect</span>
+                <h2 className="text-4xl md:text-5xl font-black italic uppercase leading-tight">
+                  Driving Excellence In <br/> <span className="text-gray-400">Automotive Solutions</span>
+                </h2>
+              </div>
+              
+              <p className="text-gray-600 text-lg leading-relaxed">
+                Motoconnect is a premier automotive group dedicated to the distribution of high-quality spare parts and accessories. As an authorized distributor for world-class brands, we ensure that every component we supply meets the highest standards of performance and safety.
+              </p>
+              
+              <div className="grid sm:grid-cols-2 gap-6 pt-4">
+                {[
+                  "Genuine Hero Motocorp Spares",
+                  "Authorized Regional Network",
+                  "10K+ Products in Ready Stock",
+                  "Express Delivery Across UAE",
+                  "Advanced Logistics Control",
+                  "Unmatched Customer Support"
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <CheckCircle2 size={20} className="text-[#ff0000] shrink-0" />
+                    <span className="text-sm font-bold uppercase tracking-tight text-gray-700">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-8">
+                <Link to="/contact" className="inline-flex items-center gap-4 bg-black text-white px-10 py-5 font-black uppercase tracking-widest text-xs hover:bg-[#ff0000] transition-all">
+                  Learn More About Us <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2 Wheeler Brands - Clean modern grid */}
+      <section className="py-24 bg-gray-50 overflow-hidden border-b border-gray-100">
+        <div className="max-w-[1400px] mx-auto px-6 text-center mb-16">
+          <span className="text-[#ff0000] font-bold text-sm uppercase tracking-widest block mb-4">Our Portfolio</span>
+          <h2 className="text-4xl md:text-5xl font-black italic uppercase">2 Wheeler <span className="text-gray-400">Brands</span></h2>
+        </div>
+        
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {[
+              { name: "Honda", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg" },
+              { name: "Bajaj", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Bajaj_Auto_Logo.svg" },
+              { name: "TVS", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d1/TVS_Motor_Company_Logo.svg" },
+              { name: "Suzuki", logo: "https://upload.wikimedia.org/wikipedia/commons/1/12/Suzuki_logo_2.svg" },
+              { name: "Hero", logo: "https://upload.wikimedia.org/wikipedia/commons/4/45/Hero_MotoCorp_Logo.svg" },
+              { name: "Yamaha", logo: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Yamaha_Motor_Logo.svg" },
+              { name: "KTM", logo: "https://upload.wikimedia.org/wikipedia/commons/a/ad/KTM-Logo.svg" },
+              { name: "Osram", logo: "https://upload.wikimedia.org/wikipedia/commons/9/91/Osram-logo.svg" },
+              { name: "Uno Minda", logo: "https://upload.wikimedia.org/wikipedia/en/9/9c/Uno_Minda_logo.png" },
+              { name: "Bosch", logo: "https://upload.wikimedia.org/wikipedia/commons/1/16/Bosch-logo.svg" },
+              { name: "SKF", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a0/SKF_logo.svg" },
+              { name: "NGK", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e5/NGK_Logo.svg" }
+            ].map((brand, i) => (
+              <div key={i} className="aspect-[3/2] bg-white border border-gray-100 flex items-center justify-center p-8 grayscale hover:grayscale-0 transition-all duration-500 group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <img src={brand.logo} alt={brand.name} className="max-h-12 w-auto object-contain relative z-10 transition-transform duration-500 group-hover:scale-110" />
               </div>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Features - Modern iconography */}
       <section className="py-24">
