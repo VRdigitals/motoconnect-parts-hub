@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import logoAsset from "../assets/hero-motoconnect.png.asset.json";
 import heroBgAsset from "../assets/hero-background.png.asset.json";
 import heroBgAsset2 from "../assets/hero-background-2.png.asset.json";
+import aboutVisionAsset from "../assets/about-vision.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
