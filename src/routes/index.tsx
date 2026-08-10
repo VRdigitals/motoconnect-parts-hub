@@ -155,7 +155,7 @@ function VanguardHero() {
               </div>
 
               {/* Main Heading */}
-              <h1 className="font-podium text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] tracking-tight text-white uppercase">
+              <h1 className="font-podium text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] tracking-tight text-white uppercase italic">
                 {slide.title}
               </h1>
 
@@ -310,7 +310,7 @@ function VanguardHero() {
               key={link.name}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-podium text-3xl uppercase text-white sm:text-4xl transition-all duration-500"
+              className="font-podium text-3xl uppercase italic text-white sm:text-4xl transition-all duration-500"
               style={{
                 transitionDelay: `${i * 80 + 100}ms`,
                 transform: menuOpen ? "translateY(0)" : "translateY(20px)",
@@ -369,7 +369,7 @@ function AboutSection() {
           </div>
 
           {/* Main Title */}
-          <h2 className="font-podium text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.0] tracking-tight text-white uppercase">
+          <h2 className="font-podium text-[clamp(2.5rem,6vw,5.5rem)] leading-[1.0] tracking-tight text-white uppercase italic">
             OUR <span className="text-[#ff0000]">MISSION</span>:<br />
             ENGINEERING<br />
             EXCELLENCE<span className="text-[#ff0000]">..</span>
