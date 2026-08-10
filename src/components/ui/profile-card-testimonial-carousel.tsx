@@ -74,9 +74,9 @@ export function TestimonialCarousel({ className }: TestimonialCarouselProps) {
 
   const socialIcons = [
     { icon: Share2, url: currentTestimonial.facebookUrl, label: "Facebook" },
-    { icon: Instagram || Share2, url: currentTestimonial.instagramUrl, label: "Instagram" },
-    { icon: Youtube || Share2, url: currentTestimonial.youtubeUrl, label: "YouTube" },
-    { icon: Linkedin || Share2, url: currentTestimonial.linkedinUrl, label: "LinkedIn" },
+    { icon: Globe, url: currentTestimonial.instagramUrl, label: "Instagram" },
+    { icon: Zap, url: currentTestimonial.youtubeUrl, label: "YouTube" },
+    { icon: Settings, url: currentTestimonial.linkedinUrl, label: "LinkedIn" },
   ].filter(social => social.url);
 
   return (
