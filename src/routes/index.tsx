@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import logoAsset from "../assets/hero-motoconnect.png.asset.json";
 import heroBgAsset from "../assets/hero-background.png.asset.json";
 import heroBgAsset2 from "../assets/hero-background-2.png.asset.json";
-import aboutBgAsset from "../assets/about-bg-new.png.asset.json";
+import aboutBgAsset from "../assets/about-bg.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -341,10 +341,9 @@ function AboutSection() {
 
           {/* Body Text */}
           <p className="font-inter text-sm md:text-base leading-relaxed text-white/70 max-w-md">
-            We are closed the history for has been emimated synunver motopiny company 
-            and tradity wefevel bant, tire team haned to garn our brands and team s.e/r 
-            are in inart/ty et bant spare parts is commitment to quality and our summet 
-            quality spare parts.
+            Motoconnect is an authorised distributor of genuine automobile spare parts,
+            committed to delivering authentic products at competitive prices to automotive
+            businesses across the UAE and beyond.
           </p>
 
           {/* Button */}
