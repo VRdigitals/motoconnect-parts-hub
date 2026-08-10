@@ -156,7 +156,10 @@ function VanguardHero() {
               </div>
 
               {/* Main Heading */}
-              <h1 className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white uppercase italic">
+              <h1 
+                key={`${slide.id}-${currentSlide}`}
+                className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white uppercase italic animate-in fade-in slide-in-from-left-8 duration-1000 fill-mode-both"
+              >
                 {slide.title}
               </h1>
 
@@ -359,7 +362,7 @@ function AboutSection() {
 
       {/* Main Container */}
       <div className="relative z-20 w-full px-6 sm:px-10 lg:px-24 py-24">
-        <div className="max-w-full md:max-w-[50%] flex flex-col gap-8 md:gap-10">
+        <div className="max-w-full md:max-w-[50%] flex flex-col gap-8 md:gap-10 animate-in fade-in slide-in-from-bottom-12 duration-1000 fill-mode-both">
           
           {/* Kicker */}
           <div className="flex items-center gap-4">
@@ -457,9 +460,18 @@ function BrandsSection() {
 
   return (
     <section className="relative w-full bg-white py-24 overflow-hidden">
-      {/* Background Texture Overlay removed for white theme */}
+      {/* Background Tire Tracks */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none grayscale"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80')`,
+          backgroundSize: '800px',
+          backgroundRepeat: 'repeat',
+          mixBlendMode: 'multiply'
+        }}
+      />
       
-      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16 animate-in fade-in duration-1000 fill-mode-both">
         {/* Heading */}
         <div className="mb-16 text-center md:text-left">
           <h2 className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-black uppercase italic">
@@ -474,9 +486,14 @@ function BrandsSection() {
           {brands.map((brand, index) => (
             <div 
               key={brand.name} 
-              className="group flex items-center justify-center p-6 transition-all hover:bg-gray-50 border-r border-b border-gray-100"
+              className="group relative flex items-center justify-center p-8 transition-all hover:bg-gray-50 border-r border-b border-gray-100 overflow-hidden"
             >
-              <div className="relative h-24 w-full transition-transform duration-500 group-hover:scale-110">
+              {/* Red Neon Glow Effect */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                <div className="absolute inset-0 border-2 border-[#ff0000] shadow-[0_0_20px_rgba(255,0,0,0.5),inset_0_0_20px_rgba(255,0,0,0.3)]" />
+              </div>
+              
+              <div className="relative h-28 w-full transition-transform duration-500 group-hover:scale-110 z-10">
                 <img
                   src={brand.logo}
                   alt={brand.name}
