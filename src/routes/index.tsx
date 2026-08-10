@@ -137,7 +137,7 @@ function VanguardHero() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="animate-fade-up-delay-1 font-podium text-[clamp(2.8rem,8vw,7.5rem)] leading-[0.92] tracking-tight text-white uppercase">
+          <h1 className="animate-fade-up-delay-1 font-podium text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.92] tracking-tight text-white uppercase">
             Design.
             <br />
             Disrupt.
