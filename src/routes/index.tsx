@@ -150,13 +150,13 @@ function VanguardHero() {
 
           {/* Main Heading */}
           <h1 className="animate-fade-up-delay-1 font-podium text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] tracking-tight text-white uppercase">
-            Genuine.
+            &nbsp;&nbsp;# &nbsp;1
             <br />
-            #1 Automobile
+            AUTOMOBILE.
             <br />
-            Spareparts Distributor
+            DISTRIBUTOR.
             <br />
-            in UAE.
+            IN UAE.
           </h1>
 
           {/* Subtext */}
