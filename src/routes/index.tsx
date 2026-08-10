@@ -1,363 +1,207 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, ArrowRight, Shield, Globe, Award, Settings, CheckCircle2 } from "lucide-react";
-import { useCallback, useEffect, useState, useRef } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowUpRight, Award, Crown, X, Menu } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    title: "Motoconnect | Authorized Hero Motocorp Distributor UAE",
+    title: "VANGUARD | World-Class Digital Collective",
     meta: [
-      { name: "description", content: "Motoconnect Group: Premier distribution for Hero Motocorp, UNO Minda, Steelbird, and MK Lide. Quality automotive parts across the UAE." },
-      { property: "og:title", content: "Motoconnect | Authorized Hero Motocorp Distributor" },
-      { property: "og:description", content: "Leading automotive parts distribution and supply chain solutions in the UAE." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "description",
+        content: "We build fierce brand identities that don't just turn heads -- they lead.",
+      },
     ],
   }),
-  component: MotoconnectHome,
+  component: VanguardHero,
 });
 
-function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const countRef = useRef<HTMLSpanElement>(null);
-  const [hasAnimated, setHasAnimated] = useState(false);
+function VanguardHero() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0] && entries[0].isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-          let start = 0;
-          const end = value;
-          const duration = 2000;
-          const increment = end / (duration / 16);
-
-          const timer = setInterval(() => {
-            start += increment;
-            if (start >= end) {
-              setCount(end);
-              clearInterval(timer);
-            } else {
-              setCount(Math.floor(start));
-            }
-          }, 16);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (countRef.current) {
-      observer.observe(countRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [value, hasAnimated]);
-
-  return <span ref={countRef}>{count.toLocaleString()}{suffix}</span>;
-}
-
-function MotoconnectHome() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    onSelect();
-    emblaApi.on("select", onSelect);
-    
-    const autoplay = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 5000);
-
-    return () => clearInterval(autoplay);
-  }, [emblaApi, onSelect]);
-
-  const slides = [
-    {
-      image: "https://images.unsplash.com/photo-1611002214172-792c1f90b59a?auto=format&fit=crop&q=80&w=2074",
-      title: "The Future of Mobility",
-      subtitle: "Authorized Hero Motocorp Distributor",
-      description: "Driving innovation and excellence in motorcycle distribution across the region."
-    },
-    {
-      image: "https://images.unsplash.com/photo-1558981403-c5f91cbcf523?auto=format&fit=crop&q=80&w=2070",
-      title: "Precision Engineering",
-      subtitle: "Premium Spare Parts",
-      description: "Distribution of UNO Minda, Steelbird, MK Lide, and Genuine Hero Parts."
-    },
-    {
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2070",
-      title: "Seamless Supply Chain",
-      subtitle: "Regional Distribution Network",
-      description: "Ensuring timely delivery and reliable support for all our partners."
-    }
-  ];
+  const navLinks = ["Projects", "Studio", "Offerings", "Inquire"];
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900">
-      {/* Navbar - Modern sticky with glass effect */}
-      <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/">
-            <div className="flex items-center gap-2">
-              <img 
-                src="/hero-motoconnect.png" 
-                alt="Motoconnect Logo" 
-                className="h-10 w-auto object-contain"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  const span = (e.target as HTMLImageElement).nextElementSibling;
-                  if (span) span.classList.remove('hidden');
-                }}
-              />
-              <span className="hidden font-bold text-xl tracking-tighter text-[#ff0000]">MOTOCONNECT</span>
-            </div>
-          </Link>
-          <div className="hidden md:flex gap-10 font-medium text-[15px] items-center">
-            <Link to="/" className="text-gray-600 hover:text-[#ff0000] transition-colors [&.active]:text-[#ff0000]">Home</Link>
-            <Link to="/products" className="text-gray-600 hover:text-[#ff0000] transition-colors [&.active]:text-[#ff0000]">Products</Link>
-            <Link to="/distribution" className="text-gray-600 hover:text-[#ff0000] transition-colors [&.active]:text-[#ff0000]">Distribution</Link>
-            <Link to="/contact" className="text-gray-600 hover:text-[#ff0000] transition-colors [&.active]:text-[#ff0000]">Contact</Link>
-            <Link to="/contact" className="bg-[#ff0000] text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-black transition-all">
-              Inquire Now
-            </Link>
-          </div>
+    <div className="relative h-screen w-full overflow-hidden bg-black font-inter selection:bg-white selection:text-black">
+      {/* Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover opacity-60"
+      >
+        <source
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260606_154941_df1a96e1-a06f-450c-bd02-d863414cc1a0.mp4"
+          type="video/mp4"
+        />
+      </video>
+
+      {/* Navbar */}
+      <nav className="relative z-40 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16 lg:py-7">
+        {/* Left: Brand */}
+        <div className="font-podium text-2xl font-bold uppercase tracking-wider text-white sm:text-3xl">
+          VANGUARD
         </div>
+
+        {/* Center: Desktop Nav */}
+        <div className="hidden items-center gap-8 md:flex lg:gap-12">
+          {navLinks.map((link) => (
+            <a
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              className="font-inter text-sm tracking-[0.2em] text-white/80 transition-colors hover:text-white uppercase"
+            >
+              {link}
+            </a>
+          ))}
+        </div>
+
+        {/* Right: Desktop CTA */}
+        <div className="hidden md:block">
+          <a
+            href="#contact"
+            className="group flex items-center gap-2 border border-white/30 px-6 py-3 text-[10px] font-medium tracking-[0.2em] text-white transition-all hover:bg-white/10 hover:border-white/60 uppercase"
+          >
+            Get in Touch
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        </div>
+
+        {/* Mobile Hamburger */}
+        <button
+          className="flex flex-col space-y-1.5 md:hidden"
+          onClick={() => setMenuOpen(true)}
+        >
+          <div className="h-0.5 w-6 bg-white" />
+          <div className="h-0.5 w-6 bg-white" />
+          <div className="h-0.5 w-4 bg-white self-end" />
+        </button>
       </nav>
 
-      {/* Hero Slider */}
-      <section className="relative h-screen w-full overflow-hidden bg-black">
-        <div className="embla h-full" ref={emblaRef}>
-          <div className="embla__container h-full flex">
-            {slides.map((slide, i) => (
-              <div key={i} className="embla__slide relative flex-[0_0_100%] h-full">
-                <div className="absolute inset-0 z-0">
-                  <img src={slide.image} className="w-full h-full object-cover opacity-60" alt={slide.title} />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-                </div>
-                <div className="relative z-10 h-full flex items-center max-w-[1400px] mx-auto px-6">
-                  <div className="max-w-2xl text-white">
-                    <span className="inline-block bg-[#ff0000] text-white px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] mb-6 animate-in slide-in-from-left duration-700">
-                      {slide.subtitle}
-                    </span>
-                    <h1 className="text-6xl md:text-8xl font-black italic uppercase leading-[0.9] mb-8 animate-in slide-in-from-left duration-700 delay-100">
-                      {slide.title}
-                    </h1>
-                    <p className="text-lg md:text-xl text-gray-300 mb-10 animate-in slide-in-from-left duration-700 delay-200">
-                      {slide.description}
-                    </p>
-                    <div className="flex gap-4 animate-in slide-in-from-left duration-700 delay-300">
-                      <Link to="/products" className="bg-white text-black px-10 py-4 font-bold text-sm uppercase tracking-widest hover:bg-[#ff0000] hover:text-white transition-all">
-                        View Products
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-50 flex flex-col bg-black/95 backdrop-blur-md transition-all duration-500 ${
+          menuOpen ? "visible opacity-100" : "invisible opacity-0"
+        }`}
+      >
+        <div className="flex items-center justify-between px-6 py-5 sm:px-10">
+          <div className="font-podium text-2xl font-bold uppercase tracking-wider text-white sm:text-3xl">
+            VANGUARD
           </div>
+          <button onClick={() => setMenuOpen(false)}>
+            <X className="h-8 w-8 text-white" />
+          </button>
         </div>
-        
-        {/* Slider Controls */}
-        <div className="absolute bottom-10 left-0 right-0 z-20">
-          <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between">
-            <div className="flex gap-2">
-              {slides.map((_, i) => (
-                <div 
-                  key={i} 
-                  className={`h-1 transition-all duration-300 ${selectedIndex === i ? 'w-12 bg-[#ff0000]' : 'w-4 bg-white/30'}`}
-                />
-              ))}
-            </div>
-            <div className="flex gap-4">
-              <button onClick={scrollPrev} className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all">
-                <ChevronLeft size={24} />
-              </button>
-              <button onClick={scrollNext} className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all">
-                <ChevronRight size={24} />
-              </button>
-            </div>
+
+        <div className="flex flex-1 flex-col items-center justify-center space-y-8 px-6 text-center">
+          {navLinks.map((link, i) => (
+            <a
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              onClick={() => setMenuOpen(false)}
+              className="font-podium text-4xl uppercase text-white sm:text-5xl transition-all duration-500"
+              style={{
+                transitionDelay: `${i * 80 + 100}ms`,
+                transform: menuOpen ? "translateY(0)" : "translateY(20px)",
+                opacity: menuOpen ? 1 : 0,
+              }}
+            >
+              {link}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            onClick={() => setMenuOpen(false)}
+            className="mt-8 flex items-center gap-2 border border-white/30 px-8 py-4 text-xs font-medium tracking-[0.2em] text-white transition-all hover:bg-white/10"
+            style={{
+              transitionDelay: `${navLinks.length * 80 + 100}ms`,
+              transform: menuOpen ? "translateY(0)" : "translateY(20px)",
+              opacity: menuOpen ? 1 : 0,
+            }}
+          >
+            GET IN TOUCH
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+
+      {/* Hero Content */}
+      <div className="relative z-10 flex h-full items-center px-6 sm:px-10 lg:px-16">
+        <div className="max-w-4xl">
+          {/* Tagline */}
+          <div className="animate-fade-up mb-6 flex items-center gap-3 lg:mb-8">
+            <Crown className="h-4 w-4 text-white/70" />
+            <span className="font-inter text-[10px] font-medium tracking-[0.3em] text-white/70 uppercase sm:text-xs">
+              World-Class Digital Collective
+            </span>
           </div>
-        </div>
-      </section>
 
-      {/* About Us & Stats Section - Inspired by Ashva Trading */}
-      <section className="py-24 bg-white border-b border-gray-50">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div className="relative group">
-              <div className="aspect-[4/5] overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&q=80&w=800" 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-                  alt="Quality Parts" 
-                />
-              </div>
-              <div className="absolute -bottom-8 -right-8 bg-[#ff0000] p-10 text-white shadow-2xl animate-in fade-in slide-in-from-bottom duration-1000">
-                <div className="text-5xl font-black italic mb-2">
-                  <AnimatedNumber value={10000} suffix="+" />
-                </div>
-                <div className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Parts Stocked</div>
-              </div>
-            </div>
-            
-            <div className="space-y-8">
-              <div>
-                <span className="text-[#ff0000] font-bold text-sm uppercase tracking-widest block mb-4">About Motoconnect</span>
-                <h2 className="text-4xl md:text-5xl font-black italic uppercase leading-tight">
-                  Driving Excellence In <br/> <span className="text-gray-400">Automotive Solutions</span>
-                </h2>
-              </div>
-              
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Motoconnect is a premier automotive group dedicated to the distribution of high-quality spare parts and accessories. As an authorized distributor for world-class brands, we ensure that every component we supply meets the highest standards of performance and safety.
-              </p>
-              
-              <div className="grid sm:grid-cols-2 gap-6 pt-4">
-                {[
-                  "Genuine Hero Motocorp Spares",
-                  "Authorized Regional Network",
-                  "10K+ Products in Ready Stock",
-                  "Express Delivery Across UAE",
-                  "Advanced Logistics Control",
-                  "Unmatched Customer Support"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <CheckCircle2 size={20} className="text-[#ff0000] shrink-0" />
-                    <span className="text-sm font-bold uppercase tracking-tight text-gray-700">{item}</span>
-                  </div>
-                ))}
-              </div>
+          {/* Main Heading */}
+          <h1 className="animate-fade-up-delay-1 font-podium text-[clamp(2.8rem,8vw,7.5rem)] leading-[0.92] tracking-tight text-white uppercase">
+            Design.
+            <br />
+            Disrupt.
+            <br />
+            Conquer.
+          </h1>
 
-              <div className="pt-8">
-                <Link to="/contact" className="inline-flex items-center gap-4 bg-black text-white px-10 py-5 font-black uppercase tracking-widest text-xs hover:bg-[#ff0000] transition-all">
-                  Learn More About Us <ArrowRight size={18} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2 Wheeler Brands - Clean modern grid */}
-      <section className="py-24 bg-gray-50 overflow-hidden border-b border-gray-100">
-        <div className="max-w-[1400px] mx-auto px-6 text-center mb-16">
-          <span className="text-[#ff0000] font-bold text-sm uppercase tracking-widest block mb-4">Our Portfolio</span>
-          <h2 className="text-4xl md:text-5xl font-black italic uppercase">2 Wheeler <span className="text-gray-400">Brands</span></h2>
-        </div>
-        
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {[
-              { name: "Honda", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg" },
-              { name: "Bajaj", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Bajaj_Auto_Logo.svg" },
-              { name: "TVS", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d1/TVS_Motor_Company_Logo.svg" },
-              { name: "Suzuki", logo: "https://upload.wikimedia.org/wikipedia/commons/1/12/Suzuki_logo_2.svg" },
-              { name: "Hero", logo: "https://upload.wikimedia.org/wikipedia/commons/4/45/Hero_MotoCorp_Logo.svg" },
-              { name: "Yamaha", logo: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Yamaha_Motor_Logo.svg" },
-              { name: "KTM", logo: "https://upload.wikimedia.org/wikipedia/commons/a/ad/KTM-Logo.svg" },
-              { name: "Osram", logo: "https://upload.wikimedia.org/wikipedia/commons/9/91/Osram-logo.svg" },
-              { name: "Uno Minda", logo: "https://upload.wikimedia.org/wikipedia/en/9/9c/Uno_Minda_logo.png" },
-              { name: "Bosch", logo: "https://upload.wikimedia.org/wikipedia/commons/1/16/Bosch-logo.svg" },
-              { name: "SKF", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a0/SKF_logo.svg" },
-              { name: "NGK", logo: "https://upload.wikimedia.org/wikipedia/commons/e/e5/NGK_Logo.svg" }
-            ].map((brand, i) => (
-              <div key={i} className="aspect-[3/2] bg-white border border-gray-100 flex items-center justify-center p-8 grayscale hover:grayscale-0 transition-all duration-500 group relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <img src={brand.logo} alt={brand.name} className="max-h-12 w-auto object-contain relative z-10 transition-transform duration-500 group-hover:scale-110" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      {/* Features - Modern iconography */}
-      <section className="py-24">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            {[
-              { icon: Shield, title: "Genuine Quality", desc: "Every part distributed is 100% authentic and original." },
-              { icon: Globe, title: "Wide Network", desc: "Serving a vast network of retailers and service centers." },
-              { icon: Award, title: "Certified Partner", desc: "Official regional distributor for Hero Motocorp." },
-              { icon: Settings, title: "Technical Support", desc: "Full logistical and technical support for all brands." }
-            ].map((feature, i) => (
-              <div key={i} className="group">
-                <div className="w-16 h-16 bg-[#ff0000]/5 flex items-center justify-center rounded-2xl mb-8 group-hover:bg-[#ff0000] transition-all duration-500">
-                  <feature.icon size={32} className="text-[#ff0000] group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="text-xl font-bold mb-4 uppercase italic tracking-tight">{feature.title}</h3>
-                <p className="text-gray-500 leading-relaxed text-[15px]">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 bg-black relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-1/3 h-full bg-[#ff0000]/10 skew-x-[-20deg] translate-x-20" />
-        <div className="max-w-[1400px] mx-auto px-6 relative z-10 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-12">
-          <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-6xl font-black text-white italic uppercase mb-6 leading-tight">
-              Ready to upgrade your <span className="text-[#ff0000]">Supply Chain?</span>
-            </h2>
-            <p className="text-gray-400 text-lg">
-              Join our growing network of successful partners and retailers across the region.
+          {/* Subtext */}
+          <div className="animate-fade-up-delay-2 mt-6 max-w-md lg:mt-8">
+            <p className="font-inter text-sm leading-relaxed text-white/70 sm:text-base">
+              We build fierce brand identities
+              <br className="hidden sm:block" />
+              that don't just turn heads --{" "}
+              <span className="font-bold text-white">they lead.</span>
             </p>
           </div>
-          <Link to="/contact" className="bg-[#ff0000] text-white px-12 py-5 font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
-            Become a Partner
-          </Link>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="bg-white pt-24 pb-12 border-t border-gray-100">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-            <div className="col-span-1 md:col-span-2">
-              <img src="/hero-motoconnect.png" alt="Motoconnect Logo" className="h-12 mb-8" />
-              <p className="text-gray-500 max-w-sm leading-relaxed">
-                Motoconnect is a premier group of companies specializing in the distribution of high-quality automotive parts and mobility solutions.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-bold uppercase tracking-widest text-sm mb-8">Navigation</h4>
-              <ul className="space-y-4 text-[15px] text-gray-500 font-medium">
-                <li><Link to="/" className="hover:text-[#ff0000]">Home</Link></li>
-                <li><Link to="/products" className="hover:text-[#ff0000]">Products</Link></li>
-                <li><Link to="/distribution" className="hover:text-[#ff0000]">Distribution</Link></li>
-                <li><Link to="/contact" className="hover:text-[#ff0000]">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold uppercase tracking-widest text-sm mb-8">Contact Info</h4>
-              <ul className="space-y-4 text-[15px] text-gray-500 leading-relaxed">
-                <li>Authorized Hero Distributor, UAE</li>
-                <li>contact@motoconnect.ae</li>
-                <li>+971 (0) 4 123 4567</li>
-              </ul>
+          {/* CTA Row */}
+          <div className="animate-fade-up-delay-3 mt-8 flex flex-wrap items-center gap-4 sm:gap-6 lg:mt-10">
+            <button className="group flex items-center gap-2 bg-black px-6 py-3.5 text-[11px] font-bold tracking-[0.2em] text-white transition-all hover:bg-neutral-900 uppercase sm:px-7 sm:py-4 sm:text-xs">
+              See Our Work
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </button>
+
+            <div className="hidden items-center gap-3 sm:flex">
+              <Award className="h-8 w-8 text-white/50" />
+              <div className="font-inter text-[10px] tracking-wider text-white/60 uppercase">
+                <div>Top-Rated</div>
+                <div className="font-bold">Brand Studio</div>
+              </div>
             </div>
           </div>
-          <div className="pt-12 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-sm text-gray-400 font-medium tracking-tight">© 2026 Motoconnect Group. All rights reserved.</p>
-            <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-gray-400">
-              <a href="#" className="hover:text-[#ff0000]">Privacy Policy</a>
-              <a href="#" className="hover:text-[#ff0000]">Terms of Service</a>
+
+          {/* Stats Row */}
+          <div className="animate-fade-up-delay-4 mt-12 flex flex-wrap gap-8 sm:mt-16 sm:gap-12 lg:mt-20 lg:gap-16">
+            <div className="space-y-1">
+              <div className="font-inter text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                250+
+              </div>
+              <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                Brands Transformed
+              </div>
+            </div>
+            <div className="space-y-1">
+              <div className="font-inter text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                95%
+              </div>
+              <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                Client Retention
+              </div>
+            </div>
+            <div className="space-y-1">
+              <div className="font-inter text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                10+
+              </div>
+              <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                Years in the Game
+              </div>
             </div>
           </div>
         </div>
-      </footer>
+      </div>
+
+      {/* Scroll indicator or bottom accent could go here if needed, but the prompt asked for a single viewport section */}
     </div>
   );
 }
-
