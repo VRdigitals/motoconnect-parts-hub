@@ -446,14 +446,14 @@ function VanguardHero() {
 
 function AboutSection() {
   return (
-    <section id="about" className="relative min-h-screen w-full flex items-center overflow-hidden">
+    <section id="about" className="relative w-full aspect-video mx-auto flex items-center overflow-hidden max-h-screen">
       {/* Background with the uploaded video */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 z-0 h-full w-full object-cover"
+        className="absolute inset-0 z-0 h-full w-full object-contain bg-black"
       >
         <source src={(aboutBgVideoAsset as any)?.url} type="video/mp4" />
       </video>
