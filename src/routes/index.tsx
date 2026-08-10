@@ -357,8 +357,9 @@ function AboutSection() {
         <source src={(aboutBgVideoAsset as any)?.url} type="video/mp4" />
       </video>
       
-      {/* Subtle readability gradient for text */}
-      <div className="absolute inset-y-0 left-0 w-full md:w-[60%] z-10 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+      {/* Gradient for smooth transition from Hero and for text readability */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black via-transparent to-transparent h-48" />
+      <div className="absolute inset-y-0 left-0 w-full md:w-[60%] z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
 
       {/* Main Container */}
       <div className="relative z-20 w-full px-6 sm:px-10 lg:px-24 py-24">
