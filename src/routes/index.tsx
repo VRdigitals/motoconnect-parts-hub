@@ -170,6 +170,7 @@ function VanguardHero() {
     {
       id: 1,
       video: (heroVideo1Asset as any)?.url || "",
+      bg: "",
       tagline: "Genuine Automobile Spare Parts Collection",
       title: (
         <>
@@ -189,6 +190,7 @@ function VanguardHero() {
     {
       id: 2,
       video: (heroVideo2Asset as any)?.url || "",
+      bg: "",
       tagline: "Trusted Partner for Global Brands",
       title: (
         <>
@@ -249,7 +251,7 @@ function VanguardHero() {
             <div 
               className="absolute inset-0 h-full w-full bg-contain bg-center bg-no-repeat opacity-80 bg-black"
               style={{ 
-                backgroundImage: slide.bg ? `url(${slide.bg})` : 'none',
+                backgroundImage: (slide as any).bg ? `url(${(slide as any).bg})` : 'none',
               }}
             />
           )}
