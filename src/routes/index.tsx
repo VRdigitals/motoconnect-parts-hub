@@ -492,15 +492,15 @@ function BrandsSection() {
           {brands.map((brand, index) => (
             <div 
               key={brand.name} 
-              className="group relative flex items-center justify-center p-8 transition-all hover:bg-gray-50 border-r border-b border-gray-100 overflow-hidden animate-in fade-in duration-700 fill-mode-both"
+              className="group relative flex items-center justify-center transition-all hover:bg-gray-50 border-r border-b border-gray-100 overflow-hidden animate-in fade-in duration-700 fill-mode-both"
               style={{ animationDelay: `${index * 50}ms` }}
             >
               {/* Red Neon Glow Effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20">
                 <div className="absolute inset-0 border-2 border-[#ff0000] shadow-[0_0_20px_rgba(255,0,0,0.5),inset_0_0_20px_rgba(255,0,0,0.3)]" />
               </div>
               
-              <div className="relative h-28 w-full transition-transform duration-500 group-hover:scale-110 z-10">
+              <div className="relative h-48 w-full transition-transform duration-500 group-hover:scale-105 z-10">
                 <img
                   src={brand.logo}
                   alt={brand.name}
