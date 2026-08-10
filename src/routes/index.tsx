@@ -235,10 +235,9 @@ function VanguardHero() {
         >
           {/* Background Image */}
           <div 
-            className="absolute inset-0 h-full w-full bg-contain bg-center bg-no-repeat opacity-80"
+            className="absolute inset-0 h-full w-full bg-contain bg-center bg-no-repeat opacity-80 bg-black"
             style={{ 
               backgroundImage: `url(${slide.bg})`,
-              aspectRatio: '16/9'
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
