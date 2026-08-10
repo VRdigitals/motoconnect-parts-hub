@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Award, Crown, X, Menu } from "lucide-react";
 import { useState } from "react";
 import logoAsset from "@/assets/hero-motoconnect.png.asset.json";
+import heroBgAsset from "@/assets/hero-background.png.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,19 +30,13 @@ function VanguardHero() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-black font-inter selection:bg-white selection:text-black">
-      {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover opacity-60"
-      >
-        <source
-          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260606_154941_df1a96e1-a06f-450c-bd02-d863414cc1a0.mp4"
-          type="video/mp4"
-        />
-      </video>
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 h-full w-full bg-cover bg-center opacity-60 mix-blend-overlay"
+        style={{ backgroundImage: `url(${heroBgAsset.url})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-0" />
+
 
       {/* Navbar */}
       <nav className="relative z-40 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16 lg:py-7">
