@@ -137,7 +137,7 @@ function VanguardHero() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="animate-fade-up-delay-1 font-podium text-[clamp(2.8rem,7vw,6.5rem)] leading-[0.92] tracking-tight text-white uppercase">
+          <h1 className="animate-fade-up-delay-1 font-podium text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.92] tracking-tight text-white uppercase">
             Design.
             <br />
             Disrupt.
@@ -146,7 +146,7 @@ function VanguardHero() {
           </h1>
 
           {/* Subtext */}
-          <div className="animate-fade-up-delay-2 mt-6 max-w-md lg:mt-8">
+          <div className="animate-fade-up-delay-2 mt-4 max-w-md lg:mt-6">
             <p className="font-inter text-sm leading-relaxed text-white/70 sm:text-base">
               We build fierce brand identities
               <br className="hidden sm:block" />
@@ -156,7 +156,7 @@ function VanguardHero() {
           </div>
 
           {/* CTA Row */}
-          <div className="animate-fade-up-delay-3 mt-8 flex flex-wrap items-center gap-4 sm:gap-6 lg:mt-10">
+          <div className="animate-fade-up-delay-3 mt-6 flex flex-wrap items-center gap-4 sm:gap-6 lg:mt-8">
             <button className="group flex items-center gap-2 bg-black px-6 py-3.5 text-[11px] font-bold tracking-[0.2em] text-white transition-all hover:bg-neutral-900 uppercase sm:px-7 sm:py-4 sm:text-xs">
               See Our Work
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -172,9 +172,9 @@ function VanguardHero() {
           </div>
 
           {/* Stats Row */}
-          <div className="animate-fade-up-delay-4 mt-8 flex flex-wrap gap-8 sm:mt-10 lg:mt-12 lg:gap-16">
+          <div className="animate-fade-up-delay-4 mt-6 flex flex-wrap gap-8 sm:mt-8 lg:mt-10 lg:gap-16">
             <div className="space-y-1">
-              <div className="font-inter text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
                 250+
               </div>
               <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
@@ -182,7 +182,7 @@ function VanguardHero() {
               </div>
             </div>
             <div className="space-y-1">
-              <div className="font-inter text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
                 95%
               </div>
               <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
@@ -190,7 +190,7 @@ function VanguardHero() {
               </div>
             </div>
             <div className="space-y-1">
-              <div className="font-inter text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
                 10+
               </div>
               <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
