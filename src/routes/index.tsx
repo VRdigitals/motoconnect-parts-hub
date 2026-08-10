@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight, Menu } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 
 import logoAsset from "@/assets/hero-motoconnect.png.asset.json";
+import heroBgAsset from "@/assets/hero-background.png.asset.json";
 import heroBgAsset2 from "@/assets/hero-background-2.png.asset.json";
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -82,21 +82,129 @@ function VanguardHero() {
     { name: "Contact", href: "/contact" },
   ];
 
-
   return (
     <div className="relative h-screen w-full overflow-hidden bg-black font-inter selection:bg-white selection:text-black">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-80"
-        style={{ backgroundImage: `url(${heroBgAsset.url})` }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent z-0" />
+      {/* Slides */}
+      {slides.map((slide, index) => (
+        <div
+          key={slide.id}
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}
+        >
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-80"
+            style={{ backgroundImage: `url(${slide.bg})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
 
+          {/* Slide Content */}
+          <div className="relative z-20 flex h-full items-center px-6 sm:px-10 lg:px-16">
+            <div className={`max-w-4xl transition-all duration-1000 delay-300 ${
+              index === currentSlide ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            }`}>
+              {/* Tagline */}
+              <div className="mb-6 flex items-center gap-3 lg:mb-8">
+                <Crown className="h-4 w-4 text-[#ff0000]" />
+                <span className="font-inter text-[10px] font-medium tracking-[0.3em] text-white/70 uppercase sm:text-xs">
+                  {slide.tagline}
+                </span>
+              </div>
 
+              {/* Main Heading */}
+              <h1 className="font-podium text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] tracking-tight text-white uppercase">
+                {slide.title}
+              </h1>
+
+              {/* Subtext */}
+              <div className="mt-4 max-w-lg lg:mt-6">
+                <p className="font-inter text-sm leading-relaxed text-white/70 sm:text-base">
+                  {slide.description}
+                </p>
+              </div>
+
+              {/* CTA Row */}
+              <div className="mt-6 flex flex-wrap items-center gap-4 sm:gap-6 lg:mt-8">
+                <button className="group flex items-center gap-2 bg-[#ff0000] px-6 py-3.5 text-[11px] font-bold tracking-[0.2em] text-white transition-all hover:bg-[#cc0000] uppercase sm:px-7 sm:py-4 sm:text-xs">
+                  {slide.cta}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </button>
+
+                <div className="hidden items-center gap-3 sm:flex">
+                  <Award className="h-8 w-8 text-white/50" />
+                  <div className="font-inter text-[10px] tracking-wider text-white/60 uppercase">
+                    <div>Top Rated</div>
+                    <div className="font-bold">Brand Studio : 100% Genuine Parts</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stats Row (Only for first slide) */}
+              {slide.hasStats && (
+                <div className="mt-6 flex flex-wrap gap-8 sm:mt-8 lg:mt-10 lg:gap-16">
+                  <div className="space-y-1">
+                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                      10K+
+                    </div>
+                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                      PARTS STOCKED
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                      30+
+                    </div>
+                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                      BRANDS
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                      50K+
+                    </div>
+                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                      CUSTOMERS
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {/* Slider Controls */}
+      <div className="absolute bottom-10 right-10 z-30 flex items-center gap-4">
+        <button 
+          onClick={prevSlide}
+          className="group flex h-12 w-12 items-center justify-center border border-white/20 bg-black/20 text-white backdrop-blur-sm transition-all hover:border-[#ff0000] hover:bg-[#ff0000]"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button 
+          onClick={nextSlide}
+          className="group flex h-12 w-12 items-center justify-center border border-white/20 bg-black/20 text-white backdrop-blur-sm transition-all hover:border-[#ff0000] hover:bg-[#ff0000]"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+      </div>
+
+      {/* Slide Indicators */}
+      <div className="absolute bottom-10 left-10 z-30 flex gap-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`h-1 transition-all duration-300 ${
+              index === currentSlide ? "w-8 bg-[#ff0000]" : "w-4 bg-white/30"
+            }`}
+          />
+        ))}
+      </div>
 
       {/* Navbar */}
-      <nav className="relative z-40 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16 lg:py-7">
-        {/* Left: Brand Logo */}
+      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16 lg:py-7">
         <div className="flex items-center">
           <img 
             src={logoAsset.url} 
@@ -105,7 +213,6 @@ function VanguardHero() {
           />
         </div>
 
-        {/* Center: Desktop Nav */}
         <div className="hidden items-center gap-8 md:flex lg:gap-12">
           {navLinks.map((link) => (
             <a
@@ -118,7 +225,6 @@ function VanguardHero() {
           ))}
         </div>
 
-        {/* Right: Desktop CTA */}
         <div className="hidden md:block">
           <a
             href="#contact"
@@ -129,7 +235,6 @@ function VanguardHero() {
           </a>
         </div>
 
-        {/* Mobile Hamburger */}
         <button
           className="flex flex-col space-y-1.5 md:hidden"
           onClick={() => setMenuOpen(true)}
@@ -186,83 +291,6 @@ function VanguardHero() {
             GET A QUOTE
             <ArrowUpRight className="h-4 w-4" />
           </a>
-        </div>
-      </div>
-
-      {/* Hero Content */}
-      <div className="relative z-10 flex h-full items-center px-6 sm:px-10 lg:px-16">
-        <div className="max-w-4xl">
-          {/* Tagline */}
-          <div className="animate-fade-up mb-6 flex items-center gap-3 lg:mb-8">
-            <Crown className="h-4 w-4 text-[#ff0000]" />
-            <span className="font-inter text-[10px] font-medium tracking-[0.3em] text-white/70 uppercase sm:text-xs">
-              Genuine Automobile Spare Parts Collection
-            </span>
-          </div>
-
-          {/* Main Heading */}
-          <h1 className="animate-fade-up-delay-1 font-podium text-[clamp(2rem,6vw,4.5rem)] leading-[0.95] tracking-tight text-white uppercase">
-            TOP
-            <br />
-            AUTOMOBILE.
-            <br />
-            DISTRIBUTOR.
-            <br />
-            IN UAE.
-          </h1>
-
-          {/* Subtext */}
-          <div className="animate-fade-up-delay-2 mt-4 max-w-lg lg:mt-6">
-            <p className="font-inter text-sm leading-relaxed text-white/70 sm:text-base">
-              Delivering genuine products at competitive prices
-              <br className="hidden sm:block" />
-              to automotive businesses across the UAE and other regions.
-            </p>
-          </div>
-
-          {/* CTA Row */}
-          <div className="animate-fade-up-delay-3 mt-6 flex flex-wrap items-center gap-4 sm:gap-6 lg:mt-8">
-            <button className="group flex items-center gap-2 bg-[#ff0000] px-6 py-3.5 text-[11px] font-bold tracking-[0.2em] text-white transition-all hover:bg-[#cc0000] uppercase sm:px-7 sm:py-4 sm:text-xs">
-              Product Portfolio
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
-
-            <div className="hidden items-center gap-3 sm:flex">
-              <Award className="h-8 w-8 text-white/50" />
-              <div className="font-inter text-[10px] tracking-wider text-white/60 uppercase">
-                <div>Top Rated</div>
-                <div className="font-bold">Brand Studio : 100% Genuine Parts</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Stats Row */}
-          <div className="animate-fade-up-delay-4 mt-6 flex flex-wrap gap-8 sm:mt-8 lg:mt-10 lg:gap-16">
-            <div className="space-y-1">
-              <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
-                10K+
-              </div>
-              <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
-                PARTS STOCKED
-              </div>
-            </div>
-            <div className="space-y-1">
-              <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
-                30+
-              </div>
-              <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
-                BRANDS
-              </div>
-            </div>
-            <div className="space-y-1">
-              <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
-                50K+
-              </div>
-              <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
-                CUSTOMERS
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
