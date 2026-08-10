@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight, Target, Eye, ShieldCheck, Zap } from "lucide-react";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
 
 import logoAsset from "../assets/hero-motoconnect.png.asset.json";
 import heroBgAsset from "../assets/hero-background.png.asset.json";
@@ -24,7 +24,7 @@ function MainLayout() {
   return (
     <div className="bg-black font-inter selection:bg-white selection:text-black">
       <VanguardHero />
-      <AboutSection />
+      
     </div>
   );
 }
@@ -307,150 +307,3 @@ function VanguardHero() {
   );
 }
 
-function AboutSection() {
-  const [activeTab, setActiveTab] = useState<'mission' | 'vision'>('mission');
-  
-  return (
-    <section id="about" className="relative min-h-screen py-24 px-6 sm:px-10 lg:px-16 overflow-hidden bg-[#0A0A0A]">
-      {/* Background patterns */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none" 
-           style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-      
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Content Side */}
-          <div className="order-2 lg:order-1 space-y-12">
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-[2px] bg-[#ff0000]" />
-                <span className="text-[#ff0000] text-xs font-bold tracking-[0.4em] uppercase">About Us</span>
-              </div>
-              
-              <h2 className="font-podium text-5xl sm:text-7xl lg:text-8xl text-white leading-[0.9] uppercase tracking-tighter">
-                OUR MISSION:<br />
-                <span className="text-[#ff0000]">ENGINEERING</span><br />
-                EXCELLENCE.
-              </h2>
-              
-              <p className="text-white/60 text-lg leading-relaxed max-w-xl">
-                We are committed to delivering genuine products at competitive prices to automotive businesses across the UAE and other regions. Our dedication to quality and service ensures your fleet stays on the road.
-              </p>
-            </div>
-
-            {/* Mission / Vision Interactive Area */}
-            <div className="space-y-8">
-              <div className="flex gap-10 border-b border-white/10">
-                <button 
-                  onClick={() => setActiveTab('mission')}
-                  className={`pb-4 text-[10px] font-bold tracking-[0.3em] uppercase transition-all relative ${activeTab === 'mission' ? 'text-white' : 'text-white/30 hover:text-white/60'}`}
-                >
-                  THE MISSION
-                  {activeTab === 'mission' && <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#ff0000]" />}
-                </button>
-                <button 
-                  onClick={() => setActiveTab('vision')}
-                  className={`pb-4 text-[10px] font-bold tracking-[0.3em] uppercase transition-all relative ${activeTab === 'vision' ? 'text-white' : 'text-white/30 hover:text-white/60'}`}
-                >
-                  THE VISION
-                  {activeTab === 'vision' && <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#ff0000]" />}
-                </button>
-              </div>
-
-              <div className="min-h-[160px]">
-                {activeTab === 'mission' ? (
-                  <div className="animate-in fade-in slide-in-from-left-4 duration-500 space-y-6">
-                    <div className="flex items-start gap-5">
-                      <div className="w-10 h-10 rounded bg-[#ff0000]/10 flex items-center justify-center shrink-0 border border-[#ff0000]/20">
-                        <Target className="w-5 h-5 text-[#ff0000]" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-bold text-sm mb-2 uppercase tracking-widest">Precision Supply</h4>
-                        <p className="text-white/50 text-sm leading-relaxed">
-                          Ensuring every part we distribute meets the highest standards of engineering excellence and authentic certification.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-5">
-                      <div className="w-10 h-10 rounded bg-[#ff0000]/10 flex items-center justify-center shrink-0 border border-[#ff0000]/20">
-                        <Zap className="w-5 h-5 text-[#ff0000]" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-bold text-sm mb-2 uppercase tracking-widest">Agile Distribution</h4>
-                        <p className="text-white/50 text-sm leading-relaxed">
-                          Building a lightning-fast supply chain that connects global manufacturers to local workshops without delay.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="animate-in fade-in slide-in-from-right-4 duration-500 space-y-6">
-                    <div className="flex items-start gap-5">
-                      <div className="w-10 h-10 rounded bg-[#ff0000]/10 flex items-center justify-center shrink-0 border border-[#ff0000]/20">
-                        <Eye className="w-5 h-5 text-[#ff0000]" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-bold text-sm mb-2 uppercase tracking-widest">Industry Leadership</h4>
-                        <p className="text-white/50 text-sm leading-relaxed">
-                          To be the most trusted name in automotive spare parts across the Middle East, setting the benchmark for authenticity.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-5">
-                      <div className="w-10 h-10 rounded bg-[#ff0000]/10 flex items-center justify-center shrink-0 border border-[#ff0000]/20">
-                        <ShieldCheck className="w-5 h-5 text-[#ff0000]" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-bold text-sm mb-2 uppercase tracking-widest">Connected Future</h4>
-                        <p className="text-white/50 text-sm leading-relaxed">
-                          Innovating the way spare parts are sourced and delivered through advanced digital tracking and logistics.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <button className="group relative overflow-hidden bg-[#ff0000] px-10 py-5 text-[10px] font-bold tracking-[0.3em] text-white uppercase transition-all hover:pr-12">
-              <span className="relative z-10 flex items-center gap-3">
-                Read Our Story
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </span>
-              <div className="absolute inset-0 bg-white/10 translate-y-full transition-transform group-hover:translate-y-0" />
-            </button>
-          </div>
-
-          {/* Image Side */}
-          <div className="order-1 lg:order-2 relative group">
-            {/* Main Image with masking/frame */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl">
-              <img 
-                src={(aboutVisionAsset as any)?.url || ""} 
-                alt="Motoconnect Engineering" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
-              
-              {/* Floating Badge */}
-              <div className="absolute top-10 right-10 w-24 h-24 bg-white/5 backdrop-blur-xl rounded-full border border-white/20 flex flex-col items-center justify-center animate-pulse">
-                <div className="text-[10px] text-white/50 uppercase tracking-tighter">Est.</div>
-                <div className="text-2xl font-podium text-white leading-none">2026</div>
-              </div>
-
-              {/* Decorative elements */}
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <div className="flex items-center gap-4">
-                  <img src={(logoAsset as any)?.url} alt="Logo" className="h-6 w-auto opacity-50 grayscale invert" />
-                  <div className="h-[1px] flex-1 bg-white/20" />
-                </div>
-              </div>
-            </div>
-
-            {/* Background decorative glow */}
-            <div className="absolute -inset-4 bg-[#ff0000]/20 blur-3xl rounded-full -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
