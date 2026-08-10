@@ -53,7 +53,7 @@ export const Route = createFileRoute("/")({
 
 function MainLayout() {
   return (
-    <div className="bg-black font-inter selection:bg-white selection:text-black">
+    <div className="bg-black font-raleway selection:bg-white selection:text-black">
       <VanguardHero />
       <AboutSection />
       <BrandsSection />
@@ -149,7 +149,7 @@ function VanguardHero() {
               {/* Tagline */}
               <div className="mb-6 flex items-center gap-3 lg:mb-8">
                 <Crown className="h-4 w-4 text-[#ff0000]" />
-                <span className="font-inter text-[10px] font-medium tracking-[0.3em] text-white/70 uppercase sm:text-xs">
+                <span className="font-raleway text-[10px] font-medium tracking-[0.3em] text-white/70 uppercase sm:text-xs">
                   {slide.tagline}
                 </span>
               </div>
@@ -161,7 +161,7 @@ function VanguardHero() {
 
               {/* Subtext */}
               <div className="mt-4 max-w-lg lg:mt-6">
-                <p className="font-inter text-sm leading-relaxed text-white/70 sm:text-base">
+                <p className="font-raleway text-sm leading-relaxed text-white/70 sm:text-base">
                   {slide.description}
                 </p>
               </div>
@@ -175,7 +175,7 @@ function VanguardHero() {
 
                 <div className="hidden items-center gap-3 sm:flex">
                   <Award className="h-8 w-8 text-white/50" />
-                  <div className="font-inter text-[10px] tracking-wider text-white/60 uppercase">
+                  <div className="font-raleway text-[10px] tracking-wider text-white/60 uppercase">
                     <div>Top Rated</div>
                     <div className="font-bold">100% Genuine Parts</div>
                   </div>
@@ -186,26 +186,26 @@ function VanguardHero() {
               {slide.hasStats && (
                 <div className="mt-6 flex flex-wrap gap-8 sm:mt-8 lg:mt-10 lg:gap-16">
                   <div className="space-y-1">
-                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                    <div className="font-raleway text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
                       10K+
                     </div>
-                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                    <div className="font-raleway text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
                       PARTS STOCKED
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                    <div className="font-raleway text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
                       30+
                     </div>
-                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                    <div className="font-raleway text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
                       BRANDS
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <div className="font-inter text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+                    <div className="font-raleway text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
                       50K+
                     </div>
-                    <div className="font-inter text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
+                    <div className="font-raleway text-[9px] font-medium tracking-widest text-white/50 uppercase sm:text-xs">
                       CUSTOMERS
                     </div>
                   </div>
@@ -260,7 +260,7 @@ function VanguardHero() {
             <a
               key={link.name}
               href={link.href}
-              className="font-inter text-sm tracking-[0.2em] text-white/80 transition-colors hover:text-white uppercase"
+              className="font-raleway text-sm tracking-[0.2em] text-white/80 transition-colors hover:text-white uppercase"
             >
               {link.name}
             </a>
@@ -362,7 +362,7 @@ function AboutSection() {
           
           {/* Kicker */}
           <div className="flex items-center gap-4">
-            <span className="font-inter text-xs font-bold tracking-[0.3em] text-white/90 uppercase">
+            <span className="font-raleway text-xs font-bold tracking-[0.3em] text-white/90 uppercase">
               ABOUT US
             </span>
             <div className="h-0.5 w-10 bg-[#ff0000]" />
@@ -376,7 +376,7 @@ function AboutSection() {
           </h2>
 
           {/* Body Text */}
-          <p className="font-inter text-base md:text-lg leading-relaxed text-white/80 max-w-lg">
+          <p className="font-raleway text-base md:text-lg leading-relaxed text-white/80 max-w-lg">
             Motoconnect is an authorised distributor of genuine automobile spare parts,
             committed to delivering authentic products at competitive prices to automotive
             businesses across the UAE and beyond.
@@ -408,7 +408,7 @@ function AboutSection() {
             <path d="M4 12L12 16L20 12" stroke="white" strokeWidth="2" />
           </svg>
         </div>
-        <span className="font-inter text-[10px] font-bold tracking-[0.4em] text-white uppercase">MOTO CONNECT</span>
+        <span className="font-raleway text-[10px] font-bold tracking-[0.4em] text-white uppercase">MOTO CONNECT</span>
       </div>
 
       {/* Bottom Right Navigation Arrows */}
