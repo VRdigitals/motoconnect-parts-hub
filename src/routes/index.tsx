@@ -62,7 +62,101 @@ function MainLayout() {
       <section className="bg-black py-24 border-t border-white/5">
         <TestimonialCarousel />
       </section>
+      <Footer />
     </div>
+  );
+}
+
+function Footer() {
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "#about" },
+    { name: "Brand Portfolio", href: "/products" },
+    { name: "Contact", href: "/contact" },
+  ];
+
+  return (
+    <footer className="bg-[#050505] text-white pt-24 pb-12 border-t border-white/5">
+      <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-20">
+          {/* Brand Column */}
+          <div className="space-y-8">
+            <img 
+              src={(logoAsset as any)?.url || ""} 
+              alt="Motoconnect" 
+              className="h-12 w-auto object-contain"
+            />
+            <p className="font-raleway text-sm leading-relaxed text-white/50 max-w-xs">
+              Dubai's premier destination for genuine automobile spare parts. Delivering engineering excellence and authentic products across the UAE.
+            </p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-podium text-xl uppercase italic mb-8 tracking-wider">Quick Links</h4>
+            <ul className="space-y-4">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a href={link.href} className="font-raleway text-sm text-white/50 hover:text-[#ff0000] transition-colors uppercase tracking-widest">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Details */}
+          <div>
+            <h4 className="font-podium text-xl uppercase italic mb-8 tracking-wider">Contact Us</h4>
+            <ul className="space-y-6">
+              <li className="flex items-start gap-4 group">
+                <div className="mt-1 h-2 w-2 rounded-full bg-[#ff0000] shadow-[0_0_10px_#ff0000]" />
+                <span className="font-raleway text-sm text-white/50 leading-relaxed">
+                  Al Ghazal Mall, Showroom SG-15, Dubai
+                </span>
+              </li>
+              <li className="flex items-center gap-4 group">
+                <div className="h-2 w-2 rounded-full bg-[#ff0000] shadow-[0_0_10px_#ff0000]" />
+                <a href="mailto:sales@motoconnect.ae" className="font-raleway text-sm text-white/50 hover:text-white transition-colors">
+                  sales@motoconnect.ae
+                </a>
+              </li>
+              <li className="flex items-center gap-4 group">
+                <div className="h-2 w-2 rounded-full bg-[#ff0000] shadow-[0_0_10px_#ff0000]" />
+                <a href="tel:+971566561083" className="font-raleway text-sm text-white/50 hover:text-white transition-colors">
+                  +971 56 656 1083
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Map Column */}
+          <div className="lg:col-span-1">
+            <h4 className="font-podium text-xl uppercase italic mb-8 tracking-wider">Our Location</h4>
+            <div className="relative h-48 w-full rounded-sm overflow-hidden border border-white/10 group">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3745.246913367469!2d55.2724718!3d25.237912599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f436dbed49315%3A0x3110109b76ee9e78!2sMoto%20Connect%20-%20Hero%20Motorcycles-UAE!5e1!3m2!1sen!2sae!4v1786392199349!5m2!1sen!2sae" 
+                className="absolute inset-0 w-full h-full grayscale-[0.8] contrast-[1.2] invert-[0.9] hover:grayscale-0 transition-all duration-700"
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="font-raleway text-[10px] tracking-widest text-white/30 uppercase">
+            © 2026 MOTOCONNECT. ALL RIGHTS RESERVED.
+          </p>
+          <div className="flex gap-8">
+            <a href="#" className="font-raleway text-[10px] tracking-widest text-white/30 hover:text-white uppercase transition-colors">Privacy Policy</a>
+            <a href="#" className="font-raleway text-[10px] tracking-widest text-white/30 hover:text-white uppercase transition-colors">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }
 
