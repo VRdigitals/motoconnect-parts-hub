@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight, Menu } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 
-import logoAsset from "@/assets/hero-motoconnect.png.asset.json";
-import heroBgAsset from "@/assets/hero-background.png.asset.json";
-import heroBgAsset2 from "@/assets/hero-background-2.png.asset.json";
+import logoAsset from "../assets/hero-motoconnect.png.asset.json";
+import heroBgAsset from "../assets/hero-background.png.asset.json";
+import heroBgAsset2 from "../assets/hero-background-2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,7 +26,7 @@ function VanguardHero() {
   const slides = [
     {
       id: 1,
-      bg: heroBgAsset.url,
+      bg: (heroBgAsset as any)?.url || "",
       tagline: "Genuine Automobile Spare Parts Collection",
       title: (
         <>
@@ -45,7 +45,7 @@ function VanguardHero() {
     },
     {
       id: 2,
-      bg: heroBgAsset2.url,
+      bg: (heroBgAsset2 as any)?.url || "",
       tagline: "Trusted Partner for Global Brands",
       title: (
         <>
@@ -207,7 +207,7 @@ function VanguardHero() {
       <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16 lg:py-7">
         <div className="flex items-center">
           <img 
-            src={logoAsset.url} 
+            src={(logoAsset as any)?.url || ""} 
             alt="Motoconnect" 
             className="h-10 w-auto sm:h-12 lg:h-14 object-contain"
           />
@@ -253,7 +253,7 @@ function VanguardHero() {
       >
         <div className="flex items-center justify-between px-6 py-5 sm:px-10">
           <img 
-            src={logoAsset.url} 
+            src={(logoAsset as any)?.url || ""} 
             alt="Motoconnect" 
             className="h-10 w-auto"
           />
