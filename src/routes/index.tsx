@@ -59,6 +59,9 @@ function MainLayout() {
       <VanguardHero />
       <AboutSection />
       <BrandsSection />
+      <section className="bg-black py-24 border-t border-white/5">
+        <TestimonialCarousel />
+      </section>
     </div>
   );
 }
