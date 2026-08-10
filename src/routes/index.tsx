@@ -1,6 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    title: "Motoconnect | Authorized Hero Motocorp Distributor",
+    meta: [
+      { name: "description", content: "Motoconnect is the premier distribution partner for Hero Motocorp, UNO Minda, and Steelbird in the UAE." },
+      { property: "og:title", content: "Motoconnect | Authorized Hero Motocorp Distributor" },
+      { property: "og:description", content: "Leading automotive parts distribution and supply chain solutions in the UAE." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: MotoconnectHome,
 });
 
@@ -12,12 +22,14 @@ function MotoconnectHome() {
       {/* Navbar */}
       <nav className="fixed w-full z-50 bg-white/90 backdrop-blur shadow-sm">
         <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center justify-between">
-          <img src="/hero-motoconnect.png" alt="Motoconnect Logo" className="h-12" />
+          <Link to="/">
+            <img src="/hero-motoconnect.png" alt="Motoconnect Logo" className="h-12" />
+          </Link>
           <div className="flex gap-8 font-semibold text-sm tracking-wide">
-            <a href="/">Home</a>
-            <a href="/products">Products</a>
-            <a href="/distribution">Distribution</a>
-            <a href="/contact">Contact</a>
+            <Link to="/" className="[&.active]:text-[#ff0000]">Home</Link>
+            <Link to="/products" className="[&.active]:text-[#ff0000]">Products</Link>
+            <Link to="/distribution" className="[&.active]:text-[#ff0000]">Distribution</Link>
+            <Link to="/contact" className="[&.active]:text-[#ff0000]">Contact</Link>
           </div>
         </div>
       </nav>
@@ -36,12 +48,12 @@ function MotoconnectHome() {
             Premium spare parts and distribution solutions for your automotive needs.
           </p>
           <div className="flex gap-4">
-            <button className="bg-[#ff0000] px-8 py-3 font-bold uppercase tracking-widest text-sm hover:bg-black transition-colors">
+            <Link to="/products" className="bg-[#ff0000] px-8 py-3 font-bold uppercase tracking-widest text-sm hover:bg-black transition-colors">
               Explore Catalog
-            </button>
-            <button className="bg-transparent border border-white px-8 py-3 font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-colors">
+            </Link>
+            <Link to="/distribution" className="bg-transparent border border-white px-8 py-3 font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-colors">
               Our Network
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -50,18 +62,19 @@ function MotoconnectHome() {
       <section className="py-20 max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { title: "Genuine Spares", desc: "Hero Motocorp Original" },
-            { title: "Partner Brands", desc: "UNO Minda, Steelbird & More" },
-            { title: "Supply Chain", desc: "Reliable Distribution" }
+            { title: "Genuine Spares", desc: "Hero Motocorp Original", link: "/products" },
+            { title: "Partner Brands", desc: "UNO Minda, Steelbird & More", link: "/products" },
+            { title: "Supply Chain", desc: "Reliable Distribution", link: "/distribution" }
           ].map((item, i) => (
-            <div key={i} className="bg-white p-8 shadow-sm hover:shadow-xl transition-all border border-gray-100">
-              <div className="w-12 h-1 bg-[#ff0000] mb-6" />
+            <Link key={i} to={item.link as any} className="bg-white p-8 shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
+              <div className="w-12 h-1 bg-[#ff0000] mb-6 group-hover:w-full transition-all duration-300" />
               <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
               <p className="text-gray-500">{item.desc}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="bg-white py-12 px-6 text-sm text-gray-500">
