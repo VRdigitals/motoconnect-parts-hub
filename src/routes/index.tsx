@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight, Settings, Zap, ArrowRight } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { ShinyButton } from "@/components/ui/shiny-button";
+import { TestimonialCarousel } from "@/components/ui/profile-card-testimonial-carousel";
 
 import logoAsset from "../assets/hero-motoconnect.png.asset.json";
 import heroBgAsset from "../assets/hero-background.png.asset.json";
