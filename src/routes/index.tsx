@@ -143,8 +143,7 @@ function VanguardHero() {
                 <div className="hidden items-center gap-3 sm:flex">
                   <Award className="h-8 w-8 text-white/50" />
                   <div className="font-inter text-[10px] tracking-wider text-white/60 uppercase">
-                    <div>Top Rated</div>
-                    <div className="font-bold">Brand Studio : 100% Genuine Parts</div>
+                    <div className="font-bold">100% Genuine Parts</div>
                   </div>
                 </div>
               </div>
