@@ -429,7 +429,7 @@ function VanguardHero() {
           {navLinks.map((link, i) => (
             <a
               key={link.name}
-              href={link.href}
+              href={link.name === "About" ? "/about" : link.href}
               onClick={() => setMenuOpen(false)}
               className="font-podium text-3xl uppercase italic tracking-tight text-white sm:text-5xl transition-all duration-500"
               style={{
