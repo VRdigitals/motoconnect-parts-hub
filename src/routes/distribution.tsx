@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Truck, Warehouse, BarChart3, Clock, ArrowUpRight, Crown, ShieldCheck } from "lucide-react";
 import { useState, useEffect } from "react";
 
-import logoAsset from "../assets/hero-motoconnect.png.asset.json";
+import logoAsset from "../assets/hero-motoconnect.png";
 
 export const Route = createFileRoute("/distribution")({
   head: () => ({
@@ -33,7 +33,7 @@ function DistributionPage() {
           <a href="/" className="flex items-center">
             <div className="bg-white/10 backdrop-blur-md p-2 rounded-sm border border-white/10 shadow-lg">
               <img 
-                src={(logoAsset as any)?.url || ""} 
+                src={logoAsset} 
                 alt="Motoconnect" 
                 className="h-10 w-auto sm:h-12 object-contain brightness-110"
               />

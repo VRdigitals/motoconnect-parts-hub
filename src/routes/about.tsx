@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Crown, Settings, Zap, Award, CheckCircle2, Target, History } from "lucide-react";
 import { useState, useEffect } from "react";
-import logoAsset from "../assets/hero-motoconnect.png.asset.json";
-import aboutBgVideoAsset from "../assets/about-bg-video.mp4.asset.json";
-import aboutVisionAsset from "../assets/about-vision.png.asset.json";
-import aboutBgNewAsset from "../assets/about-bg-new.png.asset.json";
+import logoAsset from "../assets/hero-motoconnect.png";
+import aboutBgVideoAsset from "../assets/about-bg-video.mp4";
+import aboutVisionAsset from "../assets/about-vision.png";
+import aboutBgNewAsset from "../assets/about-bg-new.png";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -42,7 +42,7 @@ function AboutPage() {
           <a href="/" className="flex items-center">
             <div className="bg-white/10 backdrop-blur-md p-2 rounded-sm border border-white/10 shadow-lg">
               <img 
-                src={(logoAsset as any)?.url || ""} 
+                src={logoAsset} 
                 alt="Motoconnect" 
                 className="h-10 w-auto sm:h-12 object-contain brightness-110"
               />
@@ -81,7 +81,7 @@ function AboutPage() {
           loop
           playsInline
           className="absolute inset-0 h-full w-full object-cover opacity-60"
-          src={(aboutBgVideoAsset as any)?.url || ""}
+          src={aboutBgVideoAsset}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
         
@@ -144,7 +144,7 @@ function AboutPage() {
       <section className="relative py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-20 grayscale pointer-events-none">
           <img 
-            src={(aboutVisionAsset as any)?.url || ""} 
+            src={aboutVisionAsset} 
             alt="Vision" 
             className="w-full h-full object-cover"
           />
@@ -180,7 +180,7 @@ function AboutPage() {
       <footer className="bg-[#050505] text-white pt-24 pb-12 border-t border-white/5">
         <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16 text-center">
           <img 
-            src={(logoAsset as any)?.url || ""} 
+            src={logoAsset} 
             alt="Motoconnect" 
             className="h-12 w-auto mx-auto mb-12 object-contain"
           />

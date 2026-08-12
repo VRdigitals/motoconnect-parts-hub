@@ -3,33 +3,33 @@ import { ArrowUpRight, Crown, ArrowRight, Zap, Target, Shield, Globe } from "luc
 import { useState, useEffect } from "react";
 import { ShinyButton } from "@/components/ui/shiny-button";
 
-import logoAsset from "../assets/hero-motoconnect.png.asset.json";
-import bajajLogo from "../assets/bajaj.png.asset.json";
-import heroLogo from "../assets/hero.png.asset.json";
-import hondaLogo from "../assets/honda.png.asset.json";
-import ktmLogo from "../assets/ktm.png.asset.json";
-import suzukiLogo from "../assets/suzuki.png.asset.json";
-import tvsLogo from "../assets/tvs.png.asset.json";
-import gabrielLogo from "../assets/gabriel.png.asset.json";
-import ngkLogo from "../assets/ngk.png.asset.json";
-import skfLogo from "../assets/skf.png.asset.json";
-import unomindaLogo from "../assets/unominda.png.asset.json";
-import championLogo from "../assets/champion.png.asset.json";
-import goetzeLogo from "../assets/goetze.png.asset.json";
-import ifbLogo from "../assets/ifb.png.asset.json";
-import osramLogo from "../assets/osram.png.asset.json";
-import askLogo from "../assets/ask.png.asset.json";
-import astraeaLogo from "../assets/astraea.png.asset.json";
-import boschLogo from "../assets/bosch.png.asset.json";
-import enduranceLogo from "../assets/endurance.png.asset.json";
-import fccLogo from "../assets/fcc.png.asset.json";
-import rolonLogo from "../assets/rolon.png.asset.json";
-import spacoLogo from "../assets/spaco.png.asset.json";
-import studdsLogo from "../assets/studds.png.asset.json";
-import tvstyresLogo from "../assets/tvstyres.png.asset.json";
-import ushaLogo from "../assets/usha.png.asset.json";
-import varrocLogo from "../assets/varroc.png.asset.json";
-import yamahaLogo from "../assets/yamaha.png.asset.json";
+import logoAsset from "../assets/hero-motoconnect.png";
+import bajajLogo from "../assets/bajaj.png";
+import heroLogo from "../assets/hero.png";
+import hondaLogo from "../assets/honda.png";
+import ktmLogo from "../assets/ktm.png";
+import suzukiLogo from "../assets/suzuki.png";
+import tvsLogo from "../assets/tvs.png";
+import gabrielLogo from "../assets/gabriel.png";
+import ngkLogo from "../assets/ngk.png";
+import skfLogo from "../assets/skf.png";
+import unomindaLogo from "../assets/unominda.png";
+import championLogo from "../assets/champion.png";
+import goetzeLogo from "../assets/goetze.png";
+import ifbLogo from "../assets/ifb.png";
+import osramLogo from "../assets/osram.png";
+import askLogo from "../assets/ask.png";
+import astraeaLogo from "../assets/astraea.png";
+import boschLogo from "../assets/bosch.png";
+import enduranceLogo from "../assets/endurance.png";
+import fccLogo from "../assets/fcc.png";
+import rolonLogo from "../assets/rolon.png";
+import spacoLogo from "../assets/spaco.png";
+import studdsLogo from "../assets/studds.png";
+import tvstyresLogo from "../assets/tvstyres.png";
+import ushaLogo from "../assets/usha.png";
+import varrocLogo from "../assets/varroc.png";
+import yamahaLogo from "../assets/yamaha.png";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -54,37 +54,37 @@ function BrandPortfolioPage() {
     {
       title: "2 WHEELER BRANDS",
       brands: [
-        { name: "Hero", logo: (heroLogo as any).url },
-        { name: "Honda", logo: (hondaLogo as any).url },
-        { name: "Yamaha", logo: (yamahaLogo as any).url },
-        { name: "Suzuki", logo: (suzukiLogo as any).url },
-        { name: "Bajaj", logo: (bajajLogo as any).url },
-        { name: "TVS", logo: (tvsLogo as any).url },
-        { name: "KTM", logo: (ktmLogo as any).url },
+        { name: "Hero", logo: heroLogo },
+        { name: "Honda", logo: hondaLogo },
+        { name: "Yamaha", logo: yamahaLogo },
+        { name: "Suzuki", logo: suzukiLogo },
+        { name: "Bajaj", logo: bajajLogo },
+        { name: "TVS", logo: tvsLogo },
+        { name: "KTM", logo: ktmLogo },
       ]
     },
     {
       title: "SPARE PARTS & COMPONENTS",
       brands: [
-        { name: "UNO Minda", logo: (unomindaLogo as any).url },
-        { name: "Gabriel", logo: (gabrielLogo as any).url },
-        { name: "NGK", logo: (ngkLogo as any).url },
-        { name: "SKF", logo: (skfLogo as any).url },
-        { name: "Bosch", logo: (boschLogo as any).url },
-        { name: "Champion", logo: (championLogo as any).url },
-        { name: "Endurance", logo: (enduranceLogo as any).url },
-        { name: "FCC", logo: (fccLogo as any).url },
-        { name: "Goetze", logo: (goetzeLogo as any).url },
-        { name: "IFB", logo: (ifbLogo as any).url },
-        { name: "Osram", logo: (osramLogo as any).url },
-        { name: "ASK", logo: (askLogo as any).url },
-        { name: "Astraea", logo: (astraeaLogo as any).url },
-        { name: "Rolon", logo: (rolonLogo as any).url },
-        { name: "Spaco", logo: (spacoLogo as any).url },
-        { name: "Studds", logo: (studdsLogo as any).url },
-        { name: "TVS Tyres", logo: (tvstyresLogo as any).url },
-        { name: "Usha", logo: (ushaLogo as any).url },
-        { name: "Varroc", logo: (varrocLogo as any).url },
+        { name: "UNO Minda", logo: unomindaLogo },
+        { name: "Gabriel", logo: gabrielLogo },
+        { name: "NGK", logo: ngkLogo },
+        { name: "SKF", logo: skfLogo },
+        { name: "Bosch", logo: boschLogo },
+        { name: "Champion", logo: championLogo },
+        { name: "Endurance", logo: enduranceLogo },
+        { name: "FCC", logo: fccLogo },
+        { name: "Goetze", logo: goetzeLogo },
+        { name: "IFB", logo: ifbLogo },
+        { name: "Osram", logo: osramLogo },
+        { name: "ASK", logo: askLogo },
+        { name: "Astraea", logo: astraeaLogo },
+        { name: "Rolon", logo: rolonLogo },
+        { name: "Spaco", logo: spacoLogo },
+        { name: "Studds", logo: studdsLogo },
+        { name: "TVS Tyres", logo: tvstyresLogo },
+        { name: "Usha", logo: ushaLogo },
+        { name: "Varroc", logo: varrocLogo },
       ]
     }
   ];
@@ -99,7 +99,7 @@ function BrandPortfolioPage() {
           <a href="/" className="flex items-center">
             <div className="bg-white/10 backdrop-blur-md p-2 rounded-sm border border-white/10 shadow-lg">
               <img 
-                src={(logoAsset as any)?.url || ""} 
+                src={logoAsset} 
                 alt="Motoconnect" 
                 className="h-10 w-auto sm:h-12 object-contain brightness-110"
               />
