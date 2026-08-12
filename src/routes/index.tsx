@@ -72,7 +72,7 @@ function MainLayout() {
 function Footer() {
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About", href: "#about" },
+    { name: "About", href: "/about" },
     { name: "Brand Portfolio", href: "/products" },
     { name: "Contact", href: "/contact" },
   ];
@@ -380,7 +380,7 @@ function VanguardHero() {
           {navLinks.map((link) => (
             <a
               key={link.name}
-              href={link.href}
+              href={link.name === "About" ? "/about" : link.href}
               className="font-raleway text-sm tracking-[0.2em] text-white/80 transition-colors hover:text-white uppercase"
             >
               {link.name}
@@ -429,7 +429,7 @@ function VanguardHero() {
           {navLinks.map((link, i) => (
             <a
               key={link.name}
-              href={link.href}
+              href={link.name === "About" ? "/about" : link.href}
               onClick={() => setMenuOpen(false)}
               className="font-podium text-3xl uppercase italic tracking-tight text-white sm:text-5xl transition-all duration-500"
               style={{
