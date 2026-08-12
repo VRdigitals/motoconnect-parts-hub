@@ -1,127 +1,261 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Search, Filter } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowUpRight, Crown, ArrowRight, Zap, Target, Shield, Globe } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ShinyButton } from "@/components/ui/shiny-button";
+
+import logoAsset from "../assets/hero-motoconnect.png.asset.json";
+import bajajLogo from "../assets/bajaj.png.asset.json";
+import heroLogo from "../assets/hero.png.asset.json";
+import hondaLogo from "../assets/honda.png.asset.json";
+import ktmLogo from "../assets/ktm.png.asset.json";
+import suzukiLogo from "../assets/suzuki.png.asset.json";
+import tvsLogo from "../assets/tvs.png.asset.json";
+import gabrielLogo from "../assets/gabriel.png.asset.json";
+import ngkLogo from "../assets/ngk.png.asset.json";
+import skfLogo from "../assets/skf.png.asset.json";
+import unomindaLogo from "../assets/unominda.png.asset.json";
+import championLogo from "../assets/champion.png.asset.json";
+import goetzeLogo from "../assets/goetze.png.asset.json";
+import ifbLogo from "../assets/ifb.png.asset.json";
+import osramLogo from "../assets/osram.png.asset.json";
+import askLogo from "../assets/ask.png.asset.json";
+import astraeaLogo from "../assets/astraea.png.asset.json";
+import boschLogo from "../assets/bosch.png.asset.json";
+import enduranceLogo from "../assets/endurance.png.asset.json";
+import fccLogo from "../assets/fcc.png.asset.json";
+import rolonLogo from "../assets/rolon.png.asset.json";
+import spacoLogo from "../assets/spaco.png.asset.json";
+import studdsLogo from "../assets/studds.png.asset.json";
+import tvstyresLogo from "../assets/tvstyres.png.asset.json";
+import ushaLogo from "../assets/usha.png.asset.json";
+import varrocLogo from "../assets/varroc.png.asset.json";
+import yamahaLogo from "../assets/yamaha.png.asset.json";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
-    title: "Products | Motoconnect Spare Parts Catalog",
+    title: "Brand Portfolio | Motoconnect UAE",
     meta: [
-      { name: "description", content: "Browse our extensive catalog of genuine spare parts for Hero Motocorp, UNO Minda, Steelbird, and more." },
-      { property: "og:title", content: "Products | Motoconnect Spare Parts Catalog" },
-      { property: "og:description", content: "Genuine automotive parts for major brands available at Motoconnect." },
+      { name: "description", content: "Explore the global automotive brands we represent. Motoconnect is the premier distributor of genuine spare parts in the UAE." },
     ],
   }),
-  component: ProductsPage,
+  component: BrandPortfolioPage,
 });
 
-function ProductsPage() {
-  const parts = [
-    { 
-      name: "Engine Assembly", 
-      brand: "Hero Genuine", 
-      category: "Engine",
-      image: "https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&q=80&w=800"
+function BrandPortfolioPage() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const categories = [
+    {
+      title: "2 WHEELER BRANDS",
+      brands: [
+        { name: "Hero", logo: (heroLogo as any).url },
+        { name: "Honda", logo: (hondaLogo as any).url },
+        { name: "Yamaha", logo: (yamahaLogo as any).url },
+        { name: "Suzuki", logo: (suzukiLogo as any).url },
+        { name: "Bajaj", logo: (bajajLogo as any).url },
+        { name: "TVS", logo: (tvsLogo as any).url },
+        { name: "KTM", logo: (ktmLogo as any).url },
+      ]
     },
-    { 
-      name: "LED Lighting Systems", 
-      brand: "UNO Minda", 
-      category: "Electrical",
-      image: "https://images.unsplash.com/photo-1547038577-da80abbc4f19?auto=format&fit=crop&q=80&w=800"
-    },
-    { 
-      name: "Professional Helmet Series", 
-      brand: "Steelbird", 
-      category: "Accessories",
-      image: "https://images.unsplash.com/photo-1591737475741-26c84529b010?auto=format&fit=crop&q=80&w=800"
-    },
-    { 
-      name: "High-Performance Brakes", 
-      brand: "MK Lide", 
-      category: "Braking",
-      image: "https://images.unsplash.com/photo-1486006396193-471a415a769c?auto=format&fit=crop&q=80&w=800"
-    },
-    { 
-      name: "Oil Filtration Unit", 
-      brand: "Hero Genuine", 
-      category: "Maintenance",
-      image: "https://images.unsplash.com/photo-1635732168923-d8c7c9195973?auto=format&fit=crop&q=80&w=800"
-    },
-    { 
-      name: "Advanced Battery Tech", 
-      brand: "Xeto", 
-      category: "Electrical",
-      image: "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&q=80&w=800"
-    },
+    {
+      title: "SPARE PARTS & COMPONENTS",
+      brands: [
+        { name: "UNO Minda", logo: (unomindaLogo as any).url },
+        { name: "Gabriel", logo: (gabrielLogo as any).url },
+        { name: "NGK", logo: (ngkLogo as any).url },
+        { name: "SKF", logo: (skfLogo as any).url },
+        { name: "Bosch", logo: (boschLogo as any).url },
+        { name: "Champion", logo: (championLogo as any).url },
+        { name: "Endurance", logo: (enduranceLogo as any).url },
+        { name: "FCC", logo: (fccLogo as any).url },
+        { name: "Goetze", logo: (goetzeLogo as any).url },
+        { name: "IFB", logo: (ifbLogo as any).url },
+        { name: "Osram", logo: (osramLogo as any).url },
+        { name: "ASK", logo: (askLogo as any).url },
+        { name: "Astraea", logo: (astraeaLogo as any).url },
+        { name: "Rolon", logo: (rolonLogo as any).url },
+        { name: "Spaco", logo: (spacoLogo as any).url },
+        { name: "Studds", logo: (studdsLogo as any).url },
+        { name: "TVS Tyres", logo: (tvstyresLogo as any).url },
+        { name: "Usha", logo: (ushaLogo as any).url },
+        { name: "Varroc", logo: (varrocLogo as any).url },
+      ]
+    }
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header Section */}
-      <section className="bg-black pt-40 pb-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#ff0000]/10 to-transparent" />
-        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-          <span className="text-[#ff0000] font-bold text-sm uppercase tracking-[0.2em] mb-4 block">Product Catalog</span>
-          <h1 className="text-5xl md:text-7xl font-black text-white italic uppercase leading-none mb-8">
-            Premium Automotive <br/> <span className="text-[#ff0000]">Components</span>
-          </h1>
-          <p className="text-gray-400 max-w-2xl text-lg leading-relaxed">
-            Distributing the world's most trusted automotive brands. High-performance, genuine, and reliable spare parts for every journey.
-          </p>
-        </div>
-      </section>
+    <div className="bg-black font-raleway selection:bg-white selection:text-black min-h-screen">
+      {/* Dynamic Navbar */}
+      <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 sm:px-10 lg:px-16 ${
+        scrolled ? "py-4 bg-black/80 backdrop-blur-xl border-b border-white/10" : "py-7 bg-transparent"
+      }`}>
+        <div className="flex items-center justify-between max-w-[1400px] mx-auto w-full">
+          <a href="/" className="flex items-center">
+            <div className="bg-white/10 backdrop-blur-md p-2 rounded-sm border border-white/10 shadow-lg">
+              <img 
+                src={(logoAsset as any)?.url || ""} 
+                alt="Motoconnect" 
+                className="h-10 w-auto sm:h-12 object-contain brightness-110"
+              />
+            </div>
+          </a>
 
-      {/* Filter Bar */}
-      <section className="sticky top-[72px] z-40 bg-white border-b border-gray-100 py-4">
-        <div className="max-w-[1400px] mx-auto px-6 flex flex-wrap items-center justify-between gap-6">
-          <div className="flex gap-4 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
-            {["All Products", "Hero Genuine", "UNO Minda", "Steelbird", "MK Lide", "Xeto"].map((filter, i) => (
-              <button key={i} className={`whitespace-nowrap px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${i === 0 ? 'bg-[#ff0000] text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
-                {filter}
-              </button>
+          <div className="hidden items-center gap-12 md:flex">
+            {["Home", "About", "Brand Portfolio", "Contact"].map((name) => (
+              <a
+                key={name}
+                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : `/#${name.toLowerCase()}`}
+                className={`font-raleway text-sm tracking-[0.2em] transition-colors uppercase ${
+                  name === "Brand Portfolio" ? "text-[#ff0000]" : "text-white/80 hover:text-white"
+                }`}
+              >
+                {name}
+              </a>
             ))}
           </div>
-          <div className="flex items-center gap-2 border-b border-gray-200 focus-within:border-[#ff0000] transition-colors py-1">
-            <Search size={18} className="text-gray-400" />
-            <input type="text" placeholder="Search components..." className="bg-transparent outline-none text-sm font-medium w-48" />
+
+          <a
+            href="/#contact"
+            className="hidden md:flex items-center gap-2 border border-[#ff0000] bg-[#ff0000]/10 px-6 py-3 text-[10px] font-medium tracking-[0.2em] text-white transition-all hover:bg-[#ff0000] uppercase"
+          >
+            GET A QUOTE
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </a>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative pt-48 pb-32 overflow-hidden border-b border-white/5">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#ff0000]/10 via-transparent to-black" />
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-[#ff0000]/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          <div className="flex items-center gap-3 mb-8 animate-in fade-in slide-in-from-left-8 duration-700">
+            <Crown className="h-5 w-5 text-[#ff0000]" />
+            <span className="text-[#ff0000] text-xs font-bold uppercase tracking-[0.4em]">Our Legacy</span>
+          </div>
+          
+          <h1 className="font-podium text-[clamp(3rem,8vw,6.5rem)] leading-[0.9] tracking-tighter text-white uppercase italic animate-in fade-in slide-in-from-left-12 duration-1000">
+            BRAND <br />
+            <span className="text-[#ff0000]">PORTFOLIO.</span>
+          </h1>
+          
+          <p className="mt-8 max-w-2xl text-lg text-white/60 leading-relaxed animate-in fade-in slide-in-from-left-16 duration-1000 delay-200">
+            We bridge the gap between world-class manufacturers and the UAE market. 
+            Motoconnect distributes 100% genuine parts from the most trusted global brands in the industry.
+          </p>
+
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+            {[
+              { icon: Zap, label: "Fast Distribution", val: "24/7" },
+              { icon: Shield, label: "Genuine Parts", val: "100%" },
+              { icon: Globe, label: "Global Brands", val: "30+" },
+              { icon: Target, label: "Service Points", val: "500+" }
+            ].map((stat, i) => (
+              <div key={i} className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-sm">
+                <stat.icon className="h-6 w-6 text-[#ff0000] mb-4" />
+                <div className="text-2xl font-black text-white italic">{stat.val}</div>
+                <div className="text-[10px] text-white/40 uppercase tracking-widest mt-1">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Product Grid */}
-      <section className="py-20 max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {parts.map((part, i) => (
-            <div key={i} className="group border border-gray-100 bg-white hover:border-[#ff0000]/20 transition-all duration-500 overflow-hidden">
-              <div className="relative aspect-square overflow-hidden bg-gray-50">
-                <img src={part.image} alt={part.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-4 left-4 bg-white px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#ff0000] border border-gray-100">
-                  {part.category}
+      {/* Portfolio Grid */}
+      <section className="py-32 relative">
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+          {categories.map((cat, catIdx) => (
+            <div key={catIdx} className="mb-32 last:mb-0">
+              <div className="flex items-end justify-between mb-16 border-b border-white/10 pb-8">
+                <div>
+                  <h2 className="font-podium text-4xl italic text-white tracking-tight uppercase">
+                    {cat.title}
+                  </h2>
+                  <div className="mt-4 h-1 w-20 bg-[#ff0000]" />
+                </div>
+                <div className="hidden md:block text-white/30 text-xs tracking-widest uppercase">
+                  {cat.brands.length} PREMIER PARTNERS
                 </div>
               </div>
-              <div className="p-8">
-                <div className="text-[#ff0000] text-xs font-black uppercase tracking-[0.2em] mb-3">{part.brand}</div>
-                <h3 className="text-2xl font-black italic uppercase tracking-tight mb-6 group-hover:text-[#ff0000] transition-colors">{part.name}</h3>
-                <button className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] group/btn">
-                  Specifications <ArrowRight size={14} className="group-hover/btn:translate-x-2 transition-transform" />
-                </button>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-px bg-white/5 border border-white/5">
+                {cat.brands.map((brand, i) => (
+                  <div 
+                    key={i} 
+                    className="group relative aspect-square bg-black flex items-center justify-center p-8 transition-all hover:z-10"
+                  >
+                    {/* Hover Glow */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                      <div className="absolute inset-0 border border-[#ff0000] shadow-[0_0_30px_rgba(255,0,0,0.3),inset_0_0_20px_rgba(255,0,0,0.2)]" />
+                    </div>
+
+                    <div className="relative w-full h-full transition-all duration-500 group-hover:scale-110">
+                      <img 
+                        src={brand.logo} 
+                        alt={brand.name}
+                        className="w-full h-full object-contain opacity-70 group-hover:opacity-100"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = `https://ui-avatars.com/api/?name=${brand.name}&background=ff0000&color=fff&bold=true`;
+                        }}
+                      />
+                    </div>
+
+                    {/* Brand Name Tag */}
+                    <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      <span className="text-[9px] font-bold text-white/40 uppercase tracking-[0.2em]">
+                        {brand.name}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Distribution Link */}
-      <section className="py-24 bg-gray-50 border-t border-gray-100">
-        <div className="max-w-[1400px] mx-auto px-6 flex flex-col items-center text-center">
-          <h2 className="text-4xl font-black italic uppercase mb-8">Need Bulk Supply?</h2>
-          <p className="text-gray-500 max-w-xl mb-12">
-            We offer wholesale distribution and logistics solutions for retailers and service networks across the UAE.
-          </p>
-          <Link to="/distribution" className="inline-flex items-center gap-3 bg-black text-white px-10 py-4 font-black text-xs uppercase tracking-widest hover:bg-[#ff0000] transition-all">
-            Explore Distribution Network <ArrowRight size={16} />
-          </Link>
+      {/* CTA Footer */}
+      <section className="bg-[#ff0000] py-24 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-black/10 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl" />
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="text-center md:text-left">
+            <h2 className="font-podium text-4xl md:text-6xl italic text-white leading-none uppercase tracking-tighter">
+              READY TO SCALE <br /> YOUR BUSINESS?
+            </h2>
+            <p className="mt-6 text-white/80 max-w-xl text-lg">
+              Join our distribution network and get access to the UAE's most comprehensive genuine parts inventory.
+            </p>
+          </div>
+          <a 
+            href="/#contact" 
+            className="flex items-center gap-4 bg-white text-black px-12 py-5 font-black text-sm uppercase tracking-widest hover:bg-black hover:text-white transition-all group"
+          >
+            Partner With Us
+            <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
+          </a>
         </div>
       </section>
+
+      {/* Simplified Footer */}
+      <footer className="bg-black py-12 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <p className="text-[10px] tracking-[0.3em] text-white/30 uppercase">
+            © 2026 MOTOCONNECT. EXCELLENCE IN AUTOMOTIVE DISTRIBUTION.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
+
 
