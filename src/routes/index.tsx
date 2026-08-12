@@ -365,13 +365,15 @@ function VanguardHero() {
       </div>
 
       {/* Navbar */}
-      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16 lg:py-7">
+      <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-5 sm:px-10 lg:px-16 lg:py-7 bg-gradient-to-b from-black/60 to-transparent">
         <div className="flex items-center">
-          <img 
-            src={(logoAsset as any)?.url || ""} 
-            alt="Motoconnect" 
-            className="h-10 w-auto sm:h-12 lg:h-14 object-contain"
-          />
+          <div className="bg-white/10 backdrop-blur-md p-2 rounded-sm border border-white/10 shadow-lg">
+            <img 
+              src={(logoAsset as any)?.url || ""} 
+              alt="Motoconnect" 
+              className="h-10 w-auto sm:h-12 lg:h-14 object-contain brightness-110 contrast-125"
+            />
+          </div>
         </div>
 
         <div className="hidden items-center gap-8 md:flex lg:gap-12">
