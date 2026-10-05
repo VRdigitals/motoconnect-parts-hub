@@ -74,7 +74,7 @@ function AboutPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative aspect-video w-full max-h-screen overflow-hidden">
+      <section className="relative min-h-[60vh] md:aspect-video w-full max-h-screen overflow-hidden">
         <video
           autoPlay
           muted
