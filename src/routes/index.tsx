@@ -228,7 +228,7 @@ function VanguardHero() {
   ];
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden max-h-screen mx-auto">
+    <div className="relative min-h-[70vh] md:aspect-video w-full overflow-hidden max-h-screen mx-auto">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -273,7 +273,7 @@ function VanguardHero() {
               {/* Main Heading */}
               <h1 
                 key={`${slide.id}-${currentSlide}`}
-                className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white uppercase italic animate-in fade-in slide-in-from-left-8 duration-1000 fill-mode-both"
+                className="font-podium text-[clamp(2rem,6vw,5rem)] leading-[0.95] tracking-tight text-white uppercase italic animate-in fade-in slide-in-from-left-8 duration-1000 fill-mode-both"
               >
                 {slide.title}
               </h1>
@@ -376,7 +376,7 @@ function VanguardHero() {
           </div>
         </div>
 
-        <div className="hidden items-center gap-8 md:flex lg:gap-12">
+        <div className="hidden items-center gap-6 md:flex lg:gap-12">
           {navLinks.map((link) => (
             <a
               key={link.name}
