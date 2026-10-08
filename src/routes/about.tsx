@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Crown, Settings, Zap, Award, CheckCircle2, Target, History } from "lucide-react";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { founder, team } from "@/lib/people";
 import logoAsset from "../assets/hero-motoconnect.png";
 import aboutBgVideoAsset from "../assets/about-bg-video.mp4";
 import aboutVisionAsset from "../assets/about-vision.png";
@@ -121,6 +123,110 @@ function AboutPage() {
             <p className="text-white/60 leading-relaxed text-lg">
               To be the most trusted name in automotive distribution in the Middle East, recognized for our commitment to authenticity, innovation, and customer excellence.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Meet the Founder (placeholder content lives in src/lib/people.ts) */}
+      <section className="relative border-t border-white/5 py-24 md:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden">
+        <div className="pointer-events-none absolute -left-32 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-[#ff0000]/5 blur-3xl" />
+        <div className="relative max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8 }}
+            className="mb-14 md:mb-20"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <Crown className="h-5 w-5 text-[#ff0000]" />
+              <span className="text-[#ff0000] text-xs font-bold uppercase tracking-[0.4em]">Leadership</span>
+            </div>
+            <h2 className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white uppercase italic">
+              MEET THE <span className="text-[#ff0000]">FOUNDER</span>
+            </h2>
+            <div className="mt-4 h-1.5 w-24 bg-[#ff0000]" />
+          </motion.div>
+
+          <div className="grid items-center gap-12 md:grid-cols-12 lg:gap-20">
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9 }}
+              className="group relative mx-auto w-full max-w-sm md:col-span-5 md:max-w-none"
+            >
+              <div className="absolute -bottom-4 -right-4 h-full w-full border border-[#ff0000]/40 transition-all duration-500 group-hover:-bottom-6 group-hover:-right-6" />
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-white/5">
+                <img
+                  src={founder.photo}
+                  alt={founder.photoAlt}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, delay: 0.15 }}
+              className="md:col-span-7"
+            >
+              <h3 className="font-podium text-4xl lg:text-5xl italic uppercase tracking-tight text-white">{founder.name}</h3>
+              <p className="mt-3 text-xs font-bold uppercase tracking-[0.4em] text-[#ff0000]">{founder.role}</p>
+              <div className="mt-8 border-l-4 border-[#ff0000] pl-6 md:pl-8">
+                <p className="text-lg md:text-xl leading-relaxed text-white/60 italic">“{founder.intro}”</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Meet Our Team (placeholder content lives in src/lib/people.ts) */}
+      <section className="relative border-t border-white/5 py-24 md:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden">
+        <div className="relative max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8 }}
+            className="mb-14 md:mb-20 text-center md:text-left"
+          >
+            <h2 className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white uppercase italic">
+              MEET OUR <span className="text-[#ff0000]">TEAM</span>
+            </h2>
+            <div className="mt-4 mx-auto md:mx-0 h-1.5 w-24 bg-[#ff0000]" />
+          </motion.div>
+
+          <div className="flex flex-wrap justify-center gap-8">
+            {team.map((member, i) => (
+              <motion.article
+                key={member.role}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.8, delay: i * 0.12 }}
+                className="group w-full max-w-sm sm:w-[calc(50%-1rem)] sm:max-w-none lg:w-[calc(33.3333%-1.4rem)]"
+              >
+                <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-white/5 transition-colors duration-500 group-hover:border-[#ff0000]">
+                  <img
+                    src={member.photo}
+                    alt={member.photoAlt}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 shadow-[inset_0_0_30px_rgba(255,0,0,0.25)]" />
+                </div>
+                <div className="pt-6 text-center md:text-left">
+                  <h3 className="font-podium text-2xl italic uppercase tracking-tight text-white">{member.name}</h3>
+                  <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.3em] text-[#ff0000]">{member.role}</p>
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>
