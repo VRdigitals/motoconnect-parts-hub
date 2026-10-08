@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, Send, ArrowUpRight, Crown, Clock } from "lucide-react";
 import { useState, useEffect } from "react";
+import { branches } from "@/lib/branches";
 
 import logoAsset from "../assets/hero-motoconnect.png";
 
@@ -140,9 +141,24 @@ function ContactPage() {
                   <div className="shrink-0 w-12 h-12 bg-white/10 flex items-center justify-center">
                     <MapPin size={24} />
                   </div>
-                  <div>
-                    <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/60 mb-2">Office Location</h3>
-                    <p className="font-podium text-lg leading-tight uppercase italic">Al Ghazal Mall, Showroom SG-15, Dubai, UAE</p>
+                  <div className="space-y-6">
+                    {branches.map((branch) => (
+                      <div key={branch.id}>
+                        <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/60 mb-2">{branch.city} Branch</h3>
+                        {branch.name && (
+                          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/80 mb-1">{branch.name}</p>
+                        )}
+                        <p className="font-podium text-lg leading-tight uppercase italic">{branch.address}</p>
+                        <a
+                          href={branch.mapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2 inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 hover:text-white underline decoration-white/30 underline-offset-4 transition-colors"
+                        >
+                          View on Google Maps
+                        </a>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -193,15 +209,23 @@ function ContactPage() {
       </section>
 
       {/* Map Section */}
-      <section className="h-[500px] w-full border-t border-white/5">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3745.246913367469!2d55.2724718!3d25.237912599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f436dbed49315%3A0x3110109b76ee9e78!2sMoto%20Connect%20-%20Hero%20Motorcycles-UAE!5e1!3m2!1sen!2sae!4v1786392199349!5m2!1sen!2sae" 
-          className="w-full h-full grayscale invert opacity-70 contrast-125"
-          style={{ border: 0 }} 
-          allowFullScreen={true} 
-          loading="lazy" 
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
+      <section className="grid w-full grid-cols-1 md:grid-cols-2 border-t border-white/5">
+        {branches.map((branch) => (
+          <div key={branch.id} className="relative h-[360px] md:h-[500px] w-full border-b md:border-b-0 md:border-r last:border-r-0 border-white/5">
+            <iframe
+              title={`${branch.city} branch map`}
+              src={branch.embedUrl}
+              className="w-full h-full grayscale invert opacity-70 contrast-125"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+            <div className="pointer-events-none absolute left-4 top-4 bg-black/80 px-4 py-2 border border-white/10">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white">{branch.city}</span>
+            </div>
+          </div>
+        ))}
       </section>
 
       {/* Simplified Footer */}

@@ -3,6 +3,7 @@ import { ArrowUpRight, Award, Crown, X, ChevronLeft, ChevronRight, Settings, Zap
 import { useState, useEffect, useCallback } from "react";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import { TestimonialCarousel } from "@/components/ui/profile-card-testimonial-carousel";
+import { branches } from "@/lib/branches";
 
 import logoAsset from "../assets/hero-motoconnect.png";
 import heroBgAsset from "../assets/hero-background.png";
@@ -15,32 +16,17 @@ import aboutReferenceAsset from "../assets/about-reference.png";
 import aboutVisionAsset from "../assets/about-vision.png";
 import aboutBgNewAsset from "../assets/about-bg-new.png";
 import brandsBgAsset from "../assets/brands-we-represent.png";
-import bajajLogo from "../assets/bajaj.png";
-import heroLogo from "../assets/hero.png";
-import hondaLogo from "../assets/honda.png";
-import ktmLogo from "../assets/ktm.png";
-import suzukiLogo from "../assets/suzuki.png";
-import tvsLogo from "../assets/tvs.png";
-import gabrielLogo from "../assets/gabriel.png";
-import ngkLogo from "../assets/ngk.png";
-import skfLogo from "../assets/skf.png";
-import unomindaLogo from "../assets/unominda.png";
-import championLogo from "../assets/champion.png";
-import goetzeLogo from "../assets/goetze.png";
-import ifbLogo from "../assets/ifb.png";
-import osramLogo from "../assets/osram.png";
-import askLogo from "../assets/ask.png";
-import astraeaLogo from "../assets/astraea.png";
-import boschLogo from "../assets/bosch.png";
-import enduranceLogo from "../assets/endurance.png";
-import fccLogo from "../assets/fcc.png";
-import rolonLogo from "../assets/rolon.png";
-import spacoLogo from "../assets/spaco.png";
-import studdsLogo from "../assets/studds.png";
-import tvstyresLogo from "../assets/tvstyres.png";
-import ushaLogo from "../assets/usha.png";
-import varrocLogo from "../assets/varroc.png";
-import yamahaLogo from "../assets/yamaha.png";
+import heroLogo from "../assets/brands/hero.png";
+import hondaLogo from "../assets/brands/honda.png";
+import tvsLogo from "../assets/brands/tvs.png";
+import bajajLogo from "../assets/brands/bajaj.png";
+import championLogo from "../assets/brands/champion.png";
+import unoMindaLogo from "../assets/brands/uno-minda.png";
+import ngkSparkLogo from "../assets/brands/ngk-spark.png";
+import ushaLogo from "../assets/brands/usha.png";
+import steelBirdLogo from "../assets/brands/steel-bird.png";
+import rockmanLogo from "../assets/brands/rockman.png";
+import sparkMindaLogo from "../assets/brands/spark-minda.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -89,7 +75,7 @@ function Footer() {
               className="h-12 w-auto object-contain"
             />
             <p className="font-raleway text-sm leading-relaxed text-white/50 max-w-xs">
-              Dubai's premier destination for genuine automobile spare parts. Delivering engineering excellence and authentic products across the UAE.
+              Dubai and Abu Dhabi's premier destination for genuine automobile spare parts. Delivering engineering excellence and authentic products across the UAE.
             </p>
           </div>
 
@@ -111,12 +97,26 @@ function Footer() {
           <div>
             <h4 className="font-podium text-xl uppercase italic mb-8 tracking-wider">Contact Us</h4>
             <ul className="space-y-6">
-              <li className="flex items-start gap-4 group">
-                <div className="mt-1 h-2 w-2 rounded-full bg-[#ff0000] shadow-[0_0_10px_#ff0000]" />
-                <span className="font-raleway text-sm text-white/50 leading-relaxed">
-                  Al Ghazal Mall, Showroom SG-15, Dubai
-                </span>
-              </li>
+              {branches.map((branch) => (
+                <li key={branch.id} className="flex items-start gap-4 group">
+                  <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#ff0000] shadow-[0_0_10px_#ff0000]" />
+                  <div className="font-raleway text-sm text-white/50 leading-relaxed">
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.25em] text-white/80 mb-1">
+                      {branch.city}
+                    </span>
+                    {branch.name && <span className="block text-white/70">{branch.name}</span>}
+                    {branch.address}
+                    <a
+                      href={branch.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff0000] hover:text-white transition-colors"
+                    >
+                      View on Google Maps
+                    </a>
+                  </div>
+                </li>
+              ))}
               <li className="flex items-center gap-4 group">
                 <div className="h-2 w-2 rounded-full bg-[#ff0000] shadow-[0_0_10px_#ff0000]" />
                 <a href="mailto:sales@motoconnect.ae" className="font-raleway text-sm text-white/50 hover:text-white transition-colors">
@@ -135,15 +135,25 @@ function Footer() {
           {/* Map Column */}
           <div className="lg:col-span-1">
             <h4 className="font-podium text-xl uppercase italic mb-8 tracking-wider">Our Location</h4>
-            <div className="relative h-48 w-full rounded-sm overflow-hidden border border-white/10 group">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3745.246913367469!2d55.2724718!3d25.237912599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f436dbed49315%3A0x3110109b76ee9e78!2sMoto%20Connect%20-%20Hero%20Motorcycles-UAE!5e1!3m2!1sen!2sae!4v1786392199349!5m2!1sen!2sae" 
-                className="absolute inset-0 w-full h-full grayscale-[0.8] contrast-[1.2] invert-[0.9] hover:grayscale-0 transition-all duration-700"
-                style={{ border: 0 }} 
-                allowFullScreen={true} 
-                loading="lazy" 
-                referrerPolicy="strict-origin-when-cross-origin"
-              />
+            <div className="space-y-4">
+              {branches.map((branch) => (
+                <div key={branch.id}>
+                  <p className="mb-2 font-raleway text-[10px] font-bold uppercase tracking-[0.25em] text-white/80">
+                    {branch.city}
+                  </p>
+                  <div className="relative h-40 w-full rounded-sm overflow-hidden border border-white/10 group">
+                    <iframe
+                      title={`${branch.city} branch map`}
+                      src={branch.embedUrl}
+                      className="absolute inset-0 w-full h-full grayscale-[0.8] contrast-[1.2] invert-[0.9] hover:grayscale-0 transition-all duration-700"
+                      style={{ border: 0 }}
+                      allowFullScreen={true}
+                      loading="lazy"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -546,90 +556,114 @@ function AboutSection() {
   );
 }
 
-function BrandsSection() {
-  const brands = [
-    { name: "Hero", logo: heroLogo },
-    { name: "Honda", logo: hondaLogo },
-    { name: "Yamaha", logo: yamahaLogo },
-    { name: "Suzuki", logo: suzukiLogo },
-    { name: "Bajaj", logo: bajajLogo },
-    { name: "TVS", logo: tvsLogo },
-    { name: "KTM", logo: ktmLogo },
-    { name: "UNO Minda", logo: unomindaLogo },
-    { name: "Gabriel", logo: gabrielLogo },
-    { name: "NGK", logo: ngkLogo },
-    { name: "SKF", logo: skfLogo },
-    { name: "Bosch", logo: boschLogo },
-    { name: "Champion", logo: championLogo },
-    { name: "Endurance", logo: enduranceLogo },
-    { name: "FCC", logo: fccLogo },
-    { name: "Goetze", logo: goetzeLogo },
-    { name: "IFB", logo: ifbLogo },
-    { name: "Osram", logo: osramLogo },
-    { name: "ASK", logo: askLogo },
-    { name: "Astraea", logo: astraeaLogo },
-    { name: "Rolon", logo: rolonLogo },
-    { name: "Spaco", logo: spacoLogo },
-    { name: "Studds", logo: studdsLogo },
-    { name: "TVS Tyres", logo: tvstyresLogo },
-    { name: "Usha", logo: ushaLogo },
-    { name: "Varroc", logo: varrocLogo },
-  ];
+type BrandItem = {
+  name: string;
+  /** Local logo file. null = no verified logo yet; a plain name card is shown instead. */
+  logo: string | null;
+};
 
+const genuineBrands: BrandItem[] = [
+  { name: "Hero", logo: heroLogo },
+  { name: "Honda", logo: hondaLogo },
+  { name: "TVS", logo: tvsLogo },
+  { name: "Bajaj", logo: bajajLogo },
+];
+
+const aftermarketBrands: BrandItem[] = [
+  { name: "Champion", logo: championLogo },
+  { name: "Uno Minda", logo: unoMindaLogo },
+  { name: "NGK Spark", logo: ngkSparkLogo },
+  { name: "USHA", logo: ushaLogo },
+  { name: "Steel Bird", logo: steelBirdLogo },
+  // No verified logo available yet for the four below (identity/logo to be confirmed).
+  { name: "MK Lights", logo: null },
+  { name: "MK", logo: null },
+  { name: "Nippon", logo: null },
+  { name: "Rockman", logo: rockmanLogo },
+  { name: "Zeto", logo: null },
+  { name: "Spark Minda", logo: sparkMindaLogo },
+];
+
+function BrandTile({ brand }: { brand: BrandItem }) {
   return (
-    <section className="relative w-full bg-white py-24 overflow-hidden">
-      {/* Background Tire Tracks - Larger and more prominent */}
-      <div 
-        className="absolute inset-0 opacity-[0.06] pointer-events-none grayscale select-none"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80')`,
-          backgroundSize: '1200px',
-          backgroundRepeat: 'repeat',
-          mixBlendMode: 'multiply',
-          transform: 'rotate(-5deg) scale(1.1)'
-        }}
-      />
-      
-      <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-10 lg:px-16">
-        {/* Heading with scroll animation */}
-        <div className="mb-16 text-center md:text-left animate-in fade-in slide-in-from-bottom-12 duration-1000 fill-mode-both">
-          <h2 className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-black uppercase italic">
-            AUTOMOBILE <br className="md:hidden" />
-            <span className="text-[#ff0000]">BRANDS</span> WE REPRESENT
-          </h2>
-          <div className="mt-4 h-1.5 w-24 bg-[#ff0000]" />
-        </div>
- 
-        {/* Brands Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 border-t border-l border-gray-100">
-          {brands.map((brand, index) => (
-            <div 
-              key={brand.name} 
-              className="group relative flex items-center justify-center transition-all hover:bg-gray-50 border-r border-b border-gray-100 overflow-hidden animate-in fade-in duration-700 fill-mode-both py-8"
-              style={{ animationDelay: `${index * 50}ms` }}
+    <div className="group flex aspect-[3/2] items-center justify-center rounded-md border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#ff0000] hover:shadow-[0_8px_20px_-8px_rgba(0,0,0,0.15)]">
+      {brand.logo ? (
+        <img
+          src={brand.logo}
+          alt={brand.name}
+          loading="lazy"
+          className="h-full w-full object-contain"
+        />
+      ) : (
+        <span className="px-3 text-center font-raleway text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500 transition-colors duration-300 group-hover:text-black sm:text-xs">
+          {brand.name}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function BrandPanel({
+  title,
+  brands,
+  gridClassName,
+  centered = false,
+}: {
+  title: string;
+  brands: BrandItem[];
+  gridClassName?: string;
+  centered?: boolean;
+}) {
+  return (
+    <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm md:p-10">
+      <div className="mb-8">
+        <div className="mb-3 h-0.5 w-8 bg-[#ff0000]" />
+        <h3 className="font-raleway text-sm font-bold uppercase tracking-[0.25em] text-black md:text-base">{title}</h3>
+      </div>
+
+      {centered ? (
+        // Centered wrap: 6 per row on desktop (6 + 5 centered), 3 on tablet, 2 on mobile, identical tile sizes
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+          {brands.map((brand) => (
+            <div
+              key={brand.name}
+              className="w-[calc(50%-0.375rem)] md:w-[calc(33.3333%-0.6667rem)] lg:w-[calc(16.6667%-0.8334rem)]"
             >
-              {/* Red Neon Glow Effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20">
-                <div className="absolute inset-0 border-2 border-[#ff0000] shadow-[0_0_20px_rgba(255,0,0,0.5),inset_0_0_20px_rgba(255,0,0,0.3)]" />
-              </div>
-              
-              <div className="relative h-48 w-full transition-transform duration-500 group-hover:scale-105 z-10">
-                <img
-                  src={brand.logo}
-                  alt={brand.name}
-                  className="h-full w-full object-contain opacity-90 transition-all group-hover:opacity-100"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = `https://ui-avatars.com/api/?name=${brand.name}&background=ff0000&color=fff&bold=true`;
-                  }}
-                />
-              </div>
+              <BrandTile brand={brand} />
             </div>
           ))}
         </div>
+      ) : (
+        <div className={`grid gap-3 md:gap-4 ${gridClassName ?? ""}`}>
+          {brands.map((brand) => (
+            <BrandTile key={brand.name} brand={brand} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function BrandsSection() {
+  return (
+    <section className="w-full bg-[#f4f4f5] py-16 md:py-24">
+      <div className="mx-auto max-w-[1200px] px-6">
+        {/* Heading */}
+        <div className="mb-10 md:mb-12 text-center md:text-left animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both">
+          <h2 className="font-podium text-[clamp(1.75rem,4.2vw,3.5rem)] leading-[0.95] tracking-tight text-black uppercase italic">
+            AUTOMOBILE <br className="md:hidden" />
+            <span className="text-[#ff0000]">BRANDS</span> WE REPRESENT
+          </h2>
+          <div className="mt-4 mx-auto md:mx-0 h-1 w-20 bg-[#ff0000]" />
+        </div>
+
+        <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 fill-mode-both">
+          <BrandPanel title="Genuine Parts" brands={genuineBrands} gridClassName="grid-cols-2 sm:grid-cols-4" />
+          <BrandPanel title="Aftermarket Parts" brands={aftermarketBrands} centered />
+        </div>
 
         {/* Action Button */}
-        <div className="mt-20 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <ShinyButton onClick={() => window.location.href = '/products'}>
             VIEW FULL PORTFOLIO
           </ShinyButton>
@@ -638,4 +672,3 @@ function BrandsSection() {
     </section>
   );
 }
-
