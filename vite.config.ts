@@ -5,6 +5,13 @@
 //     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { loadEnv } from "vite";
+
+// Make non-VITE_ variables from .env / .env.local (Zoho + Stripe keys) available to server code while developing.
+// In production the hosting provider's environment variables are used instead.
+for (const [key, value] of Object.entries(loadEnv("development", process.cwd(), ""))) {
+  if (!(key in process.env)) process.env[key] = value;
+}
 
 export default defineConfig({
   tanstackStart: {

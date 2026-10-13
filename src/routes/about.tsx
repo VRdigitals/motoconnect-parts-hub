@@ -52,10 +52,10 @@ function AboutPage() {
           </a>
 
           <div className="hidden items-center gap-12 md:flex">
-            {["Home", "About", "Brand Portfolio", "Contact"].map((name) => (
+            {["Home", "About", "Brand Portfolio", "Shop", "Contact"].map((name) => (
               <a
                 key={name}
-                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "About" ? "/about" : "/contact"}
+                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : name === "About" ? "/about" : "/contact"}
                 className={`font-raleway text-sm tracking-[0.2em] transition-colors uppercase ${
                   name === "About" ? "text-[#ff0000]" : "text-white/80 hover:text-white"
                 }`}
@@ -291,10 +291,10 @@ function AboutPage() {
             className="h-12 w-auto mx-auto mb-12 object-contain"
           />
           <div className="flex justify-center gap-8 mb-12">
-            {["Home", "About", "Brand Portfolio", "Contact"].map((name) => (
+            {["Home", "About", "Brand Portfolio", "Shop", "Contact"].map((name) => (
               <a
                 key={name}
-                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "About" ? "/about" : "/contact"}
+                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : name === "About" ? "/about" : "/contact"}
                 className="font-raleway text-xs tracking-[0.2em] text-white/40 hover:text-[#ff0000] transition-colors uppercase"
               >
                 {name}

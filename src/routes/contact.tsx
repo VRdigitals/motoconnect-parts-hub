@@ -42,10 +42,10 @@ function ContactPage() {
           </a>
 
           <div className="hidden items-center gap-12 md:flex">
-            {["Home", "About", "Brand Portfolio", "Contact"].map((name) => (
+            {["Home", "About", "Brand Portfolio", "Shop", "Contact"].map((name) => (
               <a
                 key={name}
-                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "About" ? "/about" : "/contact"}
+                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : name === "About" ? "/about" : "/contact"}
                 className={`font-raleway text-sm tracking-[0.2em] transition-colors uppercase ${
                   name === "Contact" ? "text-[#ff0000]" : "text-white/80 hover:text-white"
                 }`}

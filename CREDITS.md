@@ -10,3 +10,18 @@ Temporary stock photos from [Pexels](https://www.pexels.com), used as placeholde
 | General Manager – Sales portrait (`src/assets/team/general-manager-sales.jpg`) | RDNE Stock project | https://www.pexels.com/photo/woman-in-blue-blazer-and-white-inner-shirt-7580822/ |
 | Sales Manager portrait (`src/assets/team/sales-manager.jpg`) | itay verchik | https://www.pexels.com/photo/smiling-man-in-suit-16970449/ |
 | Operations Manager portrait (`src/assets/team/operations-manager.jpg`) | Sam Agdasi | https://www.pexels.com/photo/professional-portrait-of-a-businessman-in-studio-39974547/ |
+
+## Shop demo product photos (Pexels)
+
+Used only for the demo catalogue shown before Zoho Books is connected (`src/lib/shop/sample-products.ts`).
+
+| Photo | Photographer | Pexels link |
+|---|---|---|
+| Brake disc & caliper (`src/assets/shop/brake-disc.jpg`) | Nguyễn  Bin  Exciter | https://www.pexels.com/photo/close-up-of-motorcycle-brake-disc-and-caliper-37811569/ |
+| Chain & sprocket (`src/assets/shop/chain-sprocket.jpg`) | Nguyễn  Bin  Exciter | https://www.pexels.com/photo/close-up-of-motorcycle-chain-and-sprocket-37811511/ |
+| Tyre (`src/assets/shop/tyre.jpg`) | Quentin Martinez | https://www.pexels.com/photo/black-and-white-motorcycle-tire-display-39169396/ |
+| Headlight (`src/assets/shop/headlight.jpg`) | cnrdmroglu | https://www.pexels.com/photo/close-up-photo-of-a-suzuki-gsx-s1000-motorcycle-front-17900722/ |
+| Side mirror (`src/assets/shop/side-mirror.jpg`) | Omar Ramadan | https://www.pexels.com/photo/close-up-photo-of-motorcycle-side-mirror-12228162/ |
+| Air filter (`src/assets/shop/air-filter.jpg`) | Benjamin Walsham | https://www.pexels.com/photo/air-filter-in-close-up-photography-11074558/ |
+| Engine oil (`src/assets/shop/engine-oil.jpg`) | setengah lima sore | https://www.pexels.com/photo/liqui-moly-motorbike-oil-containers-in-store-display-31864583/ |
+| Rear wheel (`src/assets/shop/rear-wheel.jpg`) | Karan Mridha | https://www.pexels.com/photo/close-up-of-motorcycle-rear-wheel-with-disc-brake-32683778/ |

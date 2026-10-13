@@ -41,10 +41,10 @@ function DistributionPage() {
           </a>
 
           <div className="hidden items-center gap-12 md:flex">
-            {["Home", "About", "Brand Portfolio", "Contact"].map((name) => (
+            {["Home", "About", "Brand Portfolio", "Shop", "Contact"].map((name) => (
               <a
                 key={name}
-                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Contact" ? "/contact" : `/#${name.toLowerCase()}`}
+                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : name === "Contact" ? "/contact" : `/#${name.toLowerCase()}`}
                 className="font-raleway text-sm tracking-[0.2em] text-white/80 hover:text-white transition-colors uppercase"
               >
                 {name}

@@ -60,6 +60,7 @@ function Footer() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Brand Portfolio", href: "/products" },
+    { name: "Shop", href: "/shop" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -234,6 +235,7 @@ function VanguardHero() {
     { name: "Home", href: "/" },
     { name: "About", href: "#about" },
     { name: "Brand Portfolio", href: "/products" },
+    { name: "Shop", href: "/shop" },
     { name: "Contact", href: "/contact" },
   ];
 
