@@ -32,13 +32,18 @@ export type CheckoutResult =
   | { ok: false; code: "not_configured" | "empty" | "stock" | "invalid" | "error"; message: string };
 
 export type ShopSort = "featured" | "price-asc" | "price-desc" | "name";
+export type ShopStock = "in" | "out";
 
 export interface ShopQuery {
   q?: string | undefined;
-  category?: string | undefined;
+  /** Comma-separated brand names (multi-select). */
+  brand?: string | undefined;
+  min?: number | undefined;
+  max?: number | undefined;
+  stock?: ShopStock | undefined;
   sort?: ShopSort | undefined;
   page?: number | undefined;
-  inStock?: boolean | undefined;
+  size?: number | undefined;
 }
 
 export interface ShopPage {
@@ -48,6 +53,13 @@ export interface ShopPage {
   page: number;
   pageCount: number;
   pageSize: number;
-  categories: { name: string; count: number }[];
+  /** 1-based position of the first / last product on this page, for "Showing 1-24 of 1,866". */
+  from: number;
+  to: number;
+  /** Brand filter options. Counts respect every other active filter. */
+  brands: { name: string; count: number }[];
+  /** Availability counts (respect every other active filter). */
+  stock: { in: number; out: number };
+  priceBounds: { min: number; max: number };
   source: Catalog["source"];
 }

@@ -11,10 +11,13 @@ import type { Catalog, CheckoutResult, Product, ShopPage } from "./types";
 
 const shopQuery = z.object({
   q: z.string().max(100).optional(),
-  category: z.string().max(200).optional(),
+  brand: z.string().max(400).optional(),
+  min: z.number().min(0).max(1_000_000).optional(),
+  max: z.number().min(0).max(1_000_000).optional(),
+  stock: z.enum(["in", "out"]).optional(),
   sort: z.enum(["featured", "price-asc", "price-desc", "name"]).optional(),
   page: z.number().int().min(1).max(10000).optional(),
-  inStock: z.boolean().optional(),
+  size: z.number().int().min(1).max(500).optional(),
 });
 
 export const getShopPageFn = createServerFn({ method: "GET" })
