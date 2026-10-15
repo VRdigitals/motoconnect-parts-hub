@@ -2,7 +2,7 @@
 import { env, sampleDataAllowed, zohoConfigured } from "./env.server";
 import { getItem as zohoGetItem, listItems } from "./zoho.server";
 import { sampleProducts } from "./sample-products";
-import type { Catalog, Product } from "./types";
+import type { Catalog, Product, ShopPage, ShopQuery } from "./types";
 
 const TTL_MS = (Number(env("SHOP_CACHE_SECONDS")) || 300) * 1000;
 let cache: { at: number; catalog: Catalog } | null = null;
@@ -33,4 +33,47 @@ export async function getCatalog(opts: { fresh?: boolean } = {}): Promise<Catalo
 export async function getFreshProduct(id: string): Promise<Product | null> {
   if (!zohoConfigured()) return sampleDataAllowed() ? (sampleProducts.find((p) => p.id === id) ?? null) : null;
   return zohoGetItem(id);
+}
+
+export const SHOP_PAGE_SIZE = 24;
+
+/** Search, filter, sort and page the catalog on the server so the browser only ever receives one page. */
+export async function queryCatalog(query: ShopQuery): Promise<ShopPage> {
+  const catalog = await getCatalog();
+  const all = catalog.products;
+
+  const counts = new Map<string, number>();
+  for (const p of all) counts.set(p.category, (counts.get(p.category) ?? 0) + 1);
+  const categories = [...counts].map(([name, count]) => ({ name, count })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+
+  const terms = (query.q ?? "").toLowerCase().split(/\s+/).filter(Boolean);
+  const inStock = (p: Product) => p.stock === null || p.stock > 0;
+
+  let list = all.filter(
+    (p) =>
+      (!query.category || p.category === query.category) &&
+      (!query.inStock || inStock(p)) &&
+      terms.every((t) => p.name.toLowerCase().includes(t) || (p.sku ?? "").toLowerCase().includes(t) || p.category.toLowerCase().includes(t)),
+  );
+
+  switch (query.sort) {
+    case "price-asc":
+      list = [...list].sort((a, b) => a.price - b.price);
+      break;
+    case "price-desc":
+      list = [...list].sort((a, b) => b.price - a.price);
+      break;
+    case "name":
+      list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    default:
+      // "Featured": things you can actually buy first, then Zoho's own order.
+      list = [...list].sort((a, b) => Number(inStock(b)) - Number(inStock(a)));
+  }
+
+  const pageCount = Math.max(1, Math.ceil(list.length / SHOP_PAGE_SIZE));
+  const page = Math.min(Math.max(1, Math.floor(query.page ?? 1)), pageCount);
+  const products = list.slice((page - 1) * SHOP_PAGE_SIZE, page * SHOP_PAGE_SIZE).map((p) => ({ ...p, description: null }));
+
+  return { products, total: list.length, page, pageCount, pageSize: SHOP_PAGE_SIZE, categories, source: catalog.source };
 }

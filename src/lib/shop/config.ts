@@ -18,6 +18,8 @@ export const shopConfig = {
   deliveryFee: 0,
   /** Countries Stripe Checkout will accept delivery addresses for. */
   allowedCountries: ["AE"] as string[],
+  /** Books "Item category" values that are NOT sold in the web shop (e.g. complete motorcycles). CONFIRM WITH THE CLIENT. */
+  hiddenItemTypes: ["Bike"] as string[],
   /** Show "Only N left" when stock is at or below this level. */
   lowStockThreshold: 5,
   /** Max quantity of one product in a cart line (also capped by stock). */

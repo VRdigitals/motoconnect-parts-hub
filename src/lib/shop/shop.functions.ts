@@ -2,17 +2,27 @@ import { createServerFn } from "@tanstack/react-start";
 import { getRequestUrl } from "@tanstack/react-start/server";
 import { z } from "zod";
 import { shopConfig } from "./config";
-import type { Catalog, CheckoutResult, Product } from "./types";
+import type { Catalog, CheckoutResult, Product, ShopPage } from "./types";
 
 /**
  * Server functions called by the shop pages. Server-only modules are imported dynamically inside the handlers so
  * they (and the secrets they read) can never end up in the browser bundle.
  */
 
-export const getCatalogFn = createServerFn({ method: "GET" }).handler(async (): Promise<Catalog> => {
-  const { getCatalog } = await import("./catalog.server");
-  return getCatalog();
+const shopQuery = z.object({
+  q: z.string().max(100).optional(),
+  category: z.string().max(200).optional(),
+  sort: z.enum(["featured", "price-asc", "price-desc", "name"]).optional(),
+  page: z.number().int().min(1).max(10000).optional(),
+  inStock: z.boolean().optional(),
 });
+
+export const getShopPageFn = createServerFn({ method: "GET" })
+  .validator((data: unknown) => shopQuery.parse(data))
+  .handler(async ({ data }): Promise<ShopPage> => {
+    const { queryCatalog } = await import("./catalog.server");
+    return queryCatalog(data);
+  });
 
 export const getProductFn = createServerFn({ method: "GET" })
   .validator((data: unknown) => z.object({ id: z.string().min(1).max(120) }).parse(data))

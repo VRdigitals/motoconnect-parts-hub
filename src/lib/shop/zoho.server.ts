@@ -4,6 +4,7 @@
  * Docs: https://www.zoho.com/books/api/v3/
  */
 import { env, envJson } from "./env.server";
+import { shopConfig } from "./config";
 import type { Product } from "./types";
 
 // Zoho / Stripe responses are untyped JSON.
@@ -87,6 +88,19 @@ async function zoho(path: string, opts: Parameters<typeof zohoRequest>[1] = {}):
 const imageUrlFor = (raw: Json): string | null =>
   raw.image_document_id || raw.image_name ? `/api/shop/image/${encodeURIComponent(raw.item_id)}` : null;
 
+/** Brand label for the shop filter. Books uses "Local Purchase" internally; customers should see "Other". */
+function brandLabel(raw: Json): string {
+  const b = String(raw.brand ?? "").trim();
+  if (!b || /^local purchase$/i.test(b)) return "Other";
+  const shouting = /^[A-Z0-9 &.\-]+$/.test(b) && (b.length > 4 || b.includes(" "));
+  return shouting ? b.toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase()) : b;
+}
+
+/** Can this Books item be sold in the web shop? */
+export function isSellable(raw: Json): boolean {
+  return raw.status !== "inactive" && raw.can_be_sold !== false && !shopConfig.hiddenItemTypes.includes(String(raw.cf_item_category ?? ""));
+}
+
 export function mapItem(raw: Json): Product {
   const tracked = raw.product_type !== "service" && raw.track_inventory !== false;
   const stockRaw = raw.available_stock ?? raw.actual_available_stock ?? raw.stock_on_hand;
@@ -97,7 +111,8 @@ export function mapItem(raw: Json): Product {
     description: raw.description ? String(raw.description) : null,
     price: Number(raw.rate ?? 0),
     stock: tracked && stockRaw !== undefined && stockRaw !== null ? Math.max(0, Number(stockRaw)) : null,
-    category: String(raw.category_name || raw.group_name || "General"),
+    category: brandLabel(raw),
+    itemType: raw.cf_item_category ? String(raw.cf_item_category) : null,
     imageUrl: imageUrlFor(raw),
   };
 }
@@ -116,6 +131,7 @@ export async function listItems(): Promise<Product[]> {
     .filter(Boolean);
 
   return all
+    .filter(isSellable)
     .map(mapItem)
     .filter((p) => p.price > 0)
     .filter((p) => filter.length === 0 || filter.includes(p.category.toLowerCase()));
@@ -124,7 +140,7 @@ export async function listItems(): Promise<Product[]> {
 export async function getItem(id: string): Promise<Product | null> {
   try {
     const data = await zoho(`/items/${encodeURIComponent(id)}`);
-    return data.item ? mapItem(data.item) : null;
+    return data.item && isSellable(data.item) ? mapItem(data.item) : null;
   } catch (e) {
     if (e instanceof ZohoError && (e.status === 404 || e.zohoCode === 1002)) return null;
     throw e;

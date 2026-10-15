@@ -10,7 +10,17 @@ import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 
 const rl = createInterface({ input, output });
-const region = (await rl.question("Zoho region (com, eu, in, com.au, jp, sa, ca) [com]: ")).trim() || "com";
+const regions = ["com", "eu", "in", "com.au", "jp", "sa", "ca"];
+// Be forgiving: ".com", "zoho.com", " COM " all mean "com".
+const region =
+  (await rl.question("Zoho region (com, eu, in, com.au, jp, sa, ca) [com]: "))
+    .trim()
+    .toLowerCase()
+    .replace(/^(https?:\/\/)?(accounts\.)?(zoho)?\.?/, "") || "com";
+if (!regions.includes(region)) {
+  console.error(`\n"${region}" is not a valid Zoho region. Use one of: ${regions.join(", ")}`);
+  process.exit(1);
+}
 const clientId = (await rl.question("Client ID: ")).trim();
 const clientSecret = (await rl.question("Client Secret: ")).trim();
 const code = (await rl.question("Grant code (valid ~10 minutes): ")).trim();

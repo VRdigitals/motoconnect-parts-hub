@@ -28,8 +28,15 @@ Until Stripe is connected, checkout shows "Online checkout is not switched on ye
 4. Find the **Organization ID** in Books: Settings > Organization Profile.
 5. Put the values in `.env.local` (see `.env.example`) and on the host.
 
-In Books, each item shown in the shop needs: a name, selling price, photo, category, and **inventory tracking on** (so
-stock reduces when the invoice is created).
+In Books, each item shown in the shop needs: a name, a **selling price above zero**, a photo, a **Brand** (the shop's
+filter buttons are built from the Books *Brand* field; items with no brand or "Local Purchase" appear under "Other"),
+and **inventory tracking on** (so stock reduces when the invoice is created).
+
+What the shop hides on purpose: items with a price of 0, items that cannot be sold, inactive items, and items whose
+custom field *Item category* is listed in `hiddenItemTypes` in `src/lib/shop/config.ts` (default: `Bike`).
+
+**Photos:** upload web-sized images (about 100-300 KB, e.g. 1000 px wide). Photos are shown straight from Books, so
+multi-megabyte originals make the shop slow.
 
 ## 2. Stripe
 
