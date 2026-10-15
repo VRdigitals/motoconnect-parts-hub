@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Package } from "lucide-react";
 import { brandLogo } from "@/lib/shop/brand-logos";
 
+/** Real product photos (from Books or uploaded) show the whole item; demo lifestyle shots fill the frame. */
+export const photoFit = (url: string | null): "contain" | "cover" =>
+  url?.startsWith("/api/") || url?.startsWith("/product-images/") ? "contain" : "cover";
+
 /**
  * Product photo. When the item has no photo yet (or it fails to load) a neutral placeholder is shown:
  * the brand's logo or name where known, so a page of un-photographed parts still looks intentional.

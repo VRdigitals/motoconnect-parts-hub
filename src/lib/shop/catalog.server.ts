@@ -2,7 +2,24 @@
 import { env, sampleDataAllowed, zohoConfigured } from "./env.server";
 import { getItem as zohoGetItem, listItems } from "./zoho.server";
 import { sampleProducts } from "./sample-products";
+import descriptions from "../../content/product-descriptions.json";
+import imageManifest from "../../content/product-images.json";
 import type { Catalog, Product, ShopPage, ShopQuery } from "./types";
+
+/**
+ * Content held in the website (not in Zoho Books):
+ *  - src/content/product-descriptions.json : item id -> description
+ *  - src/content/product-images.json       : item id -> optimised photo in /public/product-images
+ * A description written in Books wins over ours; an optimised local photo wins over the (often huge) Books original.
+ */
+const siteDescriptions = descriptions as Record<string, string>;
+const sitePhotos = imageManifest as Record<string, string>;
+
+function enrich(p: Product): Product {
+  const books = (p.description ?? "").trim();
+  const description = books.length > 25 && books.toLowerCase() !== p.name.toLowerCase() ? books : (siteDescriptions[p.id] ?? null);
+  return { ...p, description, imageUrl: sitePhotos[p.id] ?? p.imageUrl };
+}
 
 const TTL_MS = (Number(env("SHOP_CACHE_SECONDS")) || 300) * 1000;
 let cache: { at: number; catalog: Catalog } | null = null;
@@ -17,7 +34,7 @@ export async function getCatalog(opts: { fresh?: boolean } = {}): Promise<Catalo
   if (!opts.fresh && cache && Date.now() - cache.at < TTL_MS) return cache.catalog;
 
   try {
-    const products = await listItems();
+    const products = (await listItems()).map(enrich);
     const catalog: Catalog = { products, source: "zoho", updatedAt: new Date().toISOString() };
     cache = { at: Date.now(), catalog };
     return catalog;
@@ -102,4 +119,24 @@ export async function queryCatalog(query: ShopQuery): Promise<ShopPage> {
     priceBounds: { min: prices.length ? Math.floor(Math.min(...prices)) : 0, max: prices.length ? Math.ceil(Math.max(...prices)) : 0 },
     source: catalog.source,
   };
+}
+
+let indexCache: { updatedAt: string; bySlug: Map<string, Product>; byId: Map<string, Product> } | null = null;
+
+/** Find a product by its URL slug, or (for old links) by its Zoho item id. */
+export async function findProduct(key: string): Promise<{ product: Product | null; redirectToSlug?: string; source: Catalog["source"] }> {
+  const catalog = await getCatalog();
+  if (!indexCache || indexCache.updatedAt !== catalog.updatedAt) {
+    indexCache = {
+      updatedAt: catalog.updatedAt,
+      bySlug: new Map(catalog.products.map((p) => [p.slug, p])),
+      byId: new Map(catalog.products.map((p) => [p.id, p])),
+    };
+  }
+  const bySlug = indexCache.bySlug.get(key);
+  if (bySlug) return { product: bySlug, source: catalog.source };
+  const byId = indexCache.byId.get(key);
+  // An old id-based link: send visitors (and search engines) to the canonical name-based URL.
+  if (byId) return { product: byId, redirectToSlug: byId.slug, source: catalog.source };
+  return { product: null, source: catalog.source };
 }

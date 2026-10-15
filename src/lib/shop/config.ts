@@ -18,8 +18,14 @@ export const shopConfig = {
   deliveryFee: 0,
   /** Countries Stripe Checkout will accept delivery addresses for. */
   allowedCountries: ["AE"] as string[],
-  /** Books "Item category" values NOT sold in the web shop. Client confirmed: motorcycles ("Bike") are not sold online; items priced 0 are hidden too. */
-  hiddenItemTypes: ["Bike"] as string[],
+  /**
+   * Only items whose Books custom field "Item category" is one of these are sold online. This keeps complete
+   * motorcycles, service/RTA/insurance charges and other accounting items out of the shop. Parts with no
+   * Item category set in Books are not shown until the team sets it.
+   */
+  soldItemTypes: ["Spare Parts"] as string[],
+  /** Extra safety net: names matching these are never shown (complete bikes listed as parts, service packages). */
+  hiddenNamePatterns: [/^(hero|honda|bajaj|tvs)\s[\w\s.\-']*\b\d{2,3}\s?cc\s*$/i, /service package/i] as RegExp[],
   /** Show "Only N left" when stock is at or below this level. */
   lowStockThreshold: 5,
   /** Max quantity of one product in a cart line (also capped by stock). */

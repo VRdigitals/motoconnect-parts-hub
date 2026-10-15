@@ -32,8 +32,9 @@ In Books, each item shown in the shop needs: a name, a **selling price above zer
 filter buttons are built from the Books *Brand* field; items with no brand or "Local Purchase" appear under "Other"),
 and **inventory tracking on** (so stock reduces when the invoice is created).
 
-What the shop hides on purpose: items with a price of 0, items that cannot be sold, inactive items, and items whose
-custom field *Item category* is listed in `hiddenItemTypes` in `src/lib/shop/config.ts` (default: `Bike`).
+What the shop shows: only items whose custom field **Item category** is `Spare Parts` (see `soldItemTypes` in
+`src/lib/shop/config.ts`), with a price above 0, that can be sold and are active. Complete bikes, service/RTA/insurance
+charges and any item with no Item category are therefore hidden. To show a part, set its Item category in Books.
 
 **Photos:** upload web-sized images (about 100-300 KB, e.g. 1000 px wide). Photos are shown straight from Books, so
 multi-megabyte originals make the shop slow.
@@ -57,6 +58,24 @@ multi-megabyte originals make the shop slow.
 
 UAE VAT organisations in Books may require extra invoice/customer fields (e.g. place of supply, tax treatment). Set them
 without code changes via `ZOHO_BOOKS_INVOICE_EXTRA` / `ZOHO_BOOKS_CONTACT_EXTRA` (JSON). Ask the accountant which apply.
+
+## 3b. Product pages, descriptions and photos (kept in the website, Zoho Books is never changed)
+
+- **Product URLs** use the product name: `/shop/adjuster-chain-bm-150`. Names that collide get the SKU appended. Old
+  id-based links redirect (301) to the name URL. `/sitemap.xml` lists every product, and each page carries a canonical
+  link, social-share tags and schema.org `Product` data (price, availability, brand, SKU).
+- **Descriptions** live in `src/content/product-descriptions.json` (item id -> text). They were written for each part
+  from its name, brand and part number only (what the part does, the bike model named in the item, genuine/brand line,
+  part number); no specifications were invented. **Please have someone who knows the parts review them**, and edit the
+  JSON directly. A description written in Books overrides ours for that item.
+- **Photos:** `public/product-images/<itemId>.jpg`, listed in `src/content/product-images.json`. A local photo beats the
+  Books photo. Items without a photo show their brand logo with "Photo coming soon".
+  - `node scripts/sync-product-images.mjs` pulls every photo that exists in Books, shrinks it to ~900 px and saves it
+    here (re-run after the team uploads photos in Books).
+  - `node scripts/export-photo-list.mjs` writes a CSV of products still without photos (in stock first) with the exact
+    file name to use.
+  - `node scripts/import-product-photos.mjs <folder>` adds photos named by SKU (e.g. `DJ151036.jpg`) to the site.
+  After any of these, commit and deploy.
 
 ## 4. How it protects you
 

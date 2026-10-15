@@ -5,6 +5,7 @@
  */
 import { env, envJson } from "./env.server";
 import { shopConfig } from "./config";
+import { assignSlugs } from "./slug";
 import type { Product } from "./types";
 
 // Zoho / Stripe responses are untyped JSON.
@@ -98,7 +99,13 @@ function brandLabel(raw: Json): string {
 
 /** Can this Books item be sold in the web shop? */
 export function isSellable(raw: Json): boolean {
-  return raw.status !== "inactive" && raw.can_be_sold !== false && !shopConfig.hiddenItemTypes.includes(String(raw.cf_item_category ?? ""));
+  return (
+    raw.status !== "inactive" &&
+    raw.can_be_sold !== false &&
+    raw.product_type !== "service" &&
+    shopConfig.soldItemTypes.includes(String(raw.cf_item_category ?? "")) &&
+    !shopConfig.hiddenNamePatterns.some((re) => re.test(String(raw.name ?? "").trim()))
+  );
 }
 
 export function mapItem(raw: Json): Product {
@@ -106,6 +113,7 @@ export function mapItem(raw: Json): Product {
   const stockRaw = raw.available_stock ?? raw.actual_available_stock ?? raw.stock_on_hand;
   return {
     id: String(raw.item_id),
+    slug: "",
     name: String(raw.name ?? "Unnamed item"),
     sku: raw.sku ? String(raw.sku) : null,
     description: raw.description ? String(raw.description) : null,
@@ -130,11 +138,12 @@ export async function listItems(): Promise<Product[]> {
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean);
 
-  return all
+  const products = all
     .filter(isSellable)
     .map(mapItem)
     .filter((p) => p.price > 0)
     .filter((p) => filter.length === 0 || filter.includes(p.category.toLowerCase()));
+  return assignSlugs(products);
 }
 
 export async function getItem(id: string): Promise<Product | null> {

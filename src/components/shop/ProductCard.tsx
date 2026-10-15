@@ -3,7 +3,7 @@ import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/shop/cart";
 import { formatMoney, shopConfig } from "@/lib/shop/config";
 import type { Product } from "@/lib/shop/types";
-import { ProductImage } from "./ProductImage";
+import { ProductImage, photoFit } from "./ProductImage";
 
 export function StockBadge({ stock }: { stock: number | null }) {
   if (stock === null) return null;
@@ -12,8 +12,7 @@ export function StockBadge({ stock }: { stock: number | null }) {
   return <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-emerald-600">In stock</span>;
 }
 
-// Demo photos are lifestyle shots (fill the frame); real Books photos are product shots (show whole item).
-const fitFor = (p: Product) => (p.imageUrl?.startsWith("/api/") ? "contain" : "cover");
+const fitFor = (p: Product) => photoFit(p.imageUrl);
 
 function AddButton({ product, className = "" }: { product: Product; className?: string }) {
   const { add } = useCart();
@@ -34,12 +33,12 @@ function AddButton({ product, className = "" }: { product: Product; className?: 
 export function ProductCard({ product, layout = "grid" }: { product: Product; layout?: "grid" | "list" }) {
   const soldOut = product.stock === 0;
   const image = (
-    <Link to="/shop/$itemId" params={{ itemId: product.id }} className="block h-full w-full" aria-label={product.name}>
+    <Link to="/shop/$slug" params={{ slug: product.slug }} className="block h-full w-full" aria-label={product.name}>
       <ProductImage src={product.imageUrl} alt={product.name} fit={fitFor(product)} brand={product.category} caption={layout !== "list"} className={`${fitFor(product) === "contain" ? "p-3" : ""} transition-transform duration-500 group-hover:scale-105 ${soldOut ? "opacity-40 grayscale" : ""}`} />
     </Link>
   );
   const title = (
-    <Link to="/shop/$itemId" params={{ itemId: product.id }} className="line-clamp-2 font-semibold leading-snug text-black hover:text-[#ff0000]">
+    <Link to="/shop/$slug" params={{ slug: product.slug }} className="line-clamp-2 font-semibold leading-snug text-black hover:text-[#ff0000]">
       {product.name}
     </Link>
   );

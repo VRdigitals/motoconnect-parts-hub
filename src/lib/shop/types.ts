@@ -1,5 +1,7 @@
 export interface Product {
   id: string;
+  /** URL-friendly name, unique per product, e.g. "clutch-lifter-kit-ug-4-150". */
+  slug: string;
   name: string;
   sku: string | null;
   description: string | null;

@@ -1,27 +1,62 @@
 import { useState } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Minus, Plus, ShieldCheck, ShoppingBag, FileText } from "lucide-react";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
+import { FileText, Minus, Plus, ShieldCheck, ShoppingBag } from "lucide-react";
 import { getProductFn, getShopPageFn } from "@/lib/shop/shop.functions";
 import { useCart } from "@/lib/shop/cart";
 import { formatMoney, shopConfig } from "@/lib/shop/config";
 import { StoreLayout } from "@/components/shop/StoreLayout";
-import { ProductImage } from "@/components/shop/ProductImage";
+import { ProductImage, photoFit } from "@/components/shop/ProductImage";
 import { ProductCard, StockBadge } from "@/components/shop/ProductCard";
 
-export const Route = createFileRoute("/shop/$itemId")({
+export const Route = createFileRoute("/shop/$slug")({
   loader: async ({ params }) => {
-    const { product } = await getProductFn({ data: { id: params.itemId } });
-    if (!product) throw notFound();
+    const found = await getProductFn({ data: { key: params.slug } });
+    if (!found.product) throw notFound();
+    // Old id-based link (or a renamed product): permanent redirect to the name-based URL.
+    if (found.redirectToSlug && found.redirectToSlug !== params.slug) {
+      throw redirect({ to: "/shop/$slug", params: { slug: found.redirectToSlug }, statusCode: 301 });
+    }
     // A few more items from the same brand, for the "More from" row.
-    const more = await getShopPageFn({ data: { brand: product.category, stock: "in" } }).catch(() => null);
-    return { product, related: (more?.products ?? []).filter((p) => p.id !== product.id).slice(0, 4) };
+    const more = await getShopPageFn({ data: { brand: found.product.category, stock: "in" } }).catch(() => null);
+    return { product: found.product, origin: found.origin, related: (more?.products ?? []).filter((p) => p.id !== found.product!.id).slice(0, 4) };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData?.product.name ?? "Product"} | Motoconnect Shop` },
-      { name: "description", content: (loaderData?.product.description ?? `Buy ${loaderData?.product.name ?? "motorcycle spare parts"} online from Motoconnect.`).slice(0, 160) },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+    const { product, origin } = loaderData;
+    const url = `${origin}/shop/${product.slug}`;
+    const image = product.imageUrl?.startsWith("/") ? `${origin}${product.imageUrl}` : undefined;
+    const description = (product.description ?? `Buy ${product.name} online from Motoconnect. Secure card payment and tax invoice by email.`).replace(/\s+/g, " ").slice(0, 160);
+    const inStock = product.stock === null || product.stock > 0;
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.name,
+      description,
+      ...(product.sku && { sku: product.sku }),
+      brand: { "@type": "Brand", name: product.category },
+      ...(image && { image: [image] }),
+      offers: {
+        "@type": "Offer",
+        url,
+        priceCurrency: shopConfig.currency,
+        price: product.price.toFixed(2),
+        availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      },
+    };
+    return {
+      meta: [
+        { title: `${product.name} | Motoconnect Shop` },
+        { name: "description", content: description },
+        { property: "og:type", content: "product" },
+        { property: "og:title", content: product.name },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        ...(image ? [{ property: "og:image", content: image }] : []),
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
+    };
+  },
   notFoundComponent: () => (
     <StoreLayout>
       <div className="mx-auto max-w-xl px-6 py-24 text-center">
@@ -42,7 +77,7 @@ function ProductPage() {
   const [qty, setQty] = useState(1);
   const soldOut = product.stock === 0;
   const max = Math.min(product.stock ?? shopConfig.maxQtyPerLine, shopConfig.maxQtyPerLine);
-  const fit = product.imageUrl?.startsWith("/api/") ? "contain" : "cover";
+  const fit = photoFit(product.imageUrl);
 
   return (
     <StoreLayout>
@@ -71,7 +106,15 @@ function ProductPage() {
               <span className="w-full text-xs text-gray-500">{shopConfig.pricesIncludeVat ? `Includes ${shopConfig.vatRate * 100}% VAT` : `${shopConfig.vatRate * 100}% VAT added at payment`}</span>
             </div>
 
-            {product.description && <p className="mt-6 whitespace-pre-line leading-relaxed text-gray-600">{product.description}</p>}
+            {product.description && (
+              <div className="mt-6">
+                <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.25em]">Description</h2>
+                <p className="whitespace-pre-line leading-relaxed text-gray-600">{product.description}</p>
+                <p className="mt-3 text-xs leading-relaxed text-gray-400">
+                  Please check the part number against your motorcycle before ordering, or <Link to="/contact" className="underline hover:text-[#ff0000]">contact us</Link> to confirm fitment.
+                </p>
+              </div>
+            )}
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               {!soldOut && (

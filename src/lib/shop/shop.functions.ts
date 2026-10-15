@@ -28,12 +28,15 @@ export const getShopPageFn = createServerFn({ method: "GET" })
   });
 
 export const getProductFn = createServerFn({ method: "GET" })
-  .validator((data: unknown) => z.object({ id: z.string().min(1).max(120) }).parse(data))
-  .handler(async ({ data }): Promise<{ product: Product | null; source: Catalog["source"] }> => {
-    const { getCatalog } = await import("./catalog.server");
-    const catalog = await getCatalog();
-    return { product: catalog.products.find((p) => p.id === data.id) ?? null, source: catalog.source };
-  });
+  .validator((data: unknown) => z.object({ key: z.string().min(1).max(200) }).parse(data))
+  .handler(
+    async ({ data }): Promise<{ product: Product | null; redirectToSlug?: string; origin: string; source: Catalog["source"] }> => {
+      const { findProduct } = await import("./catalog.server");
+      const { env } = await import("./env.server");
+      const found = await findProduct(data.key);
+      return { ...found, origin: env("SITE_URL")?.replace(/\/$/, "") ?? getRequestUrl().origin };
+    },
+  );
 
 const checkoutInput = z.object({
   lines: z

@@ -4,7 +4,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { useCart } from "@/lib/shop/cart";
 import { formatMoney, shopConfig } from "@/lib/shop/config";
 import { createCheckoutFn } from "@/lib/shop/shop.functions";
-import { ProductImage } from "./ProductImage";
+import { ProductImage, photoFit } from "./ProductImage";
 
 export function CartDrawer() {
   const { lines, count, subtotal, open, setOpen, setQty, remove } = useCart();
@@ -51,7 +51,7 @@ export function CartDrawer() {
               {lines.map((line) => (
                 <li key={line.id} className="flex gap-4 py-5">
                   <div className="h-20 w-20 shrink-0 overflow-hidden border border-gray-200">
-                    <ProductImage src={line.imageUrl} alt={line.name} fit={line.imageUrl?.startsWith("/api/") ? "contain" : "cover"} />
+                    <ProductImage src={line.imageUrl} alt={line.name} fit={photoFit(line.imageUrl)} />
                   </div>
                   <div className="flex min-w-0 flex-1 flex-col">
                     <p className="line-clamp-2 text-sm font-semibold leading-snug">{line.name}</p>
