@@ -4,21 +4,27 @@ import { getItem as zohoGetItem, listItems } from "./zoho.server";
 import { sampleProducts } from "./sample-products";
 import descriptions from "../../content/product-descriptions.json";
 import imageManifest from "../../content/product-images.json";
+import illustrativeManifest from "../../content/product-images-illustrative.json";
 import type { Catalog, Product, ShopPage, ShopQuery } from "./types";
 
 /**
  * Content held in the website (not in Zoho Books):
  *  - src/content/product-descriptions.json : item id -> description
  *  - src/content/product-images.json       : item id -> optimised photo in /public/product-images
+ *  - src/content/product-images-illustrative.json : item id -> generic photo for the part type (only when there is no real photo)
  * A description written in Books wins over ours; an optimised local photo wins over the (often huge) Books original.
  */
 const siteDescriptions = descriptions as Record<string, string>;
 const sitePhotos = imageManifest as Record<string, string>;
+const illustrativePhotos = illustrativeManifest as Record<string, string>;
 
 function enrich(p: Product): Product {
   const books = (p.description ?? "").trim();
   const description = books.length > 25 && books.toLowerCase() !== p.name.toLowerCase() ? books : (siteDescriptions[p.id] ?? null);
-  return { ...p, description, imageUrl: sitePhotos[p.id] ?? p.imageUrl };
+  const real = sitePhotos[p.id] ?? p.imageUrl;
+  if (real) return { ...p, description, imageUrl: real };
+  const generic = illustrativePhotos[p.id];
+  return generic ? { ...p, description, imageUrl: generic, imageIllustrative: true } : { ...p, description, imageUrl: null };
 }
 
 const TTL_MS = (Number(env("SHOP_CACHE_SECONDS")) || 300) * 1000;

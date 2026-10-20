@@ -34,7 +34,7 @@ export function ProductCard({ product, layout = "grid" }: { product: Product; la
   const soldOut = product.stock === 0;
   const image = (
     <Link to="/shop/$slug" params={{ slug: product.slug }} className="block h-full w-full" aria-label={product.name}>
-      <ProductImage src={product.imageUrl} alt={product.name} fit={fitFor(product)} brand={product.category} caption={layout !== "list"} className={`${fitFor(product) === "contain" ? "p-3" : ""} transition-transform duration-500 group-hover:scale-105 ${soldOut ? "opacity-40 grayscale" : ""}`} />
+      <ProductImage src={product.imageUrl} alt={product.name} fit={fitFor(product)} brand={product.category} caption={layout !== "list"} illustrative={product.imageIllustrative === true} className={`${fitFor(product) === "contain" ? "p-3" : ""} transition-transform duration-500 group-hover:scale-105 ${soldOut ? "opacity-40 grayscale" : ""}`} />
     </Link>
   );
   const title = (

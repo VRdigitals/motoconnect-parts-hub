@@ -16,6 +16,7 @@ export function ProductImage({
   fit = "contain",
   brand,
   caption = false,
+  illustrative = false,
   className = "",
 }: {
   src: string | null;
@@ -24,6 +25,8 @@ export function ProductImage({
   brand?: string | undefined;
   /** Show the "Photo coming soon" line (only where there is room for it). */
   caption?: boolean;
+  /** The photo is a generic stand-in for this type of part, not the item itself. */
+  illustrative?: boolean;
   className?: string;
 }) {
   const [failed, setFailed] = useState(false);
@@ -44,7 +47,7 @@ export function ProductImage({
       </div>
     );
   }
-  return (
+  const img = (
     <img
       src={src}
       alt={alt}
@@ -53,5 +56,14 @@ export function ProductImage({
       onError={() => setFailed(true)}
       className={`h-full w-full ${fit === "cover" ? "object-cover" : "object-contain"} ${className}`}
     />
+  );
+  if (!illustrative) return img;
+  return (
+    <div className="relative h-full w-full">
+      {img}
+      <span className="pointer-events-none absolute bottom-1.5 left-1.5 bg-white/90 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-gray-500">
+        Illustrative image
+      </span>
+    </div>
   );
 }

@@ -65,7 +65,7 @@ export async function createCheckoutSession(input: {
         product_data: {
           name: product.name,
           ...(product.sku ? { description: `SKU ${product.sku}` } : {}),
-          ...(isPublicHttps && product.imageUrl?.startsWith("/") ? { images: [`${input.origin}${product.imageUrl}`] } : {}),
+          ...(isPublicHttps && !product.imageIllustrative && product.imageUrl?.startsWith("/") ? { images: [`${input.origin}${product.imageUrl}`] } : {}),
           // Used by the webhook to build the Zoho Books invoice.
           metadata: { zoho_item_id: product.id, zoho_rate: String(product.price) },
         },

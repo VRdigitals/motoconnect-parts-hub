@@ -24,7 +24,7 @@ export const Route = createFileRoute("/shop/$slug")({
     if (!loaderData) return {};
     const { product, origin } = loaderData;
     const url = `${origin}/shop/${product.slug}`;
-    const image = product.imageUrl?.startsWith("/") ? `${origin}${product.imageUrl}` : undefined;
+    const image = !product.imageIllustrative && product.imageUrl?.startsWith("/") ? `${origin}${product.imageUrl}` : undefined;
     const description = (product.description ?? `Buy ${product.name} online from Motoconnect. Secure card payment and tax invoice by email.`).replace(/\s+/g, " ").slice(0, 160);
     const inStock = product.stock === null || product.stock > 0;
     const jsonLd = {
@@ -90,7 +90,7 @@ function ProductPage() {
 
         <div className="grid gap-8 border border-gray-200 bg-white p-4 md:grid-cols-2 md:p-8 lg:gap-14">
           <div className="aspect-square w-full overflow-hidden border border-gray-100 bg-white">
-            <ProductImage src={product.imageUrl} alt={product.name} fit={fit} brand={product.category} caption className={`${fit === "contain" ? "p-6" : ""} ${soldOut ? "opacity-40 grayscale" : ""}`} />
+            <ProductImage src={product.imageUrl} alt={product.name} fit={fit} brand={product.category} caption illustrative={product.imageIllustrative === true} className={`${fit === "contain" ? "p-6" : ""} ${soldOut ? "opacity-40 grayscale" : ""}`} />
           </div>
 
           <div className="flex flex-col">

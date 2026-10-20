@@ -15,6 +15,8 @@ export interface Product {
   itemType?: string | null;
   /** Image URL served by our own /api/shop/image route, or a bundled sample image. null = placeholder. */
   imageUrl: string | null;
+  /** True when imageUrl is a generic stand-in for this type of part, not a photo of the item itself. */
+  imageIllustrative?: boolean;
 }
 
 export interface Catalog {
