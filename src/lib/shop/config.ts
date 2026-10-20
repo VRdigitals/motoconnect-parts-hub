@@ -19,9 +19,10 @@ export const shopConfig = {
    * Are the prices stored in Zoho Books already VAT-inclusive?
    *  - true : customers pay exactly the Books price; the invoice is created as tax-inclusive.
    *  - false: 5% VAT is added on top at checkout.
-   * CONFIRM WITH THE CLIENT / ACCOUNTANT before going live.
+   * Client confirmed Books prices are EXCLUSIVE of VAT. The website never mentions VAT and shows the price as it is;
+   * this only matters if online card checkout is switched on (checkoutMode "online").
    */
-  pricesIncludeVat: true,
+  pricesIncludeVat: false,
   /** Flat delivery fee in AED. 0 = free delivery. CONFIRM WITH THE CLIENT. */
   deliveryFee: 0,
   /** Countries Stripe Checkout will accept delivery addresses for. */

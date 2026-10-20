@@ -104,7 +104,6 @@ function ProductPage() {
             <div className="mt-6 flex flex-wrap items-baseline gap-4 border-y border-gray-100 py-5">
               <span className="font-podium text-4xl italic tracking-tight">{formatMoney(product.price)}</span>
               <StockBadge stock={product.stock} />
-              <span className="w-full text-xs text-gray-500">{shopConfig.pricesIncludeVat ? `Includes ${shopConfig.vatRate * 100}% VAT` : `${shopConfig.vatRate * 100}% VAT is added to your invoice`}</span>
             </div>
 
             {product.description && (

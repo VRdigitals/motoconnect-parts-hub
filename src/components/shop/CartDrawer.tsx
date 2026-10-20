@@ -83,8 +83,7 @@ export function CartDrawer() {
                 <span className="font-podium text-3xl italic tracking-tight">{formatMoney(subtotal)}</span>
               </div>
               <p className="mt-2 text-xs text-gray-500">
-                {shopConfig.pricesIncludeVat ? `Prices include ${shopConfig.vatRate * 100}% VAT.` : `${shopConfig.vatRate * 100}% VAT is added to your invoice.`}
-                {whatsapp ? " We confirm availability, final price and delivery with you on WhatsApp." : shopConfig.deliveryFee > 0 ? ` Delivery: ${formatMoney(shopConfig.deliveryFee)}.` : ""}
+                {whatsapp ? "We confirm availability, final price and delivery with you on WhatsApp." : shopConfig.deliveryFee > 0 ? `Delivery: ${formatMoney(shopConfig.deliveryFee)}.` : ""}
               </p>
               {error && (
                 <p role="alert" className="mt-4 border border-[#ff0000]/40 bg-[#ff0000]/5 p-3 text-sm text-black">
