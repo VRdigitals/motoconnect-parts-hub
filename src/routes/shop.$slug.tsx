@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
-import { FileText, Minus, Plus, ShieldCheck, ShoppingBag } from "lucide-react";
+import { FileText, Minus, Plus, ShieldCheck, ShoppingBag, MessageCircle } from "lucide-react";
+import { WhatsAppOrderButton } from "@/components/shop/WhatsAppOrderButton";
 import { getProductFn, getShopPageFn } from "@/lib/shop/shop.functions";
 import { useCart } from "@/lib/shop/cart";
 import { formatMoney, shopConfig } from "@/lib/shop/config";
@@ -103,7 +104,7 @@ function ProductPage() {
             <div className="mt-6 flex flex-wrap items-baseline gap-4 border-y border-gray-100 py-5">
               <span className="font-podium text-4xl italic tracking-tight">{formatMoney(product.price)}</span>
               <StockBadge stock={product.stock} />
-              <span className="w-full text-xs text-gray-500">{shopConfig.pricesIncludeVat ? `Includes ${shopConfig.vatRate * 100}% VAT` : `${shopConfig.vatRate * 100}% VAT added at payment`}</span>
+              <span className="w-full text-xs text-gray-500">{shopConfig.pricesIncludeVat ? `Includes ${shopConfig.vatRate * 100}% VAT` : `${shopConfig.vatRate * 100}% VAT is added to your invoice`}</span>
             </div>
 
             {product.description && (
@@ -132,11 +133,21 @@ function ProductPage() {
                 <ShoppingBag className="h-4 w-4" />
                 {soldOut ? "Out of stock" : "Add to cart"}
               </button>
+              {shopConfig.checkoutMode === "whatsapp" && <WhatsAppOrderButton product={product} qty={qty} className="h-12 flex-1 sm:flex-none sm:px-8" />}
             </div>
 
             <ul className="mt-8 space-y-3 text-sm text-gray-600">
-              <li className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 text-[#ff0000]" /> Secure card payment by Stripe</li>
-              <li className="flex items-center gap-3"><FileText className="h-5 w-5 text-[#ff0000]" /> Tax invoice emailed automatically</li>
+              {shopConfig.checkoutMode === "whatsapp" ? (
+                <>
+                  <li className="flex items-center gap-3"><MessageCircle className="h-5 w-5 text-[#ff0000]" /> Send your order on WhatsApp and we confirm stock, price and delivery with you</li>
+                  <li className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 text-[#ff0000]" /> Genuine spare parts, matched by part number</li>
+                </>
+              ) : (
+                <>
+                  <li className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 text-[#ff0000]" /> Secure card payment by Stripe</li>
+                  <li className="flex items-center gap-3"><FileText className="h-5 w-5 text-[#ff0000]" /> Tax invoice emailed automatically</li>
+                </>
+              )}
             </ul>
           </div>
         </div>

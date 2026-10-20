@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { ArrowUp, CreditCard, FileText, House, Mail, MapPin, Menu, MessageCircle, Phone, Search, ShoppingBag, Store, Truck, X } from "lucide-react";
+import { ArrowUp, House, Mail, MapPin, Menu, MessageCircle, Phone, Search, ShieldCheck, ShoppingBag, Store, Truck, X } from "lucide-react";
 import { useCart } from "@/lib/shop/cart";
 import { formatMoney } from "@/lib/shop/config";
 import { branches } from "@/lib/branches";
@@ -149,9 +149,9 @@ export function StoreLayout({ children, initialSearch = "" }: { children: ReactN
       <section className="border-t border-gray-200 bg-white">
         <div className="mx-auto grid max-w-[1400px] gap-6 px-6 py-8 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
           {[
-            { icon: CreditCard, title: "Secure card payment", text: "Paid safely online through Stripe." },
-            { icon: FileText, title: "Tax invoice by email", text: "Your invoice is emailed automatically." },
-            { icon: Truck, title: "Delivery in the UAE", text: "Enter your delivery address at checkout." },
+            { icon: MessageCircle, title: "Order on WhatsApp", text: "Fill your cart and send the order in one tap." },
+            { icon: ShieldCheck, title: "Genuine spare parts", text: "Matched by part number for your bike." },
+            { icon: Truck, title: "Delivery in the UAE", text: "We confirm delivery with you on WhatsApp." },
             { icon: Store, title: "Dubai & Abu Dhabi", text: "Visit or call our branches for help." },
           ].map(({ icon: Icon, title, text }) => (
             <div key={title} className="flex items-start gap-4">
@@ -172,7 +172,7 @@ export function StoreLayout({ children, initialSearch = "" }: { children: ReactN
         <div className="mx-auto grid max-w-[1400px] gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
           <div>
             <img src={logoAsset} alt="Motoconnect" className="h-12 w-auto object-contain" />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/50">Dubai and Abu Dhabi's destination for motorcycle spare parts. Order online, pay securely and get your invoice by email.</p>
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/50">Dubai and Abu Dhabi's destination for motorcycle spare parts. Add parts to your cart and send your order on WhatsApp.</p>
           </div>
           <div>
             <h4 className="font-podium text-lg italic uppercase tracking-wider">Shop</h4>

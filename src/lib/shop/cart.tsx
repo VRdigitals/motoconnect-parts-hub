@@ -10,6 +10,9 @@ export interface CartLine {
   price: number;
   imageUrl: string | null;
   stock: number | null;
+  /** Added later; older saved carts may not have them. */
+  sku?: string | null;
+  slug?: string;
 }
 
 interface CartContextValue {
@@ -61,7 +64,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (existing) {
         return prev.map((l) => (l.id === product.id ? { ...l, qty: cap(l.qty + qty, product.stock), price: product.price, stock: product.stock } : l));
       }
-      return [...prev, { id: product.id, qty: cap(qty, product.stock), name: product.name, price: product.price, imageUrl: product.imageUrl, stock: product.stock }];
+      return [...prev, { id: product.id, qty: cap(qty, product.stock), name: product.name, price: product.price, imageUrl: product.imageUrl, stock: product.stock, sku: product.sku ?? null, slug: product.slug }];
     });
     setOpen(true);
   }, []);

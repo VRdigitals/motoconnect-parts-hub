@@ -4,6 +4,7 @@ import { useCart } from "@/lib/shop/cart";
 import { formatMoney, shopConfig } from "@/lib/shop/config";
 import type { Product } from "@/lib/shop/types";
 import { ProductImage, photoFit } from "./ProductImage";
+import { WhatsAppOrderButton } from "./WhatsAppOrderButton";
 
 export function StockBadge({ stock }: { stock: number | null }) {
   if (stock === null) return null;
@@ -55,7 +56,10 @@ export function ProductCard({ product, layout = "grid" }: { product: Product; la
         </div>
         <div className="flex shrink-0 items-center justify-between gap-6 sm:flex-col sm:items-end sm:gap-3">
           <span className="font-podium text-2xl italic tracking-tight">{formatMoney(product.price)}</span>
-          <AddButton product={product} />
+          <div className="flex gap-2">
+            <AddButton product={product} />
+            {shopConfig.checkoutMode === "whatsapp" && <WhatsAppOrderButton product={product} compact className="py-3" />}
+          </div>
         </div>
       </article>
     );
@@ -72,7 +76,10 @@ export function ProductCard({ product, layout = "grid" }: { product: Product; la
           <span className="font-podium text-2xl italic tracking-tight">{formatMoney(product.price)}</span>
           <StockBadge stock={product.stock} />
         </div>
-        <AddButton product={product} className="mt-4" />
+        <div className="mt-4 flex gap-2">
+          <AddButton product={product} className="flex-1" />
+          {shopConfig.checkoutMode === "whatsapp" && <WhatsAppOrderButton product={product} compact />}
+        </div>
       </div>
     </article>
   );

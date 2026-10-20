@@ -1,15 +1,17 @@
 import { useState } from "react";
-import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { MessageCircle, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useCart } from "@/lib/shop/cart";
 import { formatMoney, shopConfig } from "@/lib/shop/config";
 import { createCheckoutFn } from "@/lib/shop/shop.functions";
+import { whatsappOrderUrl } from "@/lib/shop/whatsapp";
 import { ProductImage, photoFit } from "./ProductImage";
 
 export function CartDrawer() {
   const { lines, count, subtotal, open, setOpen, setQty, remove } = useCart();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const whatsapp = shopConfig.checkoutMode === "whatsapp";
 
   async function checkout() {
     setBusy(true);
@@ -34,7 +36,7 @@ export function CartDrawer() {
           <SheetTitle className="font-podium text-2xl italic uppercase tracking-tight text-black">
             Your <span className="text-[#ff0000]">Cart</span> ({count})
           </SheetTitle>
-          <SheetDescription className="text-gray-500">Review your items before paying securely online.</SheetDescription>
+          <SheetDescription className="text-gray-500">{whatsapp ? "Review your items, then send your order to us on WhatsApp." : "Review your items before paying securely online."}</SheetDescription>
         </SheetHeader>
 
         {lines.length === 0 ? (
@@ -81,18 +83,32 @@ export function CartDrawer() {
                 <span className="font-podium text-3xl italic tracking-tight">{formatMoney(subtotal)}</span>
               </div>
               <p className="mt-2 text-xs text-gray-500">
-                {shopConfig.pricesIncludeVat ? `Prices include ${shopConfig.vatRate * 100}% VAT.` : `${shopConfig.vatRate * 100}% VAT is added at payment.`}
-                {shopConfig.deliveryFee > 0 ? ` Delivery: ${formatMoney(shopConfig.deliveryFee)}.` : ""}
+                {shopConfig.pricesIncludeVat ? `Prices include ${shopConfig.vatRate * 100}% VAT.` : `${shopConfig.vatRate * 100}% VAT is added to your invoice.`}
+                {whatsapp ? " We confirm availability, final price and delivery with you on WhatsApp." : shopConfig.deliveryFee > 0 ? ` Delivery: ${formatMoney(shopConfig.deliveryFee)}.` : ""}
               </p>
               {error && (
                 <p role="alert" className="mt-4 border border-[#ff0000]/40 bg-[#ff0000]/5 p-3 text-sm text-black">
                   {error}
                 </p>
               )}
-              <button onClick={checkout} disabled={busy} className="mt-5 w-full bg-[#ff0000] px-6 py-4 text-[11px] font-bold uppercase tracking-[0.25em] text-white transition-colors hover:bg-black disabled:opacity-60">
-                {busy ? "Please wait..." : "Checkout securely"}
-              </button>
-              <p className="mt-3 text-center text-[10px] uppercase tracking-[0.2em] text-gray-400">Secure card payment by Stripe</p>
+              {whatsapp ? (
+                <a
+                  href={whatsappOrderUrl(lines.map((l) => ({ name: l.name, sku: l.sku, slug: l.slug, qty: l.qty, price: l.price })))}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 flex w-full items-center justify-center gap-2 bg-[#25D366] px-6 py-4 text-[11px] font-bold uppercase tracking-[0.25em] text-white transition-colors hover:bg-[#1da851]"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Order on WhatsApp
+                </a>
+              ) : (
+                <>
+                  <button onClick={checkout} disabled={busy} className="mt-5 w-full bg-[#ff0000] px-6 py-4 text-[11px] font-bold uppercase tracking-[0.25em] text-white transition-colors hover:bg-black disabled:opacity-60">
+                    {busy ? "Please wait..." : "Checkout securely"}
+                  </button>
+                  <p className="mt-3 text-center text-[10px] uppercase tracking-[0.2em] text-gray-400">Secure card payment by Stripe</p>
+                </>
+              )}
             </div>
           </>
         )}

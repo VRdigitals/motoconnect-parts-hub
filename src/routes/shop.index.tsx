@@ -63,7 +63,7 @@ export const Route = createFileRoute("/shop/")({
   head: () => ({
     meta: [
       { title: "Shop | Motoconnect UAE" },
-      { name: "description", content: "Shop motorcycle spare parts online from Motoconnect: search by part, bike model or brand, pay securely by card and receive your invoice by email." },
+      { name: "description", content: "Shop motorcycle spare parts online from Motoconnect: search by part, bike model or brand, add to your cart and send your order on WhatsApp." },
     ],
   }),
   component: ShopPage,
@@ -146,7 +146,7 @@ function ShopPage() {
           <h1 className="font-podium text-[clamp(2.25rem,6vw,4.5rem)] italic uppercase leading-[0.9] tracking-tighter">
             SHOP SPARE <span className="text-[#ff0000]">PARTS.</span>
           </h1>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-white/60">Search by part, bike model or brand. Pay securely by card and your invoice is emailed to you automatically.</p>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-white/60">Search by part, bike model or brand. Add what you need to your cart and send the order to us on WhatsApp.</p>
         </div>
       </section>
 

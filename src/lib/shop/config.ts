@@ -4,6 +4,14 @@
  * See .env.example and docs/SHOP_SETUP.md.
  */
 export const shopConfig = {
+  /**
+   * How customers order.
+   *  - "whatsapp": add to cart, then send the whole cart to the shop as a WhatsApp message (no online payment).
+   *  - "online"  : pay by card through Stripe Checkout (needs the Stripe keys; see docs/SHOP_SETUP.md).
+   */
+  checkoutMode: "whatsapp" as "whatsapp" | "online",
+  /** WhatsApp number orders are sent to, international format without "+". CONFIRM WITH THE CLIENT. */
+  whatsappNumber: "971566561083",
   currency: "AED",
   /** UAE VAT. */
   vatRate: 0.05,
