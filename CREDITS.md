@@ -25,3 +25,12 @@ Used only for the demo catalogue shown before Zoho Books is connected (`src/lib/
 | Air filter (`src/assets/shop/air-filter.jpg`) | Benjamin Walsham | https://www.pexels.com/photo/air-filter-in-close-up-photography-11074558/ |
 | Engine oil (`src/assets/shop/engine-oil.jpg`) | setengah lima sore | https://www.pexels.com/photo/liqui-moly-motorbike-oil-containers-in-store-display-31864583/ |
 | Rear wheel (`src/assets/shop/rear-wheel.jpg`) | Karan Mridha | https://www.pexels.com/photo/close-up-of-motorcycle-rear-wheel-with-disc-brake-32683778/ |
+
+## Product photos from supplier catalogues
+Product photos in `public/product-images/` that are not from Zoho Books were taken from supplier material supplied by the client:
+- Uno Minda 2W catalogues (Switch 2022, REML 2024, Lighting 2021, Blinker 2021, NPD 2024)
+- Steelbird product and tyre catalogues (2025 / 2024)
+- MK Auto India consolidated catalogue (Nov 2025)
+- India Nippon Electricals catalogue
+- Rockman Industries aftermarket website (rockmanaftermarket.in), product category pages
+Photos remain the property of the respective manufacturers; confirm the client has permission to use them in their online shop.
