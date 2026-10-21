@@ -32,12 +32,12 @@ export const founder = {
   initials: "KG",
   /** Shown larger, as the opening line. */
   intro:
-    "Motoconnect was founded by Late Kamini Kaur Gulati, a woman whose greatest strength was her heart. Known for her positive mindset and her loving, gentle nature, she had a rare ability to make everyone around her feel valued, supported and respected.",
+    "Motoconnect was founded by Late Kamini Kaur Gulati, who built the business on a simple belief: a company earns its place by serving its customers, its partners and its community well.",
   paragraphs: [
-    "Her thinking always reached beyond business. She cared deeply about society, and she was always ready to lend a hand to anyone who needed one. Helping others was not something she did now and then; it was simply who she was.",
-    "As our Founder and Mentor, she guided the people of Motoconnect with wisdom, kindness and trust. The values she lived by, honesty, compassion and service to others, remain the foundation of how we treat our customers, our partners and each other. We carry her vision forward with gratitude, and with a promise to keep her spirit at the heart of everything we do.",
+    "She brought vision, a positive mindset and sound judgement to everything she built, and favoured long-term relationships over quick wins. She led with clarity, backed good people and set a standard of integrity that the whole team was expected to meet.",
+    "As Founder and Mentor, she guided the team with a clear sense of direction and encouraged people to grow into their roles. Her principles of fair dealing, accountability and giving back to society continue to shape how Motoconnect works with customers and partners today. We carry her vision forward with pride.",
   ],
-  values: ["Positive mindset", "Loving & caring", "Generous", "Service to society", "Mentor to many"],
+  values: ["Visionary mindset", "Integrity", "Business leadership", "Mentorship", "Community focus"],
 };
 
 export const team: Person[] = [
