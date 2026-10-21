@@ -127,7 +127,7 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Meet the Founder (placeholder content lives in src/lib/people.ts) */}
+      {/* Meet the Founder (content lives in src/lib/people.ts) */}
       <section className="relative border-t border-white/5 py-24 md:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden">
         <div className="pointer-events-none absolute -left-32 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-[#ff0000]/5 blur-3xl" />
         <div className="relative max-w-7xl mx-auto">
@@ -158,12 +158,18 @@ function AboutPage() {
             >
               <div className="absolute -bottom-4 -right-4 h-full w-full border border-[#ff0000]/40 transition-all duration-500 group-hover:-bottom-6 group-hover:-right-6" />
               <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-white/5">
-                <img
-                  src={founder.photo}
-                  alt={founder.photoAlt}
-                  loading="lazy"
-                  className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
+                {founder.photo ? (
+                  <img
+                    src={founder.photo}
+                    alt={founder.photoAlt}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                ) : (
+                  <div role="img" aria-label={founder.photoAlt} className="flex h-full w-full items-center justify-center bg-gradient-to-br from-white/10 to-white/0">
+                    <span className="font-podium text-8xl italic tracking-tight text-white/30">{founder.initials}</span>
+                  </div>
+                )}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
             </motion.div>
@@ -178,8 +184,20 @@ function AboutPage() {
               <h3 className="font-podium text-4xl lg:text-5xl italic uppercase tracking-tight text-white">{founder.name}</h3>
               <p className="mt-3 text-xs font-bold uppercase tracking-[0.4em] text-[#ff0000]">{founder.role}</p>
               <div className="mt-8 border-l-4 border-[#ff0000] pl-6 md:pl-8">
-                <p className="text-lg md:text-xl leading-relaxed text-white/60 italic">“{founder.intro}”</p>
+                <p className="text-lg md:text-xl leading-relaxed text-white/70 italic">{founder.intro}</p>
               </div>
+              <div className="mt-6 space-y-5 text-base leading-relaxed text-white/60 md:text-lg">
+                {founder.paragraphs.map((para) => (
+                  <p key={para}>{para}</p>
+                ))}
+              </div>
+              <ul className="mt-8 flex flex-wrap gap-2.5" aria-label="Qualities she is remembered for">
+                {founder.values.map((v) => (
+                  <li key={v} className="border border-white/15 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
+                    {v}
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </div>
         </div>
