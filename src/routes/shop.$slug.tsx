@@ -90,8 +90,21 @@ function ProductPage() {
         </nav>
 
         <div className="grid gap-8 border border-gray-200 bg-white p-4 md:grid-cols-2 md:p-8 lg:gap-14">
-          <div className="aspect-square w-full overflow-hidden border border-gray-100 bg-white">
-            <ProductImage src={product.imageUrl} alt={product.name} fit={fit} brand={product.category} caption illustrative={product.imageIllustrative === true} className={`${fit === "contain" ? "p-6" : ""} ${soldOut ? "opacity-40 grayscale" : ""}`} />
+          <div>
+            <div className="aspect-square w-full overflow-hidden border border-gray-100 bg-white">
+              <ProductImage src={product.imageUrl} alt={product.name} fit={fit} brand={product.category} caption illustrative={product.imageIllustrative === true} className={`${fit === "contain" ? "p-6" : ""} ${soldOut ? "opacity-40 grayscale" : ""}`} />
+            </div>
+            {!product.imageUrl && (
+              <a
+                href={`https://wa.me/${shopConfig.whatsappNumber}?text=${encodeURIComponent(`Hello Motoconnect, could you please share a photo of this part?\n${product.name}${product.sku ? ` (Part no: ${product.sku})` : ""}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 flex items-center justify-center gap-2 border border-gray-300 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-600 transition-colors hover:border-[#25D366] hover:text-[#1da851]"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Request a photo on WhatsApp
+              </a>
+            )}
           </div>
 
           <div className="flex flex-col">

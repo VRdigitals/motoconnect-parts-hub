@@ -102,8 +102,10 @@ export async function queryCatalog(query: ShopQuery): Promise<ShopPage> {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name));
       break;
     default:
-      // "Featured": things you can actually buy first, then Zoho's own order.
-      list = [...list].sort((a, b) => Number(isInStock(b)) - Number(isInStock(a)));
+      // "Featured": products with a real photo first, then ones with a generic (illustrative) photo, then ones with
+      // no image ("image on request"). Within each group, things you can buy now come first, then Zoho's own order.
+      const imageRank = (p: Product) => (!p.imageUrl ? 2 : p.imageIllustrative ? 1 : 0);
+      list = [...list].sort((a, b) => imageRank(a) - imageRank(b) || Number(isInStock(b)) - Number(isInStock(a)));
   }
 
   const pageSize = (PAGE_SIZES as readonly number[]).includes(query.size ?? 0) ? (query.size as number) : PAGE_SIZES[0];

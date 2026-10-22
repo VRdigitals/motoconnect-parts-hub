@@ -23,7 +23,7 @@ export function ProductImage({
   alt: string;
   fit?: "contain" | "cover";
   brand?: string | undefined;
-  /** Show the "Photo coming soon" line (only where there is room for it). */
+  /** Show the "Image on request" line (only where there is room for it). */
   caption?: boolean;
   /** The photo is a generic stand-in for this type of part, not the item itself. */
   illustrative?: boolean;
@@ -43,7 +43,7 @@ export function ProductImage({
         ) : (
           <Package className="h-10 w-10" strokeWidth={1.25} />
         )}
-        {caption && <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gray-300">Photo coming soon</span>}
+        {caption && <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gray-400">Image on request</span>}
       </div>
     );
   }
