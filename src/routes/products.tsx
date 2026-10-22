@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Crown, ArrowRight, Zap, Target, Shield, Globe } from "lucide-react";
-import { useState, useEffect } from "react";
+import { SiteNav } from "@/components/SiteNav";
 import { ShinyButton } from "@/components/ui/shiny-button";
 
 import logoAsset from "../assets/hero-motoconnect.png";
@@ -42,13 +42,6 @@ export const Route = createFileRoute("/products")({
 });
 
 function BrandPortfolioPage() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const categories = [
     {
@@ -92,43 +85,7 @@ function BrandPortfolioPage() {
   return (
     <div className="bg-black font-raleway selection:bg-white selection:text-black min-h-screen">
       {/* Dynamic Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 sm:px-10 lg:px-16 ${
-        scrolled ? "py-4 bg-black/80 backdrop-blur-xl border-b border-white/10" : "py-7 bg-transparent"
-      }`}>
-        <div className="flex items-center justify-between max-w-[1400px] mx-auto w-full">
-          <a href="/" className="flex items-center">
-            <div className="bg-white/10 backdrop-blur-md p-2 rounded-sm border border-white/10 shadow-lg">
-              <img 
-                src={logoAsset} 
-                alt="Motoconnect" 
-                className="h-10 w-auto sm:h-12 object-contain brightness-110"
-              />
-            </div>
-          </a>
-
-          <div className="hidden items-center gap-12 md:flex">
-            {["Home", "About", "Brand Portfolio", "Shop", "Contact"].map((name) => (
-              <a
-                key={name}
-                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : `/#${name.toLowerCase()}`}
-                className={`font-raleway text-sm tracking-[0.2em] transition-colors uppercase ${
-                  name === "Brand Portfolio" ? "text-[#ff0000]" : "text-white/80 hover:text-white"
-                }`}
-              >
-                {name}
-              </a>
-            ))}
-          </div>
-
-          <a
-            href="/#contact"
-            className="hidden md:flex items-center gap-2 border border-[#ff0000] bg-[#ff0000]/10 px-6 py-3 text-[10px] font-medium tracking-[0.2em] text-white transition-all hover:bg-[#ff0000] uppercase"
-          >
-            GET A QUOTE
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
-        </div>
-      </nav>
+      <SiteNav active="Brand Portfolio" />
 
       {/* Hero Section */}
       <section className="relative pt-48 pb-32 overflow-hidden border-b border-white/5">

@@ -1,11 +1,12 @@
 /**
  * Minimal Zoho Books API client (server-only).
- * Auth: OAuth refresh token -> short-lived access token, cached in memory.
+ * Auth: OAuth refresh token -> short-lived access token, cached in memory and in the shared cache.
  * Docs: https://www.zoho.com/books/api/v3/
  */
 import { env, envJson } from "./env.server";
 import { shopConfig } from "./config";
 import { assignSlugs } from "./slug";
+import { sharedGet, sharedPut } from "./shared-cache.server";
 import type { Product } from "./types";
 
 // Zoho / Stripe responses are untyped JSON.
@@ -28,9 +29,39 @@ const accountsBase = () => env("ZOHO_ACCOUNTS_BASE") ?? `https://accounts.zoho.$
 const apiBase = () => env("ZOHO_API_BASE") ?? `https://www.zohoapis.${region()}/books/v3`;
 
 let tokenCache: { token: string; expiresAt: number } | null = null;
+let tokenInFlight: Promise<string> | null = null;
+
+/** Zoho allows only a handful of access-token requests per refresh token (about 10 per 10 minutes). */
+const BLOCK_KEY = "zoho-token-blocked";
+const TOKEN_KEY = "zoho-access-token";
 
 async function getAccessToken(force = false): Promise<string> {
   if (!force && tokenCache && tokenCache.expiresAt > Date.now() + 60_000) return tokenCache.token;
+  // One refresh at a time per server instance, however many requests are waiting.
+  tokenInFlight ??= refreshAccessToken(force).finally(() => {
+    tokenInFlight = null;
+  });
+  return tokenInFlight;
+}
+
+async function refreshAccessToken(force: boolean): Promise<string> {
+  // A token another server instance (or an earlier run) already fetched is still valid: reuse it.
+  if (!force) {
+    const saved = await sharedGet(TOKEN_KEY);
+    if (saved) {
+      try {
+        const t = JSON.parse(saved) as { token: string; expiresAt: number };
+        if (t.expiresAt > Date.now() + 60_000) {
+          tokenCache = t;
+          return t.token;
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+  }
+  // Zoho said "too many requests" recently: do not ask again (every extra ask extends the lock-out).
+  if (await sharedGet(BLOCK_KEY)) throw new ZohoError("Zoho token refresh failed: Access Denied (backing off)", 429);
 
   const res = await fetch(`${accountsBase()}/oauth/v2/token`, {
     method: "POST",
@@ -44,9 +75,11 @@ async function getAccessToken(force = false): Promise<string> {
   });
   const data = (await res.json().catch(() => ({}))) as Json;
   if (!res.ok || !data.access_token) {
+    await sharedPut(BLOCK_KEY, "1", 600);
     throw new ZohoError(`Zoho token refresh failed: ${data.error ?? res.status}`, res.status);
   }
   tokenCache = { token: data.access_token, expiresAt: Date.now() + (Number(data.expires_in) || 3600) * 1000 };
+  await sharedPut(TOKEN_KEY, JSON.stringify(tokenCache), Math.max(60, (Number(data.expires_in) || 3600) - 120));
   return tokenCache.token;
 }
 

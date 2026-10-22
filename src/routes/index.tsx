@@ -240,7 +240,7 @@ function VanguardHero() {
   ];
 
   return (
-    <div className="relative min-h-[70vh] md:aspect-video w-full overflow-hidden max-h-screen mx-auto">
+    <div className="relative min-h-[70vh] md:aspect-video w-full overflow-hidden md:max-h-screen mx-auto">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -474,14 +474,14 @@ function VanguardHero() {
 
 function AboutSection() {
   return (
-    <section id="about" className="relative w-full aspect-video mx-auto flex items-center overflow-hidden max-h-screen">
+    <section id="about" className="relative w-full min-h-[85vh] md:min-h-0 md:aspect-video mx-auto flex items-center overflow-hidden md:max-h-screen">
       {/* Background with the uploaded video */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        className="absolute inset-0 z-0 h-full w-full object-contain bg-black"
+        className="absolute inset-0 z-0 h-full w-full object-cover md:object-contain bg-black"
       >
         <source src={aboutBgVideoAsset} type="video/mp4" />
       </video>

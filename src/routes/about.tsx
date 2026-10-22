@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Crown, Settings, Zap, Award, CheckCircle2, Target, History } from "lucide-react";
-import { useState, useEffect } from "react";
+import { SiteNav } from "@/components/SiteNav";
 import { motion } from "framer-motion";
 import { founder } from "@/lib/people";
 import logoAsset from "../assets/hero-motoconnect.png";
@@ -19,13 +19,6 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const stats = [
     { label: "Parts Stocked", value: "10K+", icon: Settings },
@@ -37,46 +30,10 @@ function AboutPage() {
   return (
     <div className="bg-black font-raleway selection:bg-white selection:text-black min-h-screen">
       {/* Navbar - Consistent with Home */}
-      <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 sm:px-10 lg:px-16 ${
-        scrolled ? "py-4 bg-black/80 backdrop-blur-xl border-b border-white/10" : "py-7 bg-transparent"
-      }`}>
-        <div className="flex items-center justify-between max-w-[1400px] mx-auto w-full">
-          <a href="/" className="flex items-center">
-            <div className="bg-white/10 backdrop-blur-md p-2 rounded-sm border border-white/10 shadow-lg">
-              <img 
-                src={logoAsset} 
-                alt="Motoconnect" 
-                className="h-10 w-auto sm:h-12 object-contain brightness-110"
-              />
-            </div>
-          </a>
-
-          <div className="hidden items-center gap-12 md:flex">
-            {["Home", "About", "Brand Portfolio", "Shop", "Contact"].map((name) => (
-              <a
-                key={name}
-                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : name === "About" ? "/about" : "/contact"}
-                className={`font-raleway text-sm tracking-[0.2em] transition-colors uppercase ${
-                  name === "About" ? "text-[#ff0000]" : "text-white/80 hover:text-white"
-                }`}
-              >
-                {name}
-              </a>
-            ))}
-          </div>
-
-          <a
-            href="/contact"
-            className="hidden md:flex items-center gap-2 border border-[#ff0000] bg-[#ff0000]/10 px-6 py-3 text-[10px] font-medium tracking-[0.2em] text-white transition-all hover:bg-[#ff0000] uppercase"
-          >
-            GET A QUOTE
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
-        </div>
-      </nav>
+      <SiteNav active="About" />
 
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] md:aspect-video w-full max-h-screen overflow-hidden">
+      <section className="relative min-h-[60vh] md:aspect-video w-full md:max-h-screen overflow-hidden">
         <video
           autoPlay
           muted
@@ -87,7 +44,7 @@ function AboutPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
         
-        <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-10 lg:px-16">
+        <div className="relative z-10 h-full flex flex-col justify-center px-6 pt-32 pb-16 sm:px-10 md:py-0 lg:px-16">
           <div className="max-w-4xl">
             <div className="flex items-center gap-3 mb-6 animate-in fade-in slide-in-from-left-8 duration-700">
               <Crown className="h-5 w-5 text-[#ff0000]" />
@@ -264,12 +221,12 @@ function AboutPage() {
             alt="Motoconnect" 
             className="h-12 w-auto mx-auto mb-12 object-contain"
           />
-          <div className="flex justify-center gap-8 mb-12">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-12">
             {["Home", "About", "Brand Portfolio", "Shop", "Contact"].map((name) => (
               <a
                 key={name}
                 href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : name === "About" ? "/about" : "/contact"}
-                className="font-raleway text-xs tracking-[0.2em] text-white/40 hover:text-[#ff0000] transition-colors uppercase"
+                className="py-2 font-raleway text-xs tracking-[0.2em] text-white/40 hover:text-[#ff0000] transition-colors uppercase"
               >
                 {name}
               </a>
