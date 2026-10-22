@@ -177,9 +177,9 @@ export function StoreLayout({ children, initialSearch = "" }: { children: ReactN
           <div>
             <h4 className="font-podium text-lg italic uppercase tracking-wider">Shop</h4>
             <ul className="mt-5 space-y-3 text-sm text-white/50">
-              <li><Link to="/shop" className="hover:text-[#ff0000]">All products</Link></li>
+              <li><Link to="/shop" className="inline-block py-1.5 hover:text-[#ff0000]">All products</Link></li>
               {["Hero", "Honda", "Bajaj", "Uno Minda"].map((b) => (
-                <li key={b}><Link to="/shop" search={{ brand: b }} className="hover:text-[#ff0000]">{b} parts</Link></li>
+                <li key={b}><Link to="/shop" search={{ brand: b }} className="inline-block py-1.5 hover:text-[#ff0000]">{b} parts</Link></li>
               ))}
             </ul>
           </div>
@@ -187,7 +187,7 @@ export function StoreLayout({ children, initialSearch = "" }: { children: ReactN
             <h4 className="font-podium text-lg italic uppercase tracking-wider">Company</h4>
             <ul className="mt-5 space-y-3 text-sm text-white/50">
               {nav.filter((l) => l.name !== "Shop").map((l) => (
-                <li key={l.name}><a href={l.href} className="hover:text-[#ff0000]">{l.name}</a></li>
+                <li key={l.name}><a href={l.href} className="inline-block py-1.5 hover:text-[#ff0000]">{l.name}</a></li>
               ))}
             </ul>
           </div>
@@ -200,8 +200,8 @@ export function StoreLayout({ children, initialSearch = "" }: { children: ReactN
                   {b.address}
                 </li>
               ))}
-              <li><a href={`tel:${PHONE_TEL}`} className="hover:text-white">{PHONE_DISPLAY}</a></li>
-              <li><a href={`mailto:${EMAIL}`} className="hover:text-white">{EMAIL}</a></li>
+              <li><a href={`tel:${PHONE_TEL}`} className="inline-block py-1.5 hover:text-white">{PHONE_DISPLAY}</a></li>
+              <li><a href={`mailto:${EMAIL}`} className="inline-block py-1.5 hover:text-white">{EMAIL}</a></li>
             </ul>
           </div>
         </div>

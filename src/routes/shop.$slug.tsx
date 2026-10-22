@@ -140,7 +140,7 @@ function ProductPage() {
               <button
                 disabled={soldOut}
                 onClick={() => add(product, qty)}
-                className="flex h-12 flex-1 items-center justify-center gap-2 bg-[#ff0000] px-8 text-[11px] font-bold uppercase tracking-[0.25em] text-white transition-colors hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 sm:flex-none"
+                className="flex h-12 flex-1 items-center justify-center gap-2 whitespace-nowrap bg-[#ff0000] px-4 text-[11px] font-bold uppercase tracking-[0.15em] text-white sm:px-8 sm:tracking-[0.25em] transition-colors hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 sm:flex-none"
               >
                 <ShoppingBag className="h-4 w-4" />
                 {soldOut ? "Out of stock" : "Add to cart"}

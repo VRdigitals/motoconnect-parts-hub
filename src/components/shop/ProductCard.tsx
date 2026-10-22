@@ -9,8 +9,8 @@ import { WhatsAppOrderButton } from "./WhatsAppOrderButton";
 export function StockBadge({ stock }: { stock: number | null }) {
   if (stock === null) return null;
   if (stock === 0) return <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400">Out of stock</span>;
-  if (stock <= shopConfig.lowStockThreshold) return <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#ff0000]">Only {stock} left</span>;
-  return <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-emerald-600">In stock</span>;
+  if (stock <= shopConfig.lowStockThreshold) return <span className="whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.15em] text-[#ff0000]">Only {stock} left</span>;
+  return <span className="whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.15em] text-emerald-600">In stock</span>;
 }
 
 const fitFor = (p: Product) => photoFit(p.imageUrl);
@@ -23,7 +23,7 @@ function AddButton({ product, className = "" }: { product: Product; className?: 
       type="button"
       disabled={soldOut}
       onClick={() => add(product)}
-      className={`flex items-center justify-center gap-2 bg-[#ff0000] px-4 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 ${className}`}
+      className={`flex items-center justify-center gap-2 whitespace-nowrap bg-[#ff0000] px-3 py-3 text-[11px] font-bold uppercase tracking-[0.15em] text-white sm:px-4 sm:tracking-[0.2em] transition-colors hover:bg-black disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400 ${className}`}
     >
       <ShoppingBag className="h-4 w-4" />
       {soldOut ? "Out of stock" : "Add to cart"}
@@ -56,7 +56,7 @@ export function ProductCard({ product, layout = "grid" }: { product: Product; la
         </div>
         <div className="flex shrink-0 items-center justify-between gap-6 sm:flex-col sm:items-end sm:gap-3">
           <span className="font-podium text-2xl italic tracking-tight">{formatMoney(product.price)}</span>
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <AddButton product={product} />
             {shopConfig.checkoutMode === "whatsapp" && <WhatsAppOrderButton product={product} compact className="py-3" />}
           </div>
@@ -72,12 +72,12 @@ export function ProductCard({ product, layout = "grid" }: { product: Product; la
         <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">{product.category}</p>
         <div className="mt-1.5 min-h-[2.75rem] text-sm">{title}</div>
         {product.sku && <p className="mt-1 truncate text-[11px] text-gray-400">SKU {product.sku}</p>}
-        <div className="mt-3 flex items-baseline justify-between gap-2">
+        <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1">
           <span className="font-podium text-2xl italic tracking-tight">{formatMoney(product.price)}</span>
           <StockBadge stock={product.stock} />
         </div>
-        <div className="mt-4 flex gap-2">
-          <AddButton product={product} className="flex-1" />
+        <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+          <AddButton product={product} className="sm:flex-1" />
           {shopConfig.checkoutMode === "whatsapp" && <WhatsAppOrderButton product={product} compact />}
         </div>
       </div>

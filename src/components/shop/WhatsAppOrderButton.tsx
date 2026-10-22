@@ -27,10 +27,10 @@ export function WhatsAppOrderButton({
       onClick={open}
       aria-label={`Order ${product.name} on WhatsApp`}
       title="Order on WhatsApp"
-      className={`flex items-center justify-center gap-2 bg-[#25D366] text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-colors hover:bg-[#1da851] ${compact ? "w-11 shrink-0" : "px-4 py-3"} ${className}`}
+      className={`flex items-center justify-center gap-2 whitespace-nowrap bg-[#25D366] text-[10px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#1da851] sm:text-[11px] sm:tracking-[0.15em] ${compact ? "px-2 py-3 sm:w-11 sm:shrink-0 sm:px-0" : "px-4 py-3"} ${className}`}
     >
       <MessageCircle className="h-4 w-4" />
-      {!compact && "Order on WhatsApp"}
+      {compact ? <span className="sm:hidden">WhatsApp order</span> : "Order on WhatsApp"}
     </button>
   );
 }

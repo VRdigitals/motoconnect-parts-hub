@@ -15,13 +15,14 @@ for (const [key, value] of Object.entries(loadEnv("development", process.cwd(), 
 
 export default defineConfig({
   // Cloudflare only: the KV store the shop uses to remember the Zoho login and the last good catalogue.
+  // (Nitro accepts this at build time; the wrapper's type for `nitro` just does not list it.)
   nitro: {
     cloudflare: {
       wrangler: {
         kv_namespaces: [{ binding: "SHOP_CACHE", id: "a537a3a2db8a468583b2db93b60a1df3" }],
       },
     },
-  },
+  } as never,
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
