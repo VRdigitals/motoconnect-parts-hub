@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Crown, Settings, Zap, Award, CheckCircle2, Target, History } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { founder, team } from "@/lib/people";
+import { founder } from "@/lib/people";
 import logoAsset from "../assets/hero-motoconnect.png";
 import aboutBgVideoAsset from "../assets/about-bg-video.mp4";
 import aboutVisionAsset from "../assets/about-vision.png";
@@ -203,51 +203,7 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Meet Our Team (placeholder content lives in src/lib/people.ts) */}
-      <section className="relative border-t border-white/5 py-24 md:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden">
-        <div className="relative max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8 }}
-            className="mb-14 md:mb-20 text-center md:text-left"
-          >
-            <h2 className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white uppercase italic">
-              MEET OUR <span className="text-[#ff0000]">TEAM</span>
-            </h2>
-            <div className="mt-4 mx-auto md:mx-0 h-1.5 w-24 bg-[#ff0000]" />
-          </motion.div>
-
-          <div className="flex flex-wrap justify-center gap-8">
-            {team.map((member, i) => (
-              <motion.article
-                key={member.role}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.8, delay: i * 0.12 }}
-                className="group w-full max-w-sm sm:w-[calc(50%-1rem)] sm:max-w-none lg:w-[calc(33.3333%-1.4rem)]"
-              >
-                <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-white/5 transition-colors duration-500 group-hover:border-[#ff0000]">
-                  <img
-                    src={member.photo}
-                    alt={member.photoAlt}
-                    loading="lazy"
-                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 shadow-[inset_0_0_30px_rgba(255,0,0,0.25)]" />
-                </div>
-                <div className="pt-6 text-center md:text-left">
-                  <h3 className="font-podium text-2xl italic uppercase tracking-tight text-white">{member.name}</h3>
-                  <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.3em] text-[#ff0000]">{member.role}</p>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* "Meet Our Team" is hidden for now: the data is still in src/lib/people.ts; restore the section from git history if needed. */}
 
       {/* Stats Section */}
       <section className="bg-white py-24 px-6 sm:px-10 lg:px-16">
