@@ -6,6 +6,7 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { loadEnv } from "vite";
+import { resolve } from "node:path";
 
 // Make non-VITE_ variables from .env / .env.local (Zoho + Stripe keys) available to server code while developing.
 // In production the hosting provider's environment variables are used instead.
@@ -17,6 +18,10 @@ export default defineConfig({
   // Cloudflare only: the KV store the shop uses to remember the Zoho login and the last good catalogue.
   // (Nitro accepts this at build time; the wrapper's type for `nitro` just does not list it.)
   nitro: {
+    // Daily catalogue sync from Zoho Books: 02:00 UTC = 06:00 in Dubai (src/tasks/shop-sync.ts).
+    experimental: { tasks: true },
+    tasks: { "shop:sync": { handler: resolve(process.cwd(), "src/tasks/shop-sync.ts") } },
+    scheduledTasks: { "0 2 * * *": ["shop:sync"] },
     cloudflare: {
       wrangler: {
         kv_namespaces: [{ binding: "SHOP_CACHE", id: "a537a3a2db8a468583b2db93b60a1df3" }],

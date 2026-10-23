@@ -18,6 +18,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as CheckoutSuccessRouteImport } from './routes/checkout.success'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ShopSlugRouteImport } from './routes/shop.$slug'
+import { Route as ApiShopRefreshRouteImport } from './routes/api.shop.refresh'
 import { Route as ApiStripeWebhookRouteImport } from './routes/api.stripe.webhook'
 import { Route as ApiShopImageItemIdRouteImport } from './routes/api.shop.image.$itemId'
 
@@ -66,6 +67,11 @@ const ShopSlugRoute = ShopSlugRouteImport.update({
   path: '/shop/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiShopRefreshRoute = ApiShopRefreshRouteImport.update({
+  id: '/api/shop/refresh',
+  path: '/api/shop/refresh',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiStripeWebhookRoute = ApiStripeWebhookRouteImport.update({
   id: '/api/stripe/webhook',
   path: '/api/stripe/webhook',
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/checkout/success': typeof CheckoutSuccessRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop/': typeof ShopIndexRoute
+  '/api/shop/refresh': typeof ApiShopRefreshRoute
   '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/api/shop/image/$itemId': typeof ApiShopImageItemIdRoute
 }
@@ -100,6 +107,7 @@ export interface FileRoutesByTo {
   '/checkout/success': typeof CheckoutSuccessRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop': typeof ShopIndexRoute
+  '/api/shop/refresh': typeof ApiShopRefreshRoute
   '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/api/shop/image/$itemId': typeof ApiShopImageItemIdRoute
 }
@@ -114,6 +122,7 @@ export interface FileRoutesById {
   '/checkout/success': typeof CheckoutSuccessRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop/': typeof ShopIndexRoute
+  '/api/shop/refresh': typeof ApiShopRefreshRoute
   '/api/stripe/webhook': typeof ApiStripeWebhookRoute
   '/api/shop/image/$itemId': typeof ApiShopImageItemIdRoute
 }
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
     | '/checkout/success'
     | '/shop/$slug'
     | '/shop/'
+    | '/api/shop/refresh'
     | '/api/stripe/webhook'
     | '/api/shop/image/$itemId'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/checkout/success'
     | '/shop/$slug'
     | '/shop'
+    | '/api/shop/refresh'
     | '/api/stripe/webhook'
     | '/api/shop/image/$itemId'
   id:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/checkout/success'
     | '/shop/$slug'
     | '/shop/'
+    | '/api/shop/refresh'
     | '/api/stripe/webhook'
     | '/api/shop/image/$itemId'
   fileRoutesById: FileRoutesById
@@ -169,6 +181,7 @@ export interface RootRouteChildren {
   CheckoutSuccessRoute: typeof CheckoutSuccessRoute
   ShopSlugRoute: typeof ShopSlugRoute
   ShopIndexRoute: typeof ShopIndexRoute
+  ApiShopRefreshRoute: typeof ApiShopRefreshRoute
   ApiStripeWebhookRoute: typeof ApiStripeWebhookRoute
   ApiShopImageItemIdRoute: typeof ApiShopImageItemIdRoute
 }
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/shop/refresh': {
+      id: '/api/shop/refresh'
+      path: '/api/shop/refresh'
+      fullPath: '/api/shop/refresh'
+      preLoaderRoute: typeof ApiShopRefreshRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/stripe/webhook': {
       id: '/api/stripe/webhook'
       path: '/api/stripe/webhook'
@@ -265,6 +285,7 @@ const rootRouteChildren: RootRouteChildren = {
   CheckoutSuccessRoute: CheckoutSuccessRoute,
   ShopSlugRoute: ShopSlugRoute,
   ShopIndexRoute: ShopIndexRoute,
+  ApiShopRefreshRoute: ApiShopRefreshRoute,
   ApiStripeWebhookRoute: ApiStripeWebhookRoute,
   ApiShopImageItemIdRoute: ApiShopImageItemIdRoute,
 }

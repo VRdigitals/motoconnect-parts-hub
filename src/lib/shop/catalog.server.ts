@@ -1,4 +1,4 @@
-/** Product catalog with a short in-memory cache so we don't call Zoho on every page view. */
+/** Product catalogue: read from a saved copy that is refreshed from Zoho Books once a day (see below). */
 import { env, sampleDataAllowed, zohoConfigured } from "./env.server";
 import { getItem as zohoGetItem, listItems } from "./zoho.server";
 import { sharedGet, sharedPut } from "./shared-cache.server";
@@ -28,61 +28,79 @@ function enrich(p: Product): Product {
   return generic ? { ...p, description, imageUrl: generic, imageIllustrative: true } : { ...p, description, imageUrl: null };
 }
 
-const TTL_MS = (Number(env("SHOP_CACHE_SECONDS")) || 300) * 1000;
-/** The last good catalogue is kept this long, so a Zoho outage or rate limit does not empty the shop. */
-const STALE_SECONDS = 7 * 24 * 3600;
+/**
+ * How products reach the shop:
+ *  - A scheduled job (see vite.config.ts, 06:00 Dubai time) downloads the catalogue from Zoho Books once a day
+ *    and saves it ("snapshot": Cloudflare KV in production, a file in .cache/ locally).
+ *  - Every page reads that saved copy. Visitors never make Zoho wait or count against its rate limit.
+ *  - Only if there is no saved copy yet, or it is older than SHOP_MAX_AGE_HOURS (default 36, i.e. the daily job
+ *    failed), does a page load fall back to asking Zoho directly.
+ *  - A fresh copy can be pulled any time with /api/shop/refresh (see docs/SHOP_SETUP.md).
+ */
+const RECHECK_MS = (Number(env("SHOP_CACHE_SECONDS")) || 300) * 1000; // how often a server instance re-reads the saved copy
+const MAX_AGE_MS = (Number(env("SHOP_MAX_AGE_HOURS")) || 36) * 3600 * 1000;
+const KEEP_SECONDS = 14 * 24 * 3600; // keep the saved copy for 2 weeks even if syncing breaks, so the shop never empties
 const SNAPSHOT_KEY = "catalog-snapshot-v1";
-let cache: { at: number; catalog: Catalog } | null = null;
+
+interface Snapshot {
+  at: number;
+  items: Product[];
+}
+let mem: { at: number; checkedAt: number; catalog: Catalog } | null = null;
 let inFlight: Promise<Catalog> | null = null;
 
-const toCatalog = (raw: Product[]): Catalog => ({ products: raw.map(enrich), source: "zoho", updatedAt: new Date().toISOString() });
+const toCatalog = (raw: Product[], at: number): Catalog => ({ products: raw.map(enrich), source: "zoho", updatedAt: new Date(at).toISOString() });
 
-async function loadSnapshot(): Promise<{ at: number; items: Product[] } | null> {
+async function readSnapshot(): Promise<Snapshot | null> {
   try {
     const raw = await sharedGet(SNAPSHOT_KEY);
-    return raw ? (JSON.parse(raw) as { at: number; items: Product[] }) : null;
+    return raw ? (JSON.parse(raw) as Snapshot) : null;
   } catch {
     return null;
   }
 }
 
-async function refreshCatalog(force: boolean): Promise<Catalog> {
-  // Another server instance may have fetched a fresh copy already.
-  const snap = await loadSnapshot();
-  if (!force && snap && Date.now() - snap.at < TTL_MS) {
-    const catalog = toCatalog(snap.items);
-    cache = { at: snap.at, catalog };
-    return catalog;
+/** Download the whole catalogue from Zoho Books and save it. Used by the daily job, /api/shop/refresh and as a fallback. */
+export async function syncCatalog(): Promise<{ count: number; at: string }> {
+  const items = await listItems();
+  const at = Date.now();
+  await sharedPut(SNAPSHOT_KEY, JSON.stringify({ at, items } satisfies Snapshot), KEEP_SECONDS);
+  mem = { at, checkedAt: Date.now(), catalog: toCatalog(items, at) };
+  return { count: items.length, at: new Date(at).toISOString() };
+}
+
+async function loadCatalog(): Promise<Catalog> {
+  const snap = await readSnapshot();
+  if (snap && Date.now() - snap.at < MAX_AGE_MS) {
+    if (!mem || mem.at !== snap.at) mem = { at: snap.at, checkedAt: Date.now(), catalog: toCatalog(snap.items, snap.at) };
+    mem.checkedAt = Date.now();
+    return mem.catalog;
   }
+  // No saved copy yet, or the daily job has not run for too long: ask Zoho directly.
   try {
-    const items = await listItems();
-    await sharedPut(SNAPSHOT_KEY, JSON.stringify({ at: Date.now(), items }), STALE_SECONDS);
-    const catalog = toCatalog(items);
-    cache = { at: Date.now(), catalog };
-    return catalog;
+    await syncCatalog();
+    return mem!.catalog;
   } catch (error) {
     console.error("[shop] Zoho catalog fetch failed", error);
-    // Serve the last good copy (any age) rather than an error page if Zoho is briefly unavailable.
-    if (cache) return cache.catalog;
+    // Serve whatever copy we have (any age) rather than an error page.
     if (snap) {
-      const catalog = toCatalog(snap.items);
-      cache = { at: Date.now() - TTL_MS + 60_000, catalog }; // try Zoho again in a minute, not on every request
-      return catalog;
+      mem = { at: snap.at, checkedAt: Date.now() - RECHECK_MS + 60_000, catalog: toCatalog(snap.items, snap.at) }; // retry in a minute
+      return mem.catalog;
     }
+    if (mem) return mem.catalog;
     throw error;
   }
 }
 
-export async function getCatalog(opts: { fresh?: boolean } = {}): Promise<Catalog> {
+export async function getCatalog(): Promise<Catalog> {
   if (!zohoConfigured()) {
     return sampleDataAllowed()
       ? { products: sampleProducts, source: "sample", updatedAt: new Date().toISOString() }
       : { products: [], source: "none", updatedAt: new Date().toISOString() };
   }
-
-  if (!opts.fresh && cache && Date.now() - cache.at < TTL_MS) return cache.catalog;
-  // One catalogue download at a time, however many visitors arrive together.
-  inFlight ??= refreshCatalog(Boolean(opts.fresh)).finally(() => {
+  if (mem && Date.now() - mem.checkedAt < RECHECK_MS) return mem.catalog;
+  // One load at a time, however many visitors arrive together.
+  inFlight ??= loadCatalog().finally(() => {
     inFlight = null;
   });
   return inFlight;

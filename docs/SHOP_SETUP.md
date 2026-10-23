@@ -102,3 +102,17 @@ node scripts/dev/simulate-webhook.mjs cs_test_mock1   # sends a signed "payment 
 Everything above was tested against local stand-ins that follow the Zoho Books and Stripe API documentation. The first
 real test must check, in a Zoho **test/sandbox** organisation: item photos load, the invoice totals match Stripe
 (`[shop] Amount mismatch` is logged if not), VAT/tax fields are accepted, and the invoice email arrives.
+
+
+## How the product list stays up to date
+
+- **Once a day, 06:00 Dubai time (02:00 UTC),** a scheduled job downloads all products from Zoho Books and saves them
+  (Cloudflare KV store `SHOP_CACHE`). Every page of the shop reads that saved copy, so visitors never wait for Zoho and
+  never use up Zoho's request limit (Zoho blocks too many token requests).
+- **Refresh right now** (after adding products or changing prices/stock in Books): open the private link in
+  `refresh-link.local` (git-ignored, in the project folder). It works at most once every 5 minutes.
+- **Safety nets:** if the saved copy is missing or older than 36 hours the shop asks Zoho directly; if Zoho is
+  unavailable it keeps showing the last saved copy (kept for 2 weeks) instead of an error.
+- Change the time in `vite.config.ts` (`scheduledTasks`) and redeploy. Cron times are in UTC.
+- Settings: `SHOP_REFRESH_SECRET` (the key in the refresh link), `SHOP_MAX_AGE_HOURS` (default 36), `SHOP_CACHE_SECONDS`
+  (how often a server re-reads the saved copy, default 300).
