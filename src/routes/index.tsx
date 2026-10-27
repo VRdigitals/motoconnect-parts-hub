@@ -17,9 +17,6 @@ import aboutVisionAsset from "../assets/about-vision.png";
 import aboutBgNewAsset from "../assets/about-bg-new.png";
 import brandsBgAsset from "../assets/brands-we-represent.png";
 import heroLogo from "../assets/brands/hero.png";
-import hondaLogo from "../assets/brands/honda.png";
-import tvsLogo from "../assets/brands/tvs.png";
-import bajajLogo from "../assets/brands/bajaj.png";
 import championLogo from "../assets/brands/champion.png";
 import unoMindaLogo from "../assets/brands/uno-minda.png";
 import ngkSparkLogo from "../assets/brands/ngk-spark.png";
@@ -566,9 +563,6 @@ type BrandItem = {
 
 const genuineBrands: BrandItem[] = [
   { name: "Hero", logo: heroLogo },
-  { name: "Honda", logo: hondaLogo },
-  { name: "TVS", logo: tvsLogo },
-  { name: "Bajaj", logo: bajajLogo },
 ];
 
 const aftermarketBrands: BrandItem[] = [

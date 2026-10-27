@@ -6,10 +6,7 @@ import { ShinyButton } from "@/components/ui/shiny-button";
 import logoAsset from "../assets/hero-motoconnect.png";
 import bajajLogo from "../assets/bajaj.png";
 import heroLogo from "../assets/hero.png";
-import hondaLogo from "../assets/honda.png";
 import ktmLogo from "../assets/ktm.png";
-import suzukiLogo from "../assets/suzuki.png";
-import tvsLogo from "../assets/tvs.png";
 import gabrielLogo from "../assets/gabriel.png";
 import ngkLogo from "../assets/ngk.png";
 import skfLogo from "../assets/skf.png";
@@ -29,7 +26,6 @@ import studdsLogo from "../assets/studds.png";
 import tvstyresLogo from "../assets/tvstyres.png";
 import ushaLogo from "../assets/usha.png";
 import varrocLogo from "../assets/varroc.png";
-import yamahaLogo from "../assets/yamaha.png";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -48,11 +44,7 @@ function BrandPortfolioPage() {
       title: "2 WHEELER BRANDS",
       brands: [
         { name: "Hero", logo: heroLogo },
-        { name: "Honda", logo: hondaLogo },
-        { name: "Yamaha", logo: yamahaLogo },
-        { name: "Suzuki", logo: suzukiLogo },
         { name: "Bajaj", logo: bajajLogo },
-        { name: "TVS", logo: tvsLogo },
         { name: "KTM", logo: ktmLogo },
       ]
     },
