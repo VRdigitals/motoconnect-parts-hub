@@ -4,30 +4,16 @@ import { SiteNav } from "@/components/SiteNav";
 import { ShinyButton } from "@/components/ui/shiny-button";
 
 import logoAsset from "../assets/hero-motoconnect.png";
+import heroLogo from "../assets/brands/hero.png";
+import championLogo from "../assets/brands/champion.png";
+import unoMindaLogo from "../assets/brands/uno-minda.png";
+import ngkSparkLogo from "../assets/brands/ngk-spark.png";
+import ushaLogo from "../assets/brands/usha.png";
+import steelBirdLogo from "../assets/brands/steel-bird.png";
 import mkLightsLogo from "../assets/brands/mk-lights.png";
 import indiaNipponLogo from "../assets/brands/india-nippon.png";
-import bajajLogo from "../assets/bajaj.png";
-import heroLogo from "../assets/hero.png";
-import ktmLogo from "../assets/ktm.png";
-import gabrielLogo from "../assets/gabriel.png";
-import ngkLogo from "../assets/ngk.png";
-import skfLogo from "../assets/skf.png";
-import unomindaLogo from "../assets/unominda.png";
-import championLogo from "../assets/champion.png";
-import goetzeLogo from "../assets/goetze.png";
-import ifbLogo from "../assets/ifb.png";
-import osramLogo from "../assets/osram.png";
-import askLogo from "../assets/ask.png";
-import astraeaLogo from "../assets/astraea.png";
-import boschLogo from "../assets/bosch.png";
-import enduranceLogo from "../assets/endurance.png";
-import fccLogo from "../assets/fcc.png";
-import rolonLogo from "../assets/rolon.png";
-import spacoLogo from "../assets/spaco.png";
-import studdsLogo from "../assets/studds.png";
-import tvstyresLogo from "../assets/tvstyres.png";
-import ushaLogo from "../assets/usha.png";
-import varrocLogo from "../assets/varroc.png";
+import rockmanLogo from "../assets/brands/rockman.png";
+import sparkMindaLogo from "../assets/brands/spark-minda.png";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -41,41 +27,27 @@ export const Route = createFileRoute("/products")({
 
 function BrandPortfolioPage() {
 
-  const categories = [
+  // Same brands as the "Automobile Brands We Represent" section on the home page.
+  const categories: { title: string; brands: { name: string; logo: string | null }[] }[] = [
     {
-      title: "2 WHEELER BRANDS",
-      brands: [
-        { name: "Hero", logo: heroLogo },
-        { name: "Bajaj", logo: bajajLogo },
-        { name: "KTM", logo: ktmLogo },
-      ]
+      title: "GENUINE PARTS",
+      brands: [{ name: "Hero", logo: heroLogo }],
     },
     {
-      title: "SPARE PARTS & COMPONENTS",
+      title: "AFTERMARKET PARTS",
       brands: [
-        { name: "UNO Minda", logo: unomindaLogo },
-        { name: "Gabriel", logo: gabrielLogo },
-        { name: "NGK", logo: ngkLogo },
-        { name: "SKF", logo: skfLogo },
-        { name: "Bosch", logo: boschLogo },
         { name: "Champion", logo: championLogo },
-        { name: "Endurance", logo: enduranceLogo },
-        { name: "FCC", logo: fccLogo },
-        { name: "Goetze", logo: goetzeLogo },
-        { name: "IFB", logo: ifbLogo },
-        { name: "Osram", logo: osramLogo },
-        { name: "ASK", logo: askLogo },
-        { name: "Astraea", logo: astraeaLogo },
-        { name: "Rolon", logo: rolonLogo },
-        { name: "Spaco", logo: spacoLogo },
-        { name: "Studds", logo: studdsLogo },
-        { name: "TVS Tyres", logo: tvstyresLogo },
-        { name: "Usha", logo: ushaLogo },
-        { name: "Varroc", logo: varrocLogo },
+        { name: "Uno Minda", logo: unoMindaLogo },
+        { name: "NGK Spark Plugs", logo: ngkSparkLogo },
+        { name: "USHA", logo: ushaLogo },
+        { name: "Steel Bird", logo: steelBirdLogo },
         { name: "MK Lights", logo: mkLightsLogo },
         { name: "India Nippon", logo: indiaNipponLogo },
-      ]
-    }
+        { name: "Rockman", logo: rockmanLogo },
+        { name: "Zeto", logo: null },
+        { name: "Spark Minda", logo: sparkMindaLogo },
+      ],
+    },
   ];
 
   return (
@@ -144,7 +116,7 @@ function BrandPortfolioPage() {
                 {cat.brands.map((brand, i) => (
                   <div 
                     key={i} 
-                    className="group relative aspect-square bg-black flex items-center justify-center p-8 transition-all hover:z-10"
+                    className="group relative aspect-square bg-white flex items-center justify-center p-8 transition-all hover:z-10"
                   >
                     {/* Hover Glow */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
@@ -152,20 +124,22 @@ function BrandPortfolioPage() {
                     </div>
 
                     <div className="relative w-full h-full transition-all duration-500 group-hover:scale-110">
-                      <img 
-                        src={brand.logo} 
-                        alt={brand.name}
-                        className="w-full h-full object-contain opacity-70 group-hover:opacity-100"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = `https://ui-avatars.com/api/?name=${brand.name}&background=ff0000&color=fff&bold=true`;
-                        }}
-                      />
+                      {brand.logo ? (
+                        <img
+                          src={brand.logo}
+                          alt={brand.name}
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <span className="flex h-full w-full items-center justify-center text-center text-xs font-bold uppercase tracking-[0.2em] text-gray-500">
+                          {brand.name}
+                        </span>
+                      )}
                     </div>
 
                     {/* Brand Name Tag */}
                     <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                      <span className="text-[9px] font-bold text-white/40 uppercase tracking-[0.2em]">
+                      <span className="text-[9px] font-bold text-black/50 uppercase tracking-[0.2em]">
                         {brand.name}
                       </span>
                     </div>
