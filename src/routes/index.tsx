@@ -23,6 +23,8 @@ import ngkSparkLogo from "../assets/brands/ngk-spark.png";
 import ushaLogo from "../assets/brands/usha.png";
 import steelBirdLogo from "../assets/brands/steel-bird.png";
 import rockmanLogo from "../assets/brands/rockman.png";
+import mkLightsLogo from "../assets/brands/mk-lights.png";
+import indiaNipponLogo from "../assets/brands/india-nippon.png";
 import sparkMindaLogo from "../assets/brands/spark-minda.png";
 
 export const Route = createFileRoute("/")({
@@ -571,10 +573,9 @@ const aftermarketBrands: BrandItem[] = [
   { name: "NGK Spark", logo: ngkSparkLogo },
   { name: "USHA", logo: ushaLogo },
   { name: "Steel Bird", logo: steelBirdLogo },
-  // No verified logo available yet for the four below (identity/logo to be confirmed).
-  { name: "MK Lights", logo: null },
-  { name: "MK", logo: null },
-  { name: "Nippon", logo: null },
+  { name: "MK Lights", logo: mkLightsLogo },
+  { name: "India Nippon", logo: indiaNipponLogo },
+  // No verified logo available yet for Zeto.
   { name: "Rockman", logo: rockmanLogo },
   { name: "Zeto", logo: null },
   { name: "Spark Minda", logo: sparkMindaLogo },

@@ -4,6 +4,8 @@ import { SiteNav } from "@/components/SiteNav";
 import { ShinyButton } from "@/components/ui/shiny-button";
 
 import logoAsset from "../assets/hero-motoconnect.png";
+import mkLightsLogo from "../assets/brands/mk-lights.png";
+import indiaNipponLogo from "../assets/brands/india-nippon.png";
 import bajajLogo from "../assets/bajaj.png";
 import heroLogo from "../assets/hero.png";
 import ktmLogo from "../assets/ktm.png";
@@ -70,6 +72,8 @@ function BrandPortfolioPage() {
         { name: "TVS Tyres", logo: tvstyresLogo },
         { name: "Usha", logo: ushaLogo },
         { name: "Varroc", logo: varrocLogo },
+        { name: "MK Lights", logo: mkLightsLogo },
+        { name: "India Nippon", logo: indiaNipponLogo },
       ]
     }
   ];

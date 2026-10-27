@@ -17,9 +17,8 @@ Files here are trimmed/normalised copies used only by the "Automobile Brands We 
 | Spark Minda | `spark-minda.png` | Official site, sparkminda.com (`/images/logo.png`); matches the logo already shown in the project's partner-brands artwork | Verified |
 | Rockman | `rockman.png` | Wikimedia Commons "Rockman-Industries-Logo.jpg", the logo used on Wikipedia for Rockman Industries (Hero Group, rockman.in). rockman.in blocks automated access | Verified (reliable source) |
 | Steel Bird | `steel-bird.png` | steelbird.com (Steelbird International / Steelbird Auto Parts). Source file is small (150x100), so it is slightly soft | **Confirm**: this is the auto-parts company, not the helmet maker Steelbird Hi-Tech India |
-| MK Lights | _none_ | No official source or logo could be verified | **Unverified, name tile shown** |
-| MK | _none_ | No official source or logo could be verified | **Unverified, name tile shown** |
-| Nippon | _none_ | "Nippon" matches several unrelated companies; identity unclear | **Unverified, name tile shown** |
+| MK Lights | `mk-lights.png` | Supplied by the client (replaces the former "MK Lights" and "MK" name tiles) | Client-supplied |
+| India Nippon | `india-nippon.png` | Supplied by the client; original was white on dark, recoloured to black | Client-supplied |
 | Zeto | _none_ | No brand found (possibly "Xeto"?) | **Unverified, name tile shown** |
 
 To add a missing logo: drop the file into this folder, import it in `src/routes/index.tsx`, and set it as the
