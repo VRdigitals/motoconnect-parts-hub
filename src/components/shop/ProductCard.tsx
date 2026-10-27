@@ -6,10 +6,14 @@ import type { Product } from "@/lib/shop/types";
 import { ProductImage, photoFit } from "./ProductImage";
 import { WhatsAppOrderButton } from "./WhatsAppOrderButton";
 
+export function FeaturedBadge({ className = "" }: { className?: string }) {
+  return <span className={`bg-[#ff0000] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white ${className}`}>Featured</span>;
+}
+
 export function StockBadge({ stock }: { stock: number | null }) {
   if (stock === null) return null;
   if (stock === 0) return <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400">Out of stock</span>;
-  if (stock <= shopConfig.lowStockThreshold) return <span className="whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.15em] text-[#ff0000]">Only {stock} left</span>;
+  if (stock < shopConfig.limitedStockBelow) return <span className="whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.15em] text-[#ff0000]">Limited Stock</span>;
   return <span className="whitespace-nowrap text-[11px] font-bold uppercase tracking-[0.15em] text-emerald-600">In stock</span>;
 }
 
@@ -47,7 +51,10 @@ export function ProductCard({ product, layout = "grid" }: { product: Product; la
   if (layout === "list") {
     return (
       <article className="group flex flex-col gap-4 border border-gray-200 bg-white p-4 transition-colors hover:border-[#ff0000] sm:flex-row sm:items-center">
-        <div className="aspect-square w-full shrink-0 overflow-hidden border border-gray-100 sm:w-36">{image}</div>
+        <div className="relative aspect-square w-full shrink-0 overflow-hidden border border-gray-100 sm:w-36">
+          {image}
+          {product.featured && <FeaturedBadge className="absolute left-0 top-0" />}
+        </div>
         <div className="min-w-0 flex-1">
           <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">{product.category}</p>
           <div className="mt-1 text-base">{title}</div>
@@ -67,7 +74,10 @@ export function ProductCard({ product, layout = "grid" }: { product: Product; la
 
   return (
     <article className="group flex flex-col border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#ff0000] hover:shadow-[0_10px_24px_-12px_rgba(0,0,0,0.2)]">
-      <div className="relative aspect-square w-full overflow-hidden border-b border-gray-100">{image}</div>
+      <div className="relative aspect-square w-full overflow-hidden border-b border-gray-100">
+        {image}
+        {product.featured && <FeaturedBadge className="absolute left-0 top-0" />}
+      </div>
       <div className="flex flex-1 flex-col p-4">
         <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">{product.category}</p>
         <div className="mt-1.5 min-h-[2.75rem] text-sm">{title}</div>

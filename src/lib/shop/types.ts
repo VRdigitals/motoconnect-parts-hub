@@ -17,6 +17,8 @@ export interface Product {
   imageUrl: string | null;
   /** True when imageUrl is a generic stand-in for this type of part, not a photo of the item itself. */
   imageIllustrative?: boolean;
+  /** In the "Top 25 products" list (src/content/featured-products.json). */
+  featured?: boolean;
 }
 
 export interface Catalog {
@@ -45,6 +47,8 @@ export interface ShopQuery {
   min?: number | undefined;
   max?: number | undefined;
   stock?: ShopStock | undefined;
+  /** Only the featured "Top 25 products". */
+  top?: boolean | undefined;
   sort?: ShopSort | undefined;
   page?: number | undefined;
   size?: number | undefined;
@@ -64,6 +68,8 @@ export interface ShopPage {
   brands: { name: string; count: number }[];
   /** Availability counts (respect every other active filter). */
   stock: { in: number; out: number };
+  /** Number of featured products matching the other active filters. */
+  featuredCount: number;
   priceBounds: { min: number; max: number };
   source: Catalog["source"];
 }

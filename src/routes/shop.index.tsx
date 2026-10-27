@@ -18,6 +18,7 @@ interface ShopSearch {
   min?: number | undefined;
   max?: number | undefined;
   stock?: ShopStock | undefined;
+  top?: boolean | undefined;
   sort?: ShopSort | undefined;
   page?: number | undefined;
   size?: number | undefined;
@@ -38,6 +39,7 @@ export const Route = createFileRoute("/shop/")({
     const min = positive(s["min"]);
     const max = positive(s["max"]);
     const stock = s["stock"] === "in" || s["stock"] === "out" ? (s["stock"] as ShopStock) : undefined;
+    const top = s["top"] === true || s["top"] === "true" || s["top"] === 1 || s["top"] === "1" ? true : undefined;
     const sort = SORTS.includes(s["sort"] as ShopSort) && s["sort"] !== "featured" ? (s["sort"] as ShopSort) : undefined;
     const page = Number(s["page"]) > 1 ? Math.floor(Number(s["page"])) : undefined;
     const size = SIZES.includes(Number(s["size"])) && Number(s["size"]) !== 24 ? Number(s["size"]) : undefined;
@@ -48,6 +50,7 @@ export const Route = createFileRoute("/shop/")({
       ...(min !== undefined && { min }),
       ...(max !== undefined && { max }),
       ...(stock && { stock }),
+      ...(top && { top }),
       ...(sort && { sort }),
       ...(page && { page }),
       ...(size && { size }),
@@ -90,7 +93,7 @@ function ShopPage() {
 
   const view: View = search.view ?? "g4";
   const activeBrands = (search.brand ?? "").split(",").map((s) => s.trim()).filter(Boolean);
-  const filtered = Boolean(search.q || activeBrands.length || search.min !== undefined || search.max !== undefined || search.stock);
+  const filtered = Boolean(search.q || activeBrands.length || search.min !== undefined || search.max !== undefined || search.stock || search.top);
 
   const update = (next: Partial<ShopSearch>) =>
     navigate({ search: (prev: ShopSearch) => ({ ...prev, page: undefined, ...next }), resetScroll: false });
@@ -115,10 +118,11 @@ function ShopPage() {
   const filterPanel = (
     <FilterPanel
       data={data}
-      active={{ brands: activeBrands, min: search.min, max: search.max, stock: search.stock }}
+      active={{ brands: activeBrands, min: search.min, max: search.max, stock: search.stock, top: search.top }}
       onBrands={setBrands}
       onPrice={(min, max) => update({ min, max })}
       onStock={(stock) => update({ stock })}
+      onTop={(top) => update({ top: top ? true : undefined })}
       onClear={clearAll}
     />
   );
@@ -129,6 +133,7 @@ function ShopPage() {
     ...(search.min !== undefined || search.max !== undefined
       ? [{ label: `${search.min !== undefined ? formatMoney(search.min) : "AED 0"} to ${search.max !== undefined ? formatMoney(search.max) : "any"}`, remove: () => update({ min: undefined, max: undefined }) }]
       : []),
+    ...(search.top ? [{ label: "Top 25 products", remove: () => update({ top: undefined }) }] : []),
     ...(search.stock ? [{ label: search.stock === "in" ? "In stock" : "Out of stock", remove: () => update({ stock: undefined }) }] : []),
   ];
 

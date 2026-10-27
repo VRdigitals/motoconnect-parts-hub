@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone, MapPin, Send, ArrowUpRight, Crown, Clock } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
@@ -15,7 +16,32 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
+const CONTACT_EMAIL = "sales@motoconnect.ae";
+
 function ContactPage() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  // Sends the enquiry to sales@motoconnect.ae (through FormSubmit, which emails the form fields).
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    if (data.get("_honey")) return; // spam trap
+    setStatus("sending");
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: data,
+      });
+      const json = (await res.json().catch(() => ({}))) as { success?: string | boolean };
+      if (!res.ok || json.success === false || json.success === "false") throw new Error("send failed");
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  };
 
   return (
     <div className="bg-black font-raleway selection:bg-white selection:text-black min-h-screen">
@@ -53,21 +79,24 @@ function ContactPage() {
             
             <h2 className="font-podium text-4xl italic uppercase mb-10 tracking-tight text-white">Send a Message</h2>
             
-            <form className="space-y-8 relative z-10">
+            <form onSubmit={submit} className="space-y-8 relative z-10">
+              <input type="hidden" name="_subject" value="New enquiry from motoconnect.ae" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="text" name="_honey" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Full Name</label>
-                  <input type="text" className="w-full bg-transparent border-b border-white/20 focus:border-[#ff0000] outline-none py-3 text-sm text-white transition-colors" placeholder="e.g. John Doe" />
+                  <input type="text" name="Name" required className="w-full bg-transparent border-b border-white/20 focus:border-[#ff0000] outline-none py-3 text-sm text-white transition-colors" placeholder="e.g. John Doe" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Email Address</label>
-                  <input type="email" className="w-full bg-transparent border-b border-white/20 focus:border-[#ff0000] outline-none py-3 text-sm text-white transition-colors" placeholder="e.g. sales@company.ae" />
+                  <input type="email" name="email" required className="w-full bg-transparent border-b border-white/20 focus:border-[#ff0000] outline-none py-3 text-sm text-white transition-colors" placeholder="e.g. sales@company.ae" />
                 </div>
               </div>
               
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Subject</label>
-                <select className="w-full bg-transparent border-b border-white/20 focus:border-[#ff0000] outline-none py-3 text-sm text-white/60 cursor-pointer appearance-none">
+                <select name="Subject" className="w-full bg-transparent border-b border-white/20 focus:border-[#ff0000] outline-none py-3 text-sm text-white/60 cursor-pointer appearance-none">
                   <option className="bg-black text-white">Distribution Partnership</option>
                   <option className="bg-black text-white">Spare Parts Inquiry</option>
                   <option className="bg-black text-white">Technical Support</option>
@@ -77,12 +106,18 @@ function ContactPage() {
               
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Message</label>
-                <textarea rows={5} className="w-full bg-transparent border-b border-white/20 focus:border-[#ff0000] outline-none py-3 text-sm text-white transition-colors" placeholder="How can we help your business?" />
+                <textarea rows={5} name="Message" required className="w-full bg-transparent border-b border-white/20 focus:border-[#ff0000] outline-none py-3 text-sm text-white transition-colors" placeholder="How can we help your business?" />
               </div>
               
-              <button className="w-full md:w-auto bg-[#ff0000] text-white px-12 py-5 font-black uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 group">
-                Send Message <Send size={16} className="group-hover:translate-x-1 transition-transform" />
+              <button type="submit" disabled={status === "sending"} className="w-full md:w-auto disabled:opacity-60 bg-[#ff0000] text-white px-12 py-5 font-black uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all flex items-center justify-center gap-3 group">
+                {status === "sending" ? "Sending..." : "Send Message"} <Send size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
+              {status === "sent" && <p role="status" className="text-sm text-emerald-400">Thank you, your message has been sent. Our team will get back to you shortly.</p>}
+              {status === "error" && (
+                <p role="alert" className="text-sm text-[#ff6b6b]">
+                  Sorry, your message could not be sent. Please email <a className="underline" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> or call us.
+                </p>
+              )}
             </form>
           </div>
 
@@ -101,7 +136,7 @@ function ContactPage() {
                   <div className="space-y-6">
                     {branches.map((branch) => (
                       <div key={branch.id}>
-                        <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/60 mb-2">{branch.city} Branch</h3>
+                        <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/60 mb-2">{branch.heading ?? `${branch.city} Branch`}</h3>
                         {branch.name && (
                           <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/80 mb-1">{branch.name}</p>
                         )}
@@ -166,11 +201,11 @@ function ContactPage() {
       </section>
 
       {/* Map Section */}
-      <section className="grid w-full grid-cols-1 md:grid-cols-2 border-t border-white/5">
+      <section className="grid w-full grid-cols-1 md:grid-cols-3 border-t border-white/5">
         {branches.map((branch) => (
           <div key={branch.id} className="relative h-[360px] md:h-[500px] w-full border-b md:border-b-0 md:border-r last:border-r-0 border-white/5">
             <iframe
-              title={`${branch.city} branch map`}
+              title={`${branch.city} map`}
               src={branch.embedUrl}
               className="w-full h-full grayscale invert opacity-70 contrast-125"
               style={{ border: 0 }}

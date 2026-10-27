@@ -35,8 +35,8 @@ export const shopConfig = {
   soldItemTypes: ["Spare Parts"] as string[],
   /** Extra safety net: names matching these are never shown (complete bikes listed as parts, service packages). */
   hiddenNamePatterns: [/^(hero|honda|bajaj|tvs)\s[\w\s.\-']*\b\d{2,3}\s?cc\s*$/i, /service package/i] as RegExp[],
-  /** Show "Only N left" when stock is at or below this level. */
-  lowStockThreshold: 5,
+  /** Show "Limited Stock" (instead of a number) when stock is below 10. */
+  limitedStockBelow: 10,
   /** Max quantity of one product in a cart line (also capped by stock). */
   maxQtyPerLine: 99,
 };

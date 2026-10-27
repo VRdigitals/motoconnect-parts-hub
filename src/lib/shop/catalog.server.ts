@@ -4,6 +4,7 @@ import { getItem as zohoGetItem, listItems } from "./zoho.server";
 import { sharedGet, sharedPut } from "./shared-cache.server";
 import { sampleProducts } from "./sample-products";
 import descriptions from "../../content/product-descriptions.json";
+import featuredIds from "../../content/featured-products.json";
 import imageManifest from "../../content/product-images.json";
 import illustrativeManifest from "../../content/product-images-illustrative.json";
 import type { Catalog, Product, ShopPage, ShopQuery } from "./types";
@@ -16,10 +17,17 @@ import type { Catalog, Product, ShopPage, ShopQuery } from "./types";
  * A description written in Books wins over ours; an optimised local photo wins over the (often huge) Books original.
  */
 const siteDescriptions = descriptions as Record<string, string>;
+const featuredSet = new Set(featuredIds as string[]);
 const sitePhotos = imageManifest as Record<string, string>;
 const illustrativePhotos = illustrativeManifest as Record<string, string>;
 
 function enrich(p: Product): Product {
+  return markFeatured(enrichBase(p));
+}
+
+const markFeatured = (p: Product): Product => (featuredSet.has(p.id) ? { ...p, featured: true } : p);
+
+function enrichBase(p: Product): Product {
   const books = (p.description ?? "").trim();
   const description = books.length > 25 && books.toLowerCase() !== p.name.toLowerCase() ? books : (siteDescriptions[p.id] ?? null);
   const real = sitePhotos[p.id] ?? p.imageUrl;
@@ -95,7 +103,7 @@ async function loadCatalog(): Promise<Catalog> {
 export async function getCatalog(): Promise<Catalog> {
   if (!zohoConfigured()) {
     return sampleDataAllowed()
-      ? { products: sampleProducts, source: "sample", updatedAt: new Date().toISOString() }
+      ? { products: sampleProducts.map(markFeatured), source: "sample", updatedAt: new Date().toISOString() }
       : { products: [], source: "none", updatedAt: new Date().toISOString() };
   }
   if (mem && Date.now() - mem.checkedAt < RECHECK_MS) return mem.catalog;
@@ -132,18 +140,20 @@ export async function queryCatalog(query: ShopQuery): Promise<ShopPage> {
   );
   const stockOk = (p: Product) => !query.stock || (query.stock === "in") === isInStock(p);
   const brandOk = (p: Product) => brandSet.size === 0 || brandSet.has(p.category);
+  const topOk = (p: Product) => !query.top || p.featured === true;
 
   const brandCounts = new Map<string, number>();
-  for (const p of base) if (stockOk(p)) brandCounts.set(p.category, (brandCounts.get(p.category) ?? 0) + 1);
+  for (const p of base) if (stockOk(p) && topOk(p)) brandCounts.set(p.category, (brandCounts.get(p.category) ?? 0) + 1);
   for (const name of brandSet) if (!brandCounts.has(name)) brandCounts.set(name, 0);
   const brands = [...brandCounts]
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => (a.name === "Other" ? 1 : b.name === "Other" ? -1 : b.count - a.count || a.name.localeCompare(b.name)));
 
-  const forStock = base.filter(brandOk);
+  const forStock = base.filter((p) => brandOk(p) && topOk(p));
   const stock = { in: forStock.filter(isInStock).length, out: forStock.filter((p) => !isInStock(p)).length };
 
-  let list = base.filter((p) => brandOk(p) && stockOk(p));
+  const featuredCount = base.filter((p) => p.featured && brandOk(p) && stockOk(p)).length;
+  let list = base.filter((p) => brandOk(p) && stockOk(p) && topOk(p));
 
   switch (query.sort) {
     case "price-asc":
@@ -178,6 +188,7 @@ export async function queryCatalog(query: ShopQuery): Promise<ShopPage> {
     to: Math.min(page * pageSize, list.length),
     brands,
     stock,
+    featuredCount,
     priceBounds: { min: prices.length ? Math.floor(Math.min(...prices)) : 0, max: prices.length ? Math.ceil(Math.max(...prices)) : 0 },
     source: catalog.source,
   };

@@ -7,7 +7,7 @@ import { useCart } from "@/lib/shop/cart";
 import { formatMoney, shopConfig } from "@/lib/shop/config";
 import { StoreLayout } from "@/components/shop/StoreLayout";
 import { ProductImage, photoFit } from "@/components/shop/ProductImage";
-import { ProductCard, StockBadge } from "@/components/shop/ProductCard";
+import { FeaturedBadge, ProductCard, StockBadge } from "@/components/shop/ProductCard";
 
 export const Route = createFileRoute("/shop/$slug")({
   loader: async ({ params }) => {
@@ -91,7 +91,8 @@ function ProductPage() {
 
         <div className="grid gap-8 border border-gray-200 bg-white p-4 md:grid-cols-2 md:p-8 lg:gap-14">
           <div>
-            <div className="aspect-square w-full overflow-hidden border border-gray-100 bg-white">
+            <div className="relative aspect-square w-full overflow-hidden border border-gray-100 bg-white">
+              {product.featured && <FeaturedBadge className="absolute left-0 top-0 z-10" />}
               <ProductImage src={product.imageUrl} alt={product.name} fit={fit} brand={product.category} caption illustrative={product.imageIllustrative === true} className={`${fit === "contain" ? "p-6" : ""} ${soldOut ? "opacity-40 grayscale" : ""}`} />
             </div>
             {!product.imageUrl && (

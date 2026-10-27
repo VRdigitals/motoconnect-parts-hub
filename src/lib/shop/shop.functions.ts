@@ -15,6 +15,7 @@ const shopQuery = z.object({
   min: z.number().min(0).max(1_000_000).optional(),
   max: z.number().min(0).max(1_000_000).optional(),
   stock: z.enum(["in", "out"]).optional(),
+  top: z.boolean().optional(),
   sort: z.enum(["featured", "price-asc", "price-desc", "name"]).optional(),
   page: z.number().int().min(1).max(10000).optional(),
   size: z.number().int().min(1).max(500).optional(),

@@ -7,6 +7,7 @@ export interface ActiveFilters {
   min?: number | undefined;
   max?: number | undefined;
   stock?: ShopStock | undefined;
+  top?: boolean | undefined;
 }
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
   onBrands: (brands: string[]) => void;
   onPrice: (min?: number, max?: number) => void;
   onStock: (stock?: ShopStock) => void;
+  onTop: (top: boolean) => void;
   onClear: () => void;
 }
 
@@ -45,14 +47,14 @@ function Box({ checked }: { checked: boolean }) {
   );
 }
 
-export function FilterPanel({ data, active, onBrands, onPrice, onStock, onClear }: Props) {
+export function FilterPanel({ data, active, onBrands, onPrice, onStock, onTop, onClear }: Props) {
   const [brandQuery, setBrandQuery] = useState("");
   const [min, setMin] = useState(active.min?.toString() ?? "");
   const [max, setMax] = useState(active.max?.toString() ?? "");
 
   const visibleBrands = data.brands.filter((b) => b.name.toLowerCase().includes(brandQuery.trim().toLowerCase()));
   const toggleBrand = (name: string) => onBrands(active.brands.includes(name) ? active.brands.filter((b) => b !== name) : [...active.brands, name]);
-  const anyActive = active.brands.length > 0 || active.min !== undefined || active.max !== undefined || active.stock !== undefined;
+  const anyActive = active.brands.length > 0 || active.min !== undefined || active.max !== undefined || active.stock !== undefined || Boolean(active.top);
   const num = (v: string) => (v.trim() === "" || Number.isNaN(Number(v)) ? undefined : Math.max(0, Number(v)));
 
   return (
@@ -62,6 +64,14 @@ export function FilterPanel({ data, active, onBrands, onPrice, onStock, onClear 
           Clear all filters
         </button>
       )}
+
+      <Section title="Featured">
+        <button onClick={() => onTop(!active.top)} aria-pressed={Boolean(active.top)} className="flex w-full items-center gap-3 py-1.5 text-left text-sm hover:text-[#ff0000]">
+          <Box checked={Boolean(active.top)} />
+          <span className="flex-1">Top 25 products</span>
+          <span className="text-xs text-gray-400">{data.featuredCount.toLocaleString("en-AE")}</span>
+        </button>
+      </Section>
 
       <Section title="Brands">
         {data.brands.length > 8 && (

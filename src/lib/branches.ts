@@ -7,6 +7,8 @@ const mapsEmbed = (address: string) =>
 export interface Branch {
   id: string;
   city: string;
+  /** Heading used on the contact page; defaults to "<city> Branch". */
+  heading?: string;
   /** Branch name, only where one has been provided. */
   name?: string;
   address: string;
@@ -15,6 +17,7 @@ export interface Branch {
 }
 
 const dubaiAddress = "Al Ghazal Mall, Showroom SG-15, Dubai, UAE";
+const warehouseCoords = "25.1143979,55.2191455"; // from https://maps.app.goo.gl/9rLWtCad5hBb3Zbh9
 const abuDhabiAddress = "No. 48, Ar Raha 8 Street, Musaffah M3, Abu Dhabi";
 
 export const branches: Branch[] = [
@@ -34,5 +37,14 @@ export const branches: Branch[] = [
     address: abuDhabiAddress,
     mapsUrl: mapsSearch(abuDhabiAddress),
     embedUrl: mapsEmbed(abuDhabiAddress),
+  },
+  {
+    id: "spare-parts-warehouse",
+    city: "Spare Parts Warehouse",
+    heading: "Spare Parts Warehouse",
+    name: "Hero Authorized Service Center – by Moto Connect",
+    address: "Dubai, UAE",
+    mapsUrl: "https://maps.app.goo.gl/9rLWtCad5hBb3Zbh9",
+    embedUrl: `https://www.google.com/maps?q=${warehouseCoords}&output=embed`,
   },
 ];
