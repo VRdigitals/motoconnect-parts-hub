@@ -122,8 +122,8 @@ function Footer() {
               </li>
               <li className="flex items-center gap-4 group">
                 <div className="h-2 w-2 rounded-full bg-[#ff0000] shadow-[0_0_10px_#ff0000]" />
-                <a href="tel:+971566561083" className="font-raleway text-sm text-white/50 hover:text-white transition-colors">
-                  +971 56 656 1083
+                <a href="tel:+971563299940" className="font-raleway text-sm text-white/50 hover:text-white transition-colors">
+                  +971 56 329 9940
                 </a>
               </li>
             </ul>

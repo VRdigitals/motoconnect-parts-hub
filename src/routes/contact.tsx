@@ -170,7 +170,7 @@ function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/60 mb-2">Call Us</h3>
-                    <a href="tel:+971566561083" className="font-podium text-lg leading-tight uppercase italic hover:underline decoration-white/30">+971 56 656 1083</a>
+                    <a href="tel:+971563299940" className="font-podium text-lg leading-tight uppercase italic hover:underline decoration-white/30">+971 56 329 9940</a>
                   </div>
                 </div>
               </div>

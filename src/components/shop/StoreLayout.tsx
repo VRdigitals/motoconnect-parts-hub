@@ -6,10 +6,10 @@ import { formatMoney } from "@/lib/shop/config";
 import { branches } from "@/lib/branches";
 import logoAsset from "../../assets/hero-motoconnect.png";
 
-const PHONE_DISPLAY = "+971 56 656 1083";
-const PHONE_TEL = "+971566561083";
+const PHONE_DISPLAY = "+971 56 329 9940";
+const PHONE_TEL = "+971563299940";
 const EMAIL = "sales@motoconnect.ae";
-const WHATSAPP = "https://wa.me/971566561083?text=Hello%20Motoconnect%2C%20I%20have%20a%20question%20about%20a%20product.";
+const WHATSAPP = "https://wa.me/971563299940?text=Hello%20Motoconnect%2C%20I%20have%20a%20question%20about%20a%20product.";
 
 const nav = [
   { name: "Home", href: "/" },

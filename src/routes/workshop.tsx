@@ -37,9 +37,9 @@ const steps = [
   { n: "04", title: "Ride", text: "We test and hand back your motorcycle, ready for the road." },
 ];
 
-const PHONE_TEL = "+971566561083";
-const PHONE_DISPLAY = "+971 56 656 1083";
-const WHATSAPP = "https://wa.me/971566561083?text=" + encodeURIComponent("Hello Motoconnect, I would like to book a service at the workshop.");
+const PHONE_TEL = "+971563299940";
+const PHONE_DISPLAY = "+971 56 329 9940";
+const WHATSAPP = "https://wa.me/971563299940?text=" + encodeURIComponent("Hello Motoconnect, I would like to book a service at the workshop.");
 
 function WorkshopPage() {
   // The workshop is the authorised service centre, listed with the other locations in src/lib/branches.ts.

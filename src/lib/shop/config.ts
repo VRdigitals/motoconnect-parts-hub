@@ -11,7 +11,7 @@ export const shopConfig = {
    */
   checkoutMode: "whatsapp" as "whatsapp" | "online",
   /** WhatsApp number orders are sent to, international format without "+". CONFIRM WITH THE CLIENT. */
-  whatsappNumber: "971566561083",
+  whatsappNumber: "971563299940",
   currency: "AED",
   /** UAE VAT. */
   vatRate: 0.05,
