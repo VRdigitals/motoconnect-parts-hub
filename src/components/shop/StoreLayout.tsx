@@ -15,6 +15,7 @@ const nav = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Brand Portfolio", href: "/products" },
+  { name: "Workshop", href: "/workshop" },
   { name: "Shop", href: "/shop" },
   { name: "Contact", href: "/contact" },
 ];
@@ -171,7 +172,7 @@ export function StoreLayout({ children, initialSearch = "" }: { children: ReactN
       <footer className="bg-black text-white">
         <div className="mx-auto grid max-w-[1400px] gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
           <div>
-            <img src={logoAsset} alt="Motoconnect" className="h-12 w-auto object-contain" />
+            <span className="inline-block rounded-sm bg-white p-2"><img src={logoAsset} alt="Motoconnect" className="h-12 w-auto object-contain" /></span>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/50">Dubai and Abu Dhabi's destination for motorcycle spare parts. Add parts to your cart and send your order on WhatsApp.</p>
           </div>
           <div>

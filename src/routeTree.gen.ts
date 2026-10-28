@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DistributionRouteImport } from './routes/distribution'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as WorkshopRouteImport } from './routes/workshop'
 import { Route as CheckoutSuccessRouteImport } from './routes/checkout.success'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ShopSlugRouteImport } from './routes/shop.$slug'
@@ -50,6 +51,11 @@ const ProductsRoute = ProductsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkshopRoute = WorkshopRouteImport.update({
+  id: '/workshop',
+  path: '/workshop',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckoutSuccessRoute = CheckoutSuccessRouteImport.update({
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/distribution': typeof DistributionRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/workshop': typeof WorkshopRoute
   '/checkout/success': typeof CheckoutSuccessRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop/': typeof ShopIndexRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/distribution': typeof DistributionRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/workshop': typeof WorkshopRoute
   '/checkout/success': typeof CheckoutSuccessRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop': typeof ShopIndexRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/distribution': typeof DistributionRoute
   '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/workshop': typeof WorkshopRoute
   '/checkout/success': typeof CheckoutSuccessRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop/': typeof ShopIndexRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/distribution'
     | '/products'
     | '/sitemap.xml'
+    | '/workshop'
     | '/checkout/success'
     | '/shop/$slug'
     | '/shop/'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/distribution'
     | '/products'
     | '/sitemap.xml'
+    | '/workshop'
     | '/checkout/success'
     | '/shop/$slug'
     | '/shop'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/distribution'
     | '/products'
     | '/sitemap.xml'
+    | '/workshop'
     | '/checkout/success'
     | '/shop/$slug'
     | '/shop/'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   DistributionRoute: typeof DistributionRoute
   ProductsRoute: typeof ProductsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WorkshopRoute: typeof WorkshopRoute
   CheckoutSuccessRoute: typeof CheckoutSuccessRoute
   ShopSlugRoute: typeof ShopSlugRoute
   ShopIndexRoute: typeof ShopIndexRoute
@@ -228,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workshop': {
+      id: '/workshop'
+      path: '/workshop'
+      fullPath: '/workshop'
+      preLoaderRoute: typeof WorkshopRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkout/success': {
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   DistributionRoute: DistributionRoute,
   ProductsRoute: ProductsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WorkshopRoute: WorkshopRoute,
   CheckoutSuccessRoute: CheckoutSuccessRoute,
   ShopSlugRoute: ShopSlugRoute,
   ShopIndexRoute: ShopIndexRoute,

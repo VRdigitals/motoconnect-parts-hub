@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Crown, Settings, Zap, Award, CheckCircle2, Target, History } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
 import { motion } from "framer-motion";
-import { founder } from "@/lib/people";
+import { coFounder, founder } from "@/lib/people";
 import logoAsset from "../assets/hero-motoconnect.png";
 import aboutBgVideoAsset from "../assets/about-bg-video.mp4";
 import aboutVisionAsset from "../assets/about-vision.png";
@@ -100,62 +100,14 @@ function AboutPage() {
               <span className="text-[#ff0000] text-xs font-bold uppercase tracking-[0.4em]">Leadership</span>
             </div>
             <h2 className="font-podium text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight text-white uppercase italic">
-              MEET THE <span className="text-[#ff0000]">FOUNDER</span>
+              MEET THE <span className="text-[#ff0000]">FOUNDERS</span>
             </h2>
             <div className="mt-4 h-1.5 w-24 bg-[#ff0000]" />
           </motion.div>
 
-          <div className="grid items-center gap-12 md:grid-cols-12 lg:gap-20">
-            <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9 }}
-              className="group relative mx-auto w-full max-w-sm md:col-span-5 md:max-w-none"
-            >
-              <div className="absolute -bottom-4 -right-4 h-full w-full border border-[#ff0000]/40 transition-all duration-500 group-hover:-bottom-6 group-hover:-right-6" />
-              <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-white/5">
-                {founder.photo ? (
-                  <img
-                    src={founder.photo}
-                    alt={founder.photoAlt}
-                    loading="lazy"
-                    className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                ) : (
-                  <div role="img" aria-label={founder.photoAlt} className="flex h-full w-full items-center justify-center bg-gradient-to-br from-white/10 to-white/0">
-                    <span className="font-podium text-8xl italic tracking-tight text-white/30">{founder.initials}</span>
-                  </div>
-                )}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.15 }}
-              className="md:col-span-7"
-            >
-              <h3 className="font-podium text-4xl lg:text-5xl italic uppercase tracking-tight text-white">{founder.name}</h3>
-              <p className="mt-3 text-xs font-bold uppercase tracking-[0.4em] text-[#ff0000]">{founder.role}</p>
-              <div className="mt-8 border-l-4 border-[#ff0000] pl-6 md:pl-8">
-                <p className="text-lg md:text-xl leading-relaxed text-white/70 italic">{founder.intro}</p>
-              </div>
-              <div className="mt-6 space-y-5 text-base leading-relaxed text-white/60 md:text-lg">
-                {founder.paragraphs.map((para) => (
-                  <p key={para}>{para}</p>
-                ))}
-              </div>
-              <ul className="mt-8 flex flex-wrap gap-2.5" aria-label="Qualities she is remembered for">
-                {founder.values.map((v) => (
-                  <li key={v} className="border border-white/15 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
-                    {v}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+          <div className="space-y-24 md:space-y-32">
+            <FounderBlock person={founder} qualitiesLabel="Qualities she is remembered for" />
+            <FounderBlock person={coFounder} qualitiesLabel="Qualities that define him" reverse />
           </div>
         </div>
       </section>
@@ -216,16 +168,12 @@ function AboutPage() {
       {/* Footer */}
       <footer className="bg-[#050505] text-white pt-24 pb-12 border-t border-white/5">
         <div className="mx-auto max-w-7xl px-6 sm:px-10 lg:px-16 text-center">
-          <img 
-            src={logoAsset} 
-            alt="Motoconnect" 
-            className="h-12 w-auto mx-auto mb-12 object-contain"
-          />
+          <span className="mx-auto mb-12 inline-block rounded-sm bg-white p-2"><img src={logoAsset} alt="Motoconnect" className="h-12 w-auto object-contain" /></span>
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-12">
-            {["Home", "About", "Brand Portfolio", "Shop", "Contact"].map((name) => (
+            {["Home", "About", "Brand Portfolio", "Workshop", "Shop", "Contact"].map((name) => (
               <a
                 key={name}
-                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : name === "About" ? "/about" : "/contact"}
+                href={name === "Home" ? "/" : name === "Brand Portfolio" ? "/products" : name === "Shop" ? "/shop" : name === "Workshop" ? "/workshop" : name === "About" ? "/about" : "/contact"}
                 className="py-2 font-raleway text-xs tracking-[0.2em] text-white/40 hover:text-[#ff0000] transition-colors uppercase"
               >
                 {name}
@@ -238,5 +186,73 @@ function AboutPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+interface FounderPerson {
+  name: string;
+  role: string;
+  photo: string | null;
+  photoAlt: string;
+  initials: string;
+  intro: string;
+  paragraphs: string[];
+  values: string[];
+}
+
+function FounderBlock({ person, qualitiesLabel, reverse = false }: { person: FounderPerson; qualitiesLabel: string; reverse?: boolean }) {
+  return (
+          <div className="grid items-center gap-12 md:grid-cols-12 lg:gap-20">
+  <motion.div
+    initial={{ opacity: 0, y: 32 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.9 }}
+    className={`group relative mx-auto w-full max-w-sm md:col-span-5 md:max-w-none ${reverse ? "md:order-2" : ""}`}
+  >
+    <div className="absolute -bottom-4 -right-4 h-full w-full border border-[#ff0000]/40 transition-all duration-500 group-hover:-bottom-6 group-hover:-right-6" />
+    <div className="relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-white/5">
+      {person.photo ? (
+        <img
+          src={person.photo}
+          alt={person.photoAlt}
+          loading="lazy"
+          className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+        />
+      ) : (
+        <div role="img" aria-label={person.photoAlt} className="flex h-full w-full items-center justify-center bg-gradient-to-br from-white/10 to-white/0">
+          <span className="font-podium text-8xl italic tracking-tight text-white/30">{person.initials}</span>
+        </div>
+      )}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+    </div>
+  </motion.div>
+
+  <motion.div
+    initial={{ opacity: 0, y: 32 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.9, delay: 0.15 }}
+    className={`md:col-span-7 ${reverse ? "md:order-1" : ""}`}
+  >
+    <h3 className="font-podium text-4xl lg:text-5xl italic uppercase tracking-tight text-white">{person.name}</h3>
+    <p className="mt-3 text-xs font-bold uppercase tracking-[0.4em] text-[#ff0000]">{person.role}</p>
+    <div className="mt-8 border-l-4 border-[#ff0000] pl-6 md:pl-8">
+      <p className="text-lg md:text-xl leading-relaxed text-white/70 italic">{person.intro}</p>
+    </div>
+    <div className="mt-6 space-y-5 text-base leading-relaxed text-white/60 md:text-lg">
+      {person.paragraphs.map((para) => (
+        <p key={para}>{para}</p>
+      ))}
+    </div>
+    <ul className="mt-8 flex flex-wrap gap-2.5" aria-label={qualitiesLabel}>
+      {person.values.map((v) => (
+        <li key={v} className="border border-white/15 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">
+          {v}
+        </li>
+      ))}
+    </ul>
+  </motion.div>
+</div>
   );
 }

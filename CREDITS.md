@@ -33,3 +33,11 @@ Product photos in `public/product-images/` that are not from Zoho Books were tak
 - India Nippon Electricals catalogue
 - Rockman Industries aftermarket website (rockmanaftermarket.in), product category pages
 Photos remain the property of the respective manufacturers; confirm the client has permission to use them in their online shop.
+
+## Workshop page photos (Pexels)
+
+| Use | Photographer | Pexels link |
+|---|---|---|
+| Hero (`src/assets/workshop/workshop-hero.jpg`) | Shandy Galicia | https://www.pexels.com/photo/motorcycles-in-the-garage-5252118/ |
+| Engine repair (`src/assets/workshop/workshop-engine.jpg`) | Mick Haupt | https://www.pexels.com/photo/a-man-fixing-a-motorcycle-11890959/ |
+| Motorcycle on lift (`src/assets/workshop/workshop-lift.jpg`) | Andrea Piacquadio | https://www.pexels.com/photo/male-mechanic-using-hydraulic-crane-in-garage-3817919/ |

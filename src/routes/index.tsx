@@ -59,6 +59,7 @@ function Footer() {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Brand Portfolio", href: "/products" },
+    { name: "Workshop", href: "/workshop" },
     { name: "Shop", href: "/shop" },
     { name: "Contact", href: "/contact" },
   ];
@@ -69,11 +70,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-20">
           {/* Brand Column */}
           <div className="space-y-8">
-            <img 
-              src={logoAsset} 
-              alt="Motoconnect" 
-              className="h-12 w-auto object-contain"
-            />
+            <span className="inline-block rounded-sm bg-white p-2"><img src={logoAsset} alt="Motoconnect" className="h-12 w-auto object-contain" /></span>
             <p className="font-raleway text-sm leading-relaxed text-white/50 max-w-xs">
               Dubai and Abu Dhabi's premier destination for genuine automobile spare parts. Delivering engineering excellence and authentic products across the UAE.
             </p>
@@ -195,6 +192,7 @@ function VanguardHero() {
       ),
       description: "Delivering genuine products at competitive prices to automotive businesses across the UAE and other regions.",
       cta: "Product Portfolio",
+      href: "/products",
       hasStats: true,
     },
     {
@@ -212,7 +210,8 @@ function VanguardHero() {
         </>
       ),
       description: "Collaborating with industry leaders to bring the best quality parts to your doorstep.",
-      cta: "View Partners",
+      cta: "Shop",
+      href: "/shop",
       hasStats: false,
     }
   ];
@@ -234,6 +233,7 @@ function VanguardHero() {
     { name: "Home", href: "/" },
     { name: "About", href: "#about" },
     { name: "Brand Portfolio", href: "/products" },
+    { name: "Workshop", href: "/workshop" },
     { name: "Shop", href: "/shop" },
     { name: "Contact", href: "/contact" },
   ];
@@ -298,10 +298,10 @@ function VanguardHero() {
 
               {/* CTA Row */}
               <div className="mt-6 flex flex-wrap items-center gap-4 sm:gap-6 lg:mt-8">
-                <button className="group flex items-center gap-2 bg-[#ff0000] px-6 py-3.5 text-[11px] font-bold tracking-[0.2em] text-white transition-all hover:bg-[#cc0000] uppercase sm:px-7 sm:py-4 sm:text-xs">
+                <a href={slide.href} className="group flex items-center gap-2 bg-[#ff0000] px-6 py-3.5 text-[11px] font-bold tracking-[0.2em] text-white transition-all hover:bg-[#cc0000] uppercase sm:px-7 sm:py-4 sm:text-xs">
                   {slide.cta}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </button>
+                </a>
 
                 <div className="hidden items-center gap-3 sm:flex">
                   <Award className="h-8 w-8 text-white/50" />
@@ -426,11 +426,7 @@ function VanguardHero() {
         }`}
       >
         <div className="flex items-center justify-between px-6 py-5 sm:px-10">
-          <img 
-            src={logoAsset} 
-            alt="Motoconnect" 
-            className="h-10 w-auto"
-          />
+          <span className="inline-block rounded-sm bg-white p-1.5"><img src={logoAsset} alt="Motoconnect" className="h-10 w-auto" /></span>
           <button onClick={() => setMenuOpen(false)}>
             <X className="h-8 w-8 text-white" />
           </button>
@@ -534,7 +530,7 @@ function AboutSection() {
       </div>
 
       {/* Bottom Center Logo */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 opacity-80">
+      <a href="#brands" aria-label="Scroll down to the next section" onClick={(e) => { e.preventDefault(); document.getElementById("brands")?.scrollIntoView({ behavior: "smooth" }); }} className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 opacity-80 transition-opacity hover:opacity-100">
         <div className="flex items-center justify-center mb-1">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#ff0000]">
             <path d="M12 4L4 8L12 12L20 8L12 4Z" fill="currentColor" />
@@ -542,7 +538,7 @@ function AboutSection() {
           </svg>
         </div>
         <span className="font-raleway text-[10px] font-bold tracking-[0.4em] text-white uppercase">MOTO CONNECT</span>
-      </div>
+      </a>
 
       {/* Bottom Right Navigation Arrows */}
       <div className="absolute bottom-6 right-6 sm:right-10 lg:right-24 z-30 flex items-center gap-3">
@@ -643,7 +639,7 @@ function BrandPanel({
 
 function BrandsSection() {
   return (
-    <section className="w-full bg-[#f4f4f5] py-16 md:py-24">
+    <section id="brands" className="w-full bg-[#f4f4f5] py-16 md:py-24">
       <div className="mx-auto max-w-[1200px] px-6">
         {/* Heading */}
         <div className="mb-10 md:mb-12 text-center md:text-left animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both">
