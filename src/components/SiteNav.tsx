@@ -90,7 +90,7 @@ export function SiteNav({ active }: { active?: string }) {
         aria-hidden={!open}
       >
         <div className="flex items-center justify-between px-6 py-5 sm:px-10">
-          <img src={logoAsset} alt="Motoconnect" className="h-10 w-auto" />
+          <span className="inline-block rounded-sm bg-white p-1.5"><img src={logoAsset} alt="Motoconnect" className="h-10 w-auto" /></span>
           <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="flex h-11 w-11 items-center justify-center">
             <X className="h-8 w-8 text-white" />
           </button>
@@ -101,7 +101,7 @@ export function SiteNav({ active }: { active?: string }) {
               key={l.name}
               href={l.href}
               onClick={() => setOpen(false)}
-              className={`font-podium text-3xl uppercase italic tracking-tight transition-all duration-500 sm:text-5xl ${l.name === active ? "text-[#ff0000]" : "text-white"}`}
+              className={`px-4 font-podium text-3xl uppercase italic tracking-tight transition-all duration-500 sm:text-5xl ${l.name === active ? "text-[#ff0000]" : "text-white"}`}
               style={{ transitionDelay: `${i * 80 + 100}ms`, transform: open ? "translateY(0)" : "translateY(20px)", opacity: open ? 1 : 0 }}
             >
               {l.name}

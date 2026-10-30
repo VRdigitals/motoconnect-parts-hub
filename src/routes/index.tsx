@@ -438,7 +438,7 @@ function VanguardHero() {
               key={link.name}
               href={link.name === "About" ? "/about" : link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-podium text-3xl uppercase italic tracking-tight text-white sm:text-5xl transition-all duration-500"
+              className="px-4 font-podium text-3xl uppercase italic tracking-tight text-white sm:text-5xl transition-all duration-500"
               style={{
                 transitionDelay: `${i * 80 + 100}ms`,
                 transform: menuOpen ? "translateY(0)" : "translateY(20px)",
