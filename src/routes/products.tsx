@@ -13,6 +13,7 @@ import steelBirdLogo from "../assets/brands/steel-bird.png";
 import mkLightsLogo from "../assets/brands/mk-lights.png";
 import indiaNipponLogo from "../assets/brands/india-nippon.png";
 import rockmanLogo from "../assets/brands/rockman.png";
+import xetoLogo from "../assets/brands/xeto.png";
 import sparkMindaLogo from "../assets/brands/spark-minda.png";
 
 export const Route = createFileRoute("/products")({
@@ -44,7 +45,7 @@ function BrandPortfolioPage() {
         { name: "MK Lights", logo: mkLightsLogo },
         { name: "India Nippon", logo: indiaNipponLogo },
         { name: "Rockman", logo: rockmanLogo },
-        { name: "Zeto", logo: null },
+        { name: "Xeto", logo: xetoLogo },
         { name: "Spark Minda", logo: sparkMindaLogo },
       ],
     },

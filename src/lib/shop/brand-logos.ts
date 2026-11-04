@@ -7,6 +7,7 @@ import unoMinda from "../../assets/brands/uno-minda.png";
 import steelBird from "../../assets/brands/steel-bird.png";
 import rockman from "../../assets/brands/rockman.png";
 import sparkMinda from "../../assets/brands/spark-minda.png";
+import xeto from "../../assets/brands/xeto.png";
 
 export const brandLogos: Record<string, string> = {
   hero,
@@ -17,6 +18,7 @@ export const brandLogos: Record<string, string> = {
   steelbird: steelBird,
   rockman,
   "spark minda": sparkMinda,
+  xeto,
 };
 
 export const brandLogo = (brand: string): string | null => brandLogos[brand.toLowerCase()] ?? null;

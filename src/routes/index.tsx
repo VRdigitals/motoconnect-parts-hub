@@ -25,6 +25,7 @@ import steelBirdLogo from "../assets/brands/steel-bird.png";
 import rockmanLogo from "../assets/brands/rockman.png";
 import mkLightsLogo from "../assets/brands/mk-lights.png";
 import indiaNipponLogo from "../assets/brands/india-nippon.png";
+import xetoLogo from "../assets/brands/xeto.png";
 import sparkMindaLogo from "../assets/brands/spark-minda.png";
 
 export const Route = createFileRoute("/")({
@@ -571,9 +572,8 @@ const aftermarketBrands: BrandItem[] = [
   { name: "Steel Bird", logo: steelBirdLogo },
   { name: "MK Lights", logo: mkLightsLogo },
   { name: "India Nippon", logo: indiaNipponLogo },
-  // No verified logo available yet for Zeto.
   { name: "Rockman", logo: rockmanLogo },
-  { name: "Zeto", logo: null },
+  { name: "Xeto", logo: xetoLogo },
   { name: "Spark Minda", logo: sparkMindaLogo },
 ];
 

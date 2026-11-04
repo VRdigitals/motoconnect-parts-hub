@@ -19,7 +19,7 @@ Files here are trimmed/normalised copies used only by the "Automobile Brands We 
 | Steel Bird | `steel-bird.png` | steelbird.com (Steelbird International / Steelbird Auto Parts). Source file is small (150x100), so it is slightly soft | **Confirm**: this is the auto-parts company, not the helmet maker Steelbird Hi-Tech India |
 | MK Lights | `mk-lights.png` | Supplied by the client (replaces the former "MK Lights" and "MK" name tiles) | Client-supplied |
 | India Nippon | `india-nippon.png` | Supplied by the client; original was white on dark, recoloured to black | Client-supplied |
-| Zeto | _none_ | No brand found (possibly "Xeto"?) | **Unverified, name tile shown** |
+| Xeto | `xeto.png` | Supplied by the client (replaces the former "Zeto" name tile) | Client-supplied |
 
 To add a missing logo: drop the file into this folder, import it in `src/routes/index.tsx`, and set it as the
 `logo` for that brand in `aftermarketBrands`.
