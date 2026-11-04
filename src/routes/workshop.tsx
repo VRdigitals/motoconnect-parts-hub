@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowUpRight, BatteryCharging, CheckCircle2, Crown, Disc3, Gauge, MapPin, MessageCircle, Phone, Settings, Wrench } from "lucide-react";
 import { SiteNav } from "@/components/SiteNav";
-import { branches } from "@/lib/branches";
+import { workshop } from "@/lib/branches";
 import logoAsset from "../assets/hero-motoconnect.png";
 import heroImage from "../assets/workshop/workshop-hero.jpg";
 import engineImage from "../assets/workshop/workshop-engine.jpg";
@@ -42,8 +42,8 @@ const PHONE_DISPLAY = "+971 56 329 9940";
 const WHATSAPP = "https://wa.me/971563299940?text=" + encodeURIComponent("Hello Motoconnect, I would like to book a service at the workshop.");
 
 function WorkshopPage() {
-  // The workshop is the authorised service centre, listed with the other locations in src/lib/branches.ts.
-  const centre = branches.find((b) => b.id === "spare-parts-warehouse") ?? branches[0]!;
+  // The garage location lives in src/lib/branches.ts.
+  const centre = workshop;
 
   return (
     <div className="bg-black font-raleway selection:bg-white selection:text-black min-h-screen">

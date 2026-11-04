@@ -48,3 +48,14 @@ export const branches: Branch[] = [
     embedUrl: `https://www.google.com/maps?q=${warehouseCoords}&output=embed`,
   },
 ];
+
+/** The garage / workshop (Workshop page). Location from https://maps.app.goo.gl/rMbwnpG3G7DY7zjG8 */
+export const workshop: Branch = {
+  id: "workshop",
+  city: "Workshop",
+  heading: "Workshop",
+  name: "Bike Care Center",
+  address: "Dubai, UAE",
+  mapsUrl: "https://maps.app.goo.gl/rMbwnpG3G7DY7zjG8",
+  embedUrl: "https://www.google.com/maps?q=25.124,55.2239688&output=embed",
+};
