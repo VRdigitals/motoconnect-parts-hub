@@ -132,8 +132,26 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+// Tawk.to live chat widget (loaded once, on every page).
+function useTawkChat() {
+  useEffect(() => {
+    if (document.getElementById("tawk-embed")) return;
+    const w = window as unknown as { Tawk_API?: object; Tawk_LoadStart?: Date };
+    w.Tawk_API = w.Tawk_API || {};
+    w.Tawk_LoadStart = new Date();
+    const s = document.createElement("script");
+    s.id = "tawk-embed";
+    s.async = true;
+    s.src = "https://embed.tawk.to/6b07c8552040603cf372d56e/1k8b6d4dd";
+    s.charset = "UTF-8";
+    s.setAttribute("crossorigin", "*");
+    document.body.appendChild(s);
+  }, []);
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useTawkChat();
 
   return (
     <QueryClientProvider client={queryClient}>
